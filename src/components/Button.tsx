@@ -1,13 +1,16 @@
 import styled from "styled-components/native";
 import React from "react";
+import { SafeAreaView } from "react-native";
 
-const Button = () => {
+const Button = (): JSX.Element => {
   return (
-    <Container>
-      <Touchable>
-        <Text color="white">Click me!</Text>
-      </Touchable>
-    </Container>
+    <SafeAreaView>
+      <Container>
+        <Touchable>
+          <Text color="white">Click me</Text>
+        </Touchable>
+      </Container>
+    </SafeAreaView>
   );
 };
 
