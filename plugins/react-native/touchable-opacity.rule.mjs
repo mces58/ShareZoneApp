@@ -1,23 +1,23 @@
 export default {
   meta: {
-    type: "problem",
+    type: 'problem',
     docs: {
-      description: "Use only TouchableOpacity for touchable components",
+      description: 'Use only TouchableOpacity for touchable components',
     },
     schema: [],
   },
   create(context) {
-    const allowedComponent = "TouchableOpacity";
+    const allowedComponent = 'TouchableOpacity';
     const disallowedComponents = [
-      "TouchableHighlight",
-      "TouchableWithoutFeedback",
-      "TouchableNativeFeedback",
+      'TouchableHighlight',
+      'TouchableWithoutFeedback',
+      'TouchableNativeFeedback',
     ];
 
     return {
       ImportDeclaration(node) {
-        if (node.source.value === "react-native") {
-          node.specifiers.forEach(specifier => {
+        if (node.source.value === 'react-native') {
+          node.specifiers.forEach((specifier) => {
             if (disallowedComponents.includes(specifier.local.name)) {
               context.report({
                 node,
@@ -36,12 +36,12 @@ export default {
           });
         }
       },
-      "Program:exit"(programNode) {
+      'Program:exit'(programNode) {
         const sourceCode = context.getSourceCode();
         const text = sourceCode.getText();
 
-        disallowedComponents.forEach(component => {
-          const regex = new RegExp(`styled\\.${component}`, "g");
+        disallowedComponents.forEach((component) => {
+          const regex = new RegExp(`styled\\.${component}`, 'g');
           let match;
 
           while ((match = regex.exec(text)) !== null) {

@@ -1,15 +1,15 @@
 export default {
   meta: {
-    type: "problem",
+    type: 'problem',
     docs: {
-      description: "Ensure SafeAreaView is used in components",
+      description: 'Ensure SafeAreaView is used in components',
     },
     schema: [],
   },
   create(context) {
     const filename = context.getFilename();
 
-    if (!filename.endsWith(".tsx")) {
+    if (!filename.endsWith('.tsx')) {
       return {};
     }
 
@@ -19,8 +19,8 @@ export default {
 
     return {
       ImportDeclaration(node) {
-        node.specifiers.forEach(specifier => {
-          if (specifier.local.name === "SafeAreaView") {
+        node.specifiers.forEach((specifier) => {
+          if (specifier.local.name === 'SafeAreaView') {
             hasSafeAreaViewImport = true;
             importNode = node;
           }
@@ -28,20 +28,20 @@ export default {
       },
       JSXElement(node) {
         const openingElement = node.openingElement;
-        if (openingElement.name.name === "SafeAreaView") {
+        if (openingElement.name.name === 'SafeAreaView') {
           hasSafeAreaViewUsage = true;
         }
       },
-      "Program:exit"(programNode) {
+      'Program:exit'(programNode) {
         if (!hasSafeAreaViewImport) {
           context.report({
-            message: "SafeAreaView is not imported",
+            message: 'SafeAreaView is not imported',
             node: programNode,
           });
         }
         if (!hasSafeAreaViewUsage && importNode) {
           context.report({
-            message: "SafeAreaView is not used",
+            message: 'SafeAreaView is not used',
             node: importNode,
           });
         }

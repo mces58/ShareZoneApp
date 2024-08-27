@@ -1,18 +1,18 @@
 export default {
   meta: {
-    type: "problem",
+    type: 'problem',
     docs: {
-      description: "Ensure a specific module is imported in every .tsx file",
+      description: 'Ensure a specific module is imported in every .tsx file',
     },
     schema: [
       {
-        type: "object",
+        type: 'object',
         properties: {
           moduleName: {
-            type: "string",
+            type: 'string',
           },
         },
-        required: ["moduleName"],
+        required: ['moduleName'],
       },
     ],
   },
@@ -20,7 +20,7 @@ export default {
     const moduleName = context.options[0]?.moduleName;
     const filename = context.getFilename();
 
-    if (!filename.endsWith(".tsx")) {
+    if (!filename.endsWith('.tsx')) {
       return {};
     }
 
@@ -33,10 +33,12 @@ export default {
       },
       Program(node) {
         const sourceCode = context.getSourceCode();
-        const imports = sourceCode.ast.body.filter(node => node.type === "ImportDeclaration");
+        const imports = sourceCode.ast.body.filter(
+          (node) => node.type === 'ImportDeclaration'
+        );
 
         const hasImport = imports.some(
-          importDeclaration => importDeclaration.source.value === moduleName,
+          (importDeclaration) => importDeclaration.source.value === moduleName
         );
 
         if (!hasImport) {
