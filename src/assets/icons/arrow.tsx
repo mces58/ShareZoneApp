@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 
 interface ArrowIconProps {
   color: ColorValue;
-  direction: string;
+  direction: 'top' | 'right' | 'bottom' | 'left';
   height: number;
   width: number;
 }

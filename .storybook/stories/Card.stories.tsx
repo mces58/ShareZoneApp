@@ -22,6 +22,8 @@ const CardMeta: Meta<typeof Card> = {
       </View>
     ),
   ],
+} as Meta<typeof Card> & {
+  args: { title: string; description: string; imageUrl: string };
 };
 
 export default CardMeta;
@@ -35,4 +37,4 @@ export const WithCustomContent: StoryObj<typeof Card> = {
     imageUrl:
       'https://i0.wp.com/picjumbo.com/wp-content/uploads/pure-nature-landscape-single-tree-in-green-field-free-photo.jpg?w=600&quality=80',
   },
-};
+} as StoryObj<typeof Card>;
