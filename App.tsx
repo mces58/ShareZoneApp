@@ -1,5 +1,4 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
 
 import styled from 'styled-components/native';
 
@@ -9,12 +8,10 @@ import Button from 'src/components/Button';
 
 const App = (): JSX.Element => {
   return (
-    <SafeAreaView>
-      <Container>
-        <Button />
-        <StatusBar style="auto" />
-      </Container>
-    </SafeAreaView>
+    <Container>
+      <Button />
+      <StatusBar style="auto" />
+    </Container>
   );
 };
 

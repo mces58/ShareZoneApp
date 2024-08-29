@@ -42,7 +42,6 @@ export default tseslint.config(
         'error',
         { moduleName: 'styled-components/native' },
       ],
-      'react-native/use-safe-area-view': 'error',
       'react-native/use-touchable-opacity': 'error',
       'react-native/not-inline-css': 'error',
 
