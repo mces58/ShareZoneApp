@@ -1,0 +1,96 @@
+name: ESLint and Prettier
+
+on:
+  pull_request:
+    branches:
+      - master
+      - dev
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Prettier
+        run: yarn prettier > prettier.log 2>&1
+
+      - name: Run ESLint
+        run: yarn lint > eslint.log 2>&1
+
+      - name: Send email ESLint and Prettier
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: Action Failed ESLint and Prettier Checks
+          html_body: |
+            <html>
+            <head>
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  color: #333;
+                  margin: 0;
+                  padding: 0;
+                }
+                .container {
+                  width: 100%;
+                  max-width: 600px;
+                  margin: 20px auto;
+                  padding: 20px;
+                  border: 1px solid #ddd;
+                  border-radius: 5px;
+                  background-color: #f9f9f9;
+                }
+                h1 {
+                  color: #d9534f;
+                  font-size: 24px;
+                }
+                p {
+                  font-size: 16px;
+                  line-height: 1.5;
+                }
+                .footer {
+                  margin-top: 20px;
+                  font-size: 14px;
+                  color: #777;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <h1>ESLint and Prettier Checks Failed</h1>
+                <p>Dear Team,</p>
+                <p>The recent ESLint and Prettier checks for the repository <strong>${{ github.repository }}</strong> have failed. Please review the attached logs to identify and resolve the issues.</p>
+                <p>Logs:</p>
+                <ul>
+                  <li><strong>ESLint Log:</strong> eslint.log</li>
+                  <li><strong>Prettier Log:</strong> prettier.log</li>
+                </ul>
+                <p>Thank you for your attention to this matter.</p>
+                <p>Best regards,<br/>
+                The CI/CD Team</p>
+                <div class="footer">
+                  This is an automated message. Please do not reply.
+                </div>
+              </div>
+            </body>
+            </html>
+          to: 'ceser446@gmail.com'
+          from: ${{ secrets.MAIL_USERNAME }}
+          attachments: 'eslint.log, prettier.log'
