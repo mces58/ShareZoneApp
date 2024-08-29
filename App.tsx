@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 
-export default function App() {
+import styled from 'styled-components/native';
+
+import Constants from 'expo-constants';
+import { StatusBar } from 'expo-status-bar';
+
+import Button from 'src/components/Button';
+
+import * as Storybook from './.storybook';
+
+const App = (): JSX.Element => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <Container>
+      <Button />
       <StatusBar style="auto" />
-    </View>
+    </Container>
   );
+};
+
+let AppEntryPoint = App;
+
+if (Constants.expoConfig?.extra?.storybookEnabled) {
+  AppEntryPoint = Storybook.default;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+export default AppEntryPoint;
+
+const Container = styled.View({
+  flex: 1,
+  backgroundColor: '#fff',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
