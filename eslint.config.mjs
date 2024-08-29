@@ -11,7 +11,7 @@ export default tseslint.config(
   ...tseslint.configs.stylistic,
   pluginReact.configs.flat.recommended,
   {
-    ignores: ['node_modules', 'plugins', 'babel.config.js'],
+    ignores: ['node_modules', 'plugins', '.storybook', 'babel.config.js'],
   },
   {
     settings: {
@@ -22,6 +22,11 @@ export default tseslint.config(
   },
   {
     languageOptions: {
+      globals: {
+        __DEV__: true,
+        global: true,
+        process: true,
+      },
       parserOptions: {
         project: 'tsconfig.json',
         tsconfigRootDir: import.meta.dirname,
