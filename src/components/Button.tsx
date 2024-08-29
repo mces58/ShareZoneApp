@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 import ArrowIcon from 'src/assets/icons/arrow';
+import { PoppinsFont } from 'src/constants/fonts';
 
 const Button = (): JSX.Element => {
   return (
@@ -29,9 +30,11 @@ const Touchable = styled.TouchableOpacity({
   backgroundColor: 'blue',
   padding: 10,
   borderRadius: 5,
+  flexDirection: 'row',
 });
 
 const Text = styled.Text<{ color: string; fontSize?: number }>(({ color, fontSize }) => ({
   fontSize,
   color,
+  fontFamily: PoppinsFont.Light,
 }));
