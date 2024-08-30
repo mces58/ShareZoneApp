@@ -6,6 +6,7 @@ import styled from 'styled-components/native';
 import { StatusBar } from 'expo-status-bar';
 
 import Button from 'src/components/Button';
+import { Theme } from 'src/constants/theme';
 import { loadFonts } from 'src/utils/load-fonts';
 
 const Main = (): JSX.Element => {
@@ -35,9 +36,9 @@ const Main = (): JSX.Element => {
 
 export default Main;
 
-const Container = styled.View({
+const Container = styled.View<{ theme: Theme }>(({ theme }) => ({
   flex: 1,
-  backgroundColor: '#fff',
-  alignItems: 'center',
   justifyContent: 'center',
-});
+  alignItems: 'center',
+  backgroundColor: theme.backgroundColor,
+}));
