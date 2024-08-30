@@ -19,8 +19,6 @@ const Button = (): JSX.Element => {
 export default Button;
 
 const Container = styled.View({
-  flex: 1,
-  backgroundColor: '#fff',
   alignItems: 'center',
   justifyContent: 'center',
   gap: 10,
