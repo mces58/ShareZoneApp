@@ -9,7 +9,7 @@ import Button from 'src/components/Button';
 import { loadFonts } from 'src/utils/load-fonts';
 
 const Main = (): JSX.Element => {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [fontsLoaded, setFontsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     loadFonts().then(() => {
