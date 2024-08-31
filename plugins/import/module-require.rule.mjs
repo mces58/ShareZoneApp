@@ -20,7 +20,9 @@ export default {
     const moduleName = context.options[0]?.moduleName;
     const filename = context.getFilename();
 
-    if (!filename.endsWith('.tsx')) {
+    const isContextFile = filename.includes('context');
+
+    if (!filename.endsWith('.tsx') || isContextFile) {
       return {};
     }
 

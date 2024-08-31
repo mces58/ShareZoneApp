@@ -18,6 +18,7 @@ export default tseslint.config(
       '.storybook-web',
       'docs',
       'babel.config.js',
+      'App.js',
     ],
   },
   {
@@ -46,7 +47,6 @@ export default tseslint.config(
       'react-native': reactNativeRule,
     },
   },
-
   {
     rules: {
       // custom rules
@@ -84,7 +84,6 @@ export default tseslint.config(
       '@typescript-eslint/no-unnecessary-parameter-property-assignment': 'error',
       '@typescript-eslint/no-unnecessary-template-expression': 'error',
       '@typescript-eslint/no-unnecessary-type-arguments': 'error',
-      '@typescript-eslint/no-unsafe-enum-comparison': 'error',
       '@typescript-eslint/no-unsafe-function-type': 'error',
       '@typescript-eslint/no-unsafe-return': 'error',
       '@typescript-eslint/no-useless-empty-export': 'error',
