@@ -10,7 +10,7 @@ interface I18nContextProps {
   t: (key: string) => string;
 }
 
-export const I18nContext = createContext<I18nContextProps>({
+const I18nContext = createContext<I18nContextProps>({
   locale: LOCAL_UNITS.languageCode ?? LANGUAGE_CODES.EN,
   setLocale: () => {
     return;

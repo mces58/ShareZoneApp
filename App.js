@@ -7,8 +7,8 @@ import Constants from 'expo-constants';
 
 import Main from 'src/Main';
 
-import { DarkTheme, LightTheme } from 'src/constants/theme';
-import { I18nProvider } from 'src/context/i18n-context';
+import { DarkTheme, LightTheme } from 'src/constants/styles/themes';
+import { I18nProvider } from 'src/contexts/i18n-context';
 import { loadFonts } from 'src/utils/load-fonts';
 
 import * as Storybook from './.storybook';

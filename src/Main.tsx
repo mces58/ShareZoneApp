@@ -4,11 +4,11 @@ import styled from 'styled-components/native';
 
 import { StatusBar } from 'expo-status-bar';
 
-import { FONTS } from './constants/fonts';
 import { LANGUAGE_CODES } from './constants/localization/language-codes';
-import { useI18n } from './context/i18n-context';
+import { FONTS } from './constants/styles/fonts';
 import Button from 'src/components/Button';
-import { Theme } from 'src/constants/theme';
+import { Theme } from 'src/constants/styles/themes';
+import { useI18n } from 'src/contexts/i18n-context';
 
 const Main = (): JSX.Element => {
   const { locale, setLocale, t } = useI18n();
