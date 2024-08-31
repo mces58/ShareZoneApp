@@ -3,12 +3,16 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 import ArrowIcon from 'src/assets/icons/arrow';
-import { PoppinsFont } from 'src/constants/fonts';
+import { FONTS } from 'src/constants/fonts';
 
-const Button = (): JSX.Element => {
+interface ButtonProps {
+  onPress?: () => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ onPress }): JSX.Element => {
   return (
     <Container>
-      <Touchable>
+      <Touchable onPress={onPress}>
         <Text color="white">Click me</Text>
         <ArrowIcon color="white" direction="right" height={20} width={20} />
       </Touchable>
@@ -34,5 +38,5 @@ const Touchable = styled.TouchableOpacity({
 const Text = styled.Text<{ color: string; fontSize?: number }>(({ color, fontSize }) => ({
   fontSize,
   color,
-  fontFamily: PoppinsFont.Light,
+  fontFamily: FONTS.Poppins.Regular,
 }));

@@ -1,35 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native';
+import React from 'react';
 
 import styled from 'styled-components/native';
 
 import { StatusBar } from 'expo-status-bar';
 
+import { FONTS } from './constants/fonts';
+import { LANGUAGE_CODES } from './constants/localization/language-codes';
+import { useI18n } from './context/i18n-context';
 import Button from 'src/components/Button';
 import { Theme } from 'src/constants/theme';
-import { loadFonts } from 'src/utils/load-fonts';
 
 const Main = (): JSX.Element => {
-  const [fontsLoaded, setFontsLoaded] = useState<boolean>(false);
-
-  useEffect(() => {
-    loadFonts().then(() => {
-      setFontsLoaded(true);
-    });
-  }, []);
-
-  if (!fontsLoaded) {
-    return (
-      <Container>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </Container>
-    );
-  }
+  const { locale, setLocale, t } = useI18n();
 
   return (
     <Container>
-      <Button />
+      <Button
+        onPress={() => {
+          setLocale(locale === LANGUAGE_CODES.EN ? LANGUAGE_CODES.TR : LANGUAGE_CODES.EN);
+        }}
+      />
       <StatusBar style="auto" />
+      <Text>{t('hello')}</Text>
     </Container>
   );
 };
@@ -41,4 +33,10 @@ const Container = styled.View<{ theme: Theme }>(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   backgroundColor: theme.backgroundColor,
+}));
+
+const Text = styled.Text<{ theme: Theme }>(({ theme }) => ({
+  color: theme.textColor,
+  fontSize: 20,
+  fontFamily: FONTS.Poppins.Light,
 }));
