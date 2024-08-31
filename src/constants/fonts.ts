@@ -1,4 +1,4 @@
-export enum PoppinsFont {
+enum PoppinsFont {
   Bold = 'Poppins-Bold',
   Light = 'Poppins-Light',
   Medium = 'Poppins-Medium',
@@ -6,10 +6,15 @@ export enum PoppinsFont {
   SemiBold = 'Poppins-SemiBold',
 }
 
-export enum NunitoFont {
+enum NunitoFont {
   Bold = 'Nunito-Bold',
   Light = 'Nunito-Light',
   Medium = 'Nunito-Medium',
   Regular = 'Nunito-Regular',
   SemiBold = 'Nunito-SemiBold',
 }
+
+export const FONTS = {
+  Poppins: PoppinsFont,
+  Nunito: NunitoFont,
+};
