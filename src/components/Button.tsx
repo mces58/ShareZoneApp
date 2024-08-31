@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 import ArrowIcon from 'src/assets/icons/arrow';
-import { FONTS } from 'src/constants/fonts';
+import { FONTS } from 'src/constants/styles/fonts';
 
 interface ButtonProps {
   onPress?: () => void;
