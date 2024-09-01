@@ -1,24 +1,14 @@
-const path = require('path');
-const { FileStore } = require('metro-cache');
+const { getDefaultConfig } = require('@expo/metro-config');
 
-const cacheDirectory = path.join(__dirname, '.cache');
+const defaultConfig = getDefaultConfig(__dirname);
 
-function createCacheStore(directory) {
-  return new FileStore({ root: directory });
-}
+defaultConfig.resolver.assetExts = defaultConfig.resolver.assetExts.filter(
+  (ext) => ext !== 'svg'
+);
+defaultConfig.resolver.sourceExts.push('svg');
 
-async function getTransformOptions() {
-  return {
-    transform: {
-      experimentalImportSupport: false,
-      inlineRequires: true,
-    },
-  };
-}
+defaultConfig.transformer.babelTransformerPath = require.resolve(
+  'react-native-svg-transformer'
+);
 
-module.exports = {
-  cacheStores: [createCacheStore(cacheDirectory)],
-  transformer: {
-    getTransformOptions,
-  },
-};
+module.exports = defaultConfig;
