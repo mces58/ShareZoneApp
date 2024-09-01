@@ -6,6 +6,11 @@ export interface Theme {
   textColor: string;
 }
 
+export const enum THEMES {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
+
 export const LightTheme: Theme = {
   backgroundColor: COLORS.GRAY._50,
   borderColor: COLORS.GRAY._500,

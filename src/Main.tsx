@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 
 import { StatusBar } from 'expo-status-bar';
 
-import { LANGUAGE_CODES } from './constants/localization/language-codes';
+import { LANGUAGE_CODES } from './constants/localization/languages';
 import { FONTS } from './constants/styles/fonts';
 import Button from 'src/components/Button';
 import { Theme } from 'src/constants/styles/themes';
