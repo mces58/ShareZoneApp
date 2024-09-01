@@ -1,5 +1,6 @@
 import eslint from '@eslint/js';
 import pluginReact from 'eslint-plugin-react';
+import pluginSecurity from 'eslint-plugin-security';
 import tseslint from 'typescript-eslint';
 
 import importRule from './plugins/import/index.mjs';
@@ -10,6 +11,7 @@ export default tseslint.config(
   ...tseslint.configs.strict,
   ...tseslint.configs.stylistic,
   pluginReact.configs.flat.recommended,
+  pluginSecurity.configs.recommended,
   {
     ignores: [
       'node_modules',
@@ -18,6 +20,7 @@ export default tseslint.config(
       '.storybook-web',
       'docs',
       'babel.config.js',
+      'metro.config.js',
       'App.js',
     ],
   },

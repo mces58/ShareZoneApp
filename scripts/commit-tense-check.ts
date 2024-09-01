@@ -17,6 +17,7 @@ if (!commitMessageFile) {
 }
 
 try {
+  // eslint-disable-next-line security/detect-non-literal-fs-filename
   commitMessage = fs.readFileSync(commitMessageFile, 'utf8').trim();
 } catch (error) {
   console.error('Error reading the commit message file:', error);

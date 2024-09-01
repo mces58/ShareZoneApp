@@ -37,3 +37,6 @@ yarn-error.*
 
 # docs
 docs/
+
+# cache
+.cache/
