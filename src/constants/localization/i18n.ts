@@ -1,7 +1,7 @@
 import { I18n } from 'i18n-js';
 
 import en from './en.json';
-import { LANGUAGE_CODES } from './language-codes';
+import { LANGUAGE_CODES } from './languages';
 import { LOCAL_UNITS } from './local-units';
 import tr from './tr.json';
 
