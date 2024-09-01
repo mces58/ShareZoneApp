@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 export const expo = {
   name: 'ShareZoneApp',
   slug: 'ShareZoneApp',
@@ -12,18 +16,23 @@ export const expo = {
   },
   ios: {
     supportsTablet: true,
+    bundleIdentifier: 'com.sharezoneapp',
   },
   android: {
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
+    package: 'com.sharezoneapp',
   },
   web: {
     favicon: './assets/favicon.png',
   },
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
+    eas: {
+      projectId: process.env.EAS_PROJECT_ID,
+    },
   },
   plugins: ['expo-localization'],
 };
