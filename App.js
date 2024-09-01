@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useColorScheme } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useColorScheme, View } from 'react-native';
 
 import { ThemeProvider } from 'styled-components/native';
 
 import Constants from 'expo-constants';
+import * as SplashScreen from 'expo-splash-screen';
 
 import Main from 'src/Main';
 
@@ -13,27 +14,45 @@ import { loadFonts } from 'src/utils/load-fonts';
 
 import * as Storybook from './.storybook';
 
+SplashScreen.preventAutoHideAsync();
+
 const App = () => {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [appIsReady, setAppIsReady] = useState(false);
   const colorScheme = useColorScheme();
   const theme = colorScheme === THEMES.DARK ? DarkTheme : LightTheme;
 
   useEffect(() => {
-    loadFonts().then(() => {
-      setFontsLoaded(true);
-    });
+    async function prepare() {
+      try {
+        await loadFonts();
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    prepare();
   }, []);
 
-  if (!fontsLoaded) {
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
     return null;
   }
 
   return (
-    <I18nProvider>
-      <ThemeProvider theme={theme}>
-        <Main />
-      </ThemeProvider>
-    </I18nProvider>
+    <ThemeProvider theme={theme}>
+      <I18nProvider>
+        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+          <Main />
+        </View>
+      </I18nProvider>
+    </ThemeProvider>
   );
 };
 
