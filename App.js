@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useColorScheme, View } from 'react-native';
+import { LogBox, useColorScheme, View } from 'react-native';
 
 import { ThemeProvider } from 'styled-components/native';
 
@@ -59,6 +59,12 @@ const App = () => {
 let AppEntryPoint = App;
 
 if (Constants.expoConfig?.extra?.storybookEnabled) {
+  SplashScreen.hideAsync();
+  LogBox.ignoreLogs([
+    'fontFamily',
+    'Expected style',
+    'Node of type rule not supported as an inline style',
+  ]);
   AppEntryPoint = Storybook.default;
 }
 

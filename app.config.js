@@ -1,4 +1,4 @@
-export const expo = {
+export default {
   owner: 'mces58',
   name: 'ShareZoneApp',
   slug: 'ShareZoneApp',
@@ -27,9 +27,6 @@ export const expo = {
   },
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
-    eas: {
-      projectId: '92d348ff-3af8-4b70-a8a8-50dd179f0f95',
-    },
   },
   plugins: ['expo-localization'],
 };
