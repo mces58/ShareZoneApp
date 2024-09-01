@@ -27,12 +27,6 @@ export default {
   },
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
-    eas: {
-      projectId: '92d348ff-3af8-4b70-a8a8-50dd179f0f95',
-    },
-  },
-  updates: {
-    url: `https://u.expo.dev/${process.env.EAS_PROJECT_ID}`,
   },
   plugins: ['expo-localization'],
 };
