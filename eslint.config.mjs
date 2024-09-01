@@ -21,6 +21,7 @@ export default tseslint.config(
       'docs',
       'babel.config.js',
       'metro.config.js',
+      'webpack.config.js',
       'App.js',
     ],
   },

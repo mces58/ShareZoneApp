@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 
 import { StatusBar } from 'expo-status-bar';
 
+import ExpoLogo from '../assets/expo.svg';
 import { LANGUAGE_CODES } from './constants/localization/languages';
 import { FONTS } from './constants/styles/fonts';
 import Button from 'src/components/Button';
@@ -15,6 +16,7 @@ const Main = (): JSX.Element => {
 
   return (
     <Container>
+      <ExpoLogo width={60} height={60} />
       <Button
         onPress={() => {
           setLocale(locale === LANGUAGE_CODES.EN ? LANGUAGE_CODES.TR : LANGUAGE_CODES.EN);
