@@ -1,4 +1,4 @@
-name: update
+name: Expo EAS Update
 on:
   push:
     branches:

@@ -1,8 +1,5 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 export const expo = {
+  owner: 'mces58',
   name: 'ShareZoneApp',
   slug: 'ShareZoneApp',
   version: '1.0.0',
@@ -31,7 +28,7 @@ export const expo = {
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
     eas: {
-      projectId: process.env.EAS_PROJECT_ID,
+      projectId: '92d348ff-3af8-4b70-a8a8-50dd179f0f95',
     },
   },
   plugins: ['expo-localization'],
