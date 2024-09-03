@@ -21,8 +21,9 @@ export default {
     const filename = context.getFilename();
 
     const isContextFile = filename.includes('context');
+    const isNavigationFile = filename.includes('navigation');
 
-    if (!filename.endsWith('.tsx') || isContextFile) {
+    if (!filename.endsWith('.tsx') || isContextFile || isNavigationFile) {
       return {};
     }
 
