@@ -1,17 +1,17 @@
 import React from 'react';
 import { ColorValue } from 'react-native';
-import { Path, Svg } from 'react-native-svg';
+import { Defs, LinearGradient, Path, Stop, Svg } from 'react-native-svg';
 
 import styled from 'styled-components/native';
 
 interface ArrowIconProps {
-  color: ColorValue;
+  colors: ColorValue[];
   direction: 'top' | 'right' | 'bottom' | 'left';
   height: number;
   width: number;
 }
 
-const ArrowIcon: React.FC<ArrowIconProps> = ({ color, direction, height, width }) => {
+const ArrowIcon: React.FC<ArrowIconProps> = ({ colors, direction, height, width }) => {
   let d = '';
 
   switch (direction) {
@@ -34,12 +34,24 @@ const ArrowIcon: React.FC<ArrowIconProps> = ({ color, direction, height, width }
   return (
     <Container width={width} height={height}>
       <Svg width="100%" height="100%" viewBox="0 0 32 32" fill="none">
+        <Defs>
+          <LinearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="75%">
+            {colors.map((color, index) => (
+              <Stop
+                key={index}
+                offset={index / (colors.length - 1)}
+                stopColor={color}
+                stopOpacity={1}
+              />
+            ))}
+          </LinearGradient>
+        </Defs>
         <Path
           d={d}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke={color}
+          stroke={'url(#grad)'}
         />
       </Svg>
     </Container>
