@@ -5,17 +5,16 @@ import styled from 'styled-components/native';
 
 import { Theme } from 'src/constants/styles/themes';
 
-interface ScreenContainerProps {
+interface BaseContainerProps {
   children: React.ReactNode;
 }
 
-const ScreenContainer: React.FC<ScreenContainerProps> = ({ children }) => {
+const BaseContainer: React.FC<BaseContainerProps> = ({ children }) => {
   const insets = useSafeAreaInsets();
-
   return <Container insets={insets}>{children}</Container>;
 };
 
-export default ScreenContainer;
+export default BaseContainer;
 
 const Container = styled.SafeAreaView<{
   insets: { bottom: number; left: number; right: number; top: number };

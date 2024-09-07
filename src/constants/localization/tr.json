@@ -1,3 +1,14 @@
 {
-  "hello": "Merhaba"
+  "app": {
+    "name": "ShareZone",
+    "punchline": "Fikirlerin alevlendiği ve görsellerin unutulmaz anlar yarattığı yer"
+  },
+
+  "auth": {
+    "welcome": {
+      "getStarted": "Hemen başlayın",
+      "alreadyHaveAnAccount": "Zaten bir hesabınız var mı?",
+      "signIn": "Giriş Yap"
+    }
+  }
 }
