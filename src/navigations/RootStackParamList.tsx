@@ -1,24 +1,19 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export const enum NavigationRoutes {
-  ABOUT = 'About',
-  HOME = 'Home',
+  WELCOME = 'Welcome',
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RootStackParamList = {
-  [NavigationRoutes.ABOUT]: { count: number };
-  [NavigationRoutes.HOME]: undefined;
+  [NavigationRoutes.WELCOME]: undefined;
 };
 
-type AboutScreenProps = NativeStackScreenProps<
+type WelcomeScreenProps = NativeStackScreenProps<
   RootStackParamList,
-  NavigationRoutes.ABOUT
+  NavigationRoutes.WELCOME
 >;
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, NavigationRoutes.HOME>;
 
-export type AboutScreenNavigation = AboutScreenProps['navigation'];
-export type HomeScreenNavigation = HomeScreenProps['navigation'];
+export type WelcomeScreenNavigation = WelcomeScreenProps['navigation'];
 
-export type AboutScreenRoute = AboutScreenProps['route'];
-export type HomeScreenRoute = HomeScreenProps['route'];
+export type WelcomeScreenRoute = WelcomeScreenProps['route'];

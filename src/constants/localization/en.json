@@ -1,3 +1,14 @@
 {
-  "hello": "Hello"
+  "app": {
+    "name": "ShareZone",
+    "punchline": "Where ideas ignite and visuals create unforgettable moments"
+  },
+
+  "auth": {
+    "welcome": {
+      "getStarted": "Get Started",
+      "alreadyHaveAnAccount": "Already have an account?",
+      "signIn": "Sign In"
+    }
+  }
 }

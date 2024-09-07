@@ -1,34 +1,59 @@
 import React from 'react';
-import { View } from 'react-native';
+import { LogBox, StyleSheet, View } from 'react-native';
 
-import type { Meta, StoryObj } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { Meta, StoryObj } from '@storybook/react';
 
-import Button from '../../src/components/Button';
+import Button from './Button';
 
-const MyButtonMeta: Meta<typeof Button> = {
-  title: 'MyButton',
+LogBox.ignoreLogs(['TextType']);
+
+interface ButtonProps {
+  onPress?: () => void;
+  title?: string;
+}
+
+const meta: Meta<ButtonProps> = {
+  title: 'components/Button',
   component: Button,
   argTypes: {
-    onPress: { action: 'pressed the button' },
-  },
-  args: {
-    text: 'Hello world',
-  },
-  decorators: [
-    (Story) => (
-      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-        <Story />
-      </View>
-    ),
-  ],
-};
-
-export default MyButtonMeta;
-
-export const Basic: StoryObj<typeof Button> = {};
-
-export const AnotherExample: StoryObj<typeof Button> = {
-  args: {
-    text: 'Another example',
+    onPress: { action: 'pressed' },
+    title: { control: 'text' },
   },
 };
+
+export default meta;
+
+type Story = StoryObj<ButtonProps>;
+
+export const Basic: Story = {
+  render: (args) => (
+    <View style={styles.centeredContainer}>
+      <Button {...args} />
+    </View>
+  ),
+  args: {
+    onPress: action('Button Pressed'),
+    title: 'Click Me',
+  },
+};
+
+export const WithCustomAction: Story = {
+  render: (args) => (
+    <View style={styles.centeredContainer}>
+      <Button {...args} />
+    </View>
+  ),
+  args: {
+    onPress: () => alert('Custom action!'),
+    title: 'Press Here',
+  },
+};
+
+const styles = StyleSheet.create({
+  centeredContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

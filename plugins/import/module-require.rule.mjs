@@ -22,8 +22,9 @@ export default {
 
     const isContextFile = filename.includes('context');
     const isNavigationFile = filename.includes('navigation');
+    const isScreenFile = filename.includes('screen');
 
-    if (!filename.endsWith('.tsx') || isContextFile || isNavigationFile) {
+    if (!filename.endsWith('.tsx') || isContextFile || isNavigationFile || isScreenFile) {
       return {};
     }
 
