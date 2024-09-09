@@ -3,8 +3,7 @@ import React from 'react';
 import { useTheme } from 'styled-components/native';
 
 import SpacemanLogo from '../../assets/spaceman.svg';
-import ArrowIcon from 'src/assets/icons/arrow';
-import ReactIcon from 'src/assets/icons/react';
+import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { BaseContainer, Container } from 'src/components/containers';
 import { BaseText, GradientText } from 'src/components/texts';
@@ -13,6 +12,10 @@ import { FONTS } from 'src/constants/styles/fonts';
 import { Theme } from 'src/constants/styles/themes';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
+  NavigationRoutes,
+  WelcomeScreenNavigation,
+} from 'src/navigations/RootStackParamList';
+import {
   scaleByAspectRatio,
   scaleFontSize,
   scaleHeight,
@@ -20,7 +23,11 @@ import {
   scaleWidth,
 } from 'src/utils/dimensions';
 
-const Welcome = (): JSX.Element => {
+interface WelcomeProps {
+  navigation: WelcomeScreenNavigation;
+}
+
+const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
   const { t } = useI18n();
   const theme = useTheme() as Theme;
 
@@ -59,10 +66,14 @@ const Welcome = (): JSX.Element => {
               elevation: 5,
             }}
           >
-            <ReactIcon
-              colors={[COLORS.GREEN._400, COLORS.SKY._400, COLORS.VIOLET._500]}
-              height={scaleByAspectRatio(40)}
-              width={scaleByAspectRatio(40)}
+            <Icon
+              name="react"
+              color={{
+                isGradient: true,
+                grads: [COLORS.GREEN._400, COLORS.SKY._400, COLORS.VIOLET._500],
+              }}
+              size={scaleByAspectRatio(40)}
+              strokeWidth={0.75}
             />
             <GradientText
               text={t('app.name') + '!'}
@@ -88,7 +99,7 @@ const Welcome = (): JSX.Element => {
         <GradientButton
           text={t('auth.welcome.getStarted')}
           colors={[COLORS.INDIGO._500, COLORS.ORANGE._400, COLORS.RED._500]}
-          onPress={() => console.log('Get Started')}
+          onPress={() => navigation.navigate(NavigationRoutes.SIGNUP)}
           flexStyle={{
             alignSelf: 'center',
             width: '80%',
@@ -112,14 +123,7 @@ const Welcome = (): JSX.Element => {
             shadowOpacity: 0.3,
             elevation: 5,
           }}
-          icon={
-            <ArrowIcon
-              width={scaleProportionally(30)}
-              height={scaleProportionally(30)}
-              colors={[theme.textColor]}
-              direction="right"
-            />
-          }
+          icon={<Icon name="arrow" direction="right" strokeWidth={1.3} />}
         />
         <Container
           flexStyle={{
@@ -143,7 +147,7 @@ const Welcome = (): JSX.Element => {
               fontSize: scaleFontSize(16),
               textDecorationLine: 'underline',
             }}
-            onPress={() => console.log('Sign In')}
+            onPress={() => navigation.navigate(NavigationRoutes.SIGNIN)}
           />
         </Container>
       </Container>

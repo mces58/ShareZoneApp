@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleProp, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  ActivityIndicator,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
@@ -10,6 +16,7 @@ interface BaseTextProps {
   color?: string;
   ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
+  loading?: boolean;
   numberOfLines?: number;
   onPress?: () => void;
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
@@ -22,6 +29,7 @@ const BaseText: React.FC<BaseTextProps> = (props) => {
     color = theme.textColor,
     ellipsizeMode,
     flexStyle = {},
+    loading = false,
     numberOfLines,
     onPress,
     textStyle = {},
@@ -32,15 +40,19 @@ const BaseText: React.FC<BaseTextProps> = (props) => {
 
   return (
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
-      <StyledText
-        color={color}
-        numberOfLines={numberOfLines}
-        ellipsizeMode={ellipsizeMode}
-        flexStyle={flattenedFlexStyle}
-        textStyle={flattenedTextStyle}
-      >
-        {text}
-      </StyledText>
+      {loading ? (
+        <ActivityIndicator color={color} size="small" />
+      ) : (
+        <StyledText
+          color={color}
+          numberOfLines={numberOfLines}
+          ellipsizeMode={ellipsizeMode}
+          flexStyle={flattenedFlexStyle}
+          textStyle={flattenedTextStyle}
+        >
+          {text}
+        </StyledText>
+      )}
     </TouchableOpacity>
   );
 };
