@@ -15,7 +15,7 @@ import {
 } from 'src/navigations/RootStackParamList';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
-import createStyles from './welcome-style';
+import { createWelcomeStyles } from '../styles';
 
 interface WelcomeProps {
   navigation: WelcomeScreenNavigation;
@@ -24,7 +24,7 @@ interface WelcomeProps {
 const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
   const { t } = useI18n();
   const theme = useTheme() as Theme;
-  const styles = createStyles(theme);
+  const styles = createWelcomeStyles(theme);
 
   return (
     <BaseContainer>

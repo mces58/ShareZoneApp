@@ -35,7 +35,7 @@ const enum ViewStyles {
   BUTTON = 'button',
 }
 
-const createStyles = (
+const createWelcomeStyles = (
   theme: Theme
 ): {
   flex: Record<FlexStyles, CustomFlexStyle>;
@@ -136,4 +136,4 @@ const createStyles = (
   return { flex, shadow, text, view };
 };
 
-export default createStyles;
+export default createWelcomeStyles;
