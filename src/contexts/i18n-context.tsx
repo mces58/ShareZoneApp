@@ -7,7 +7,7 @@ import { LOCAL_UNITS } from 'src/constants/localization/local-units';
 interface I18nContextProps {
   locale: string;
   setLocale: (locale: string) => void;
-  t: (key: string) => string;
+  t: (key: string, options?: Record<string, unknown>) => string;
 }
 
 const I18nContext = createContext<I18nContextProps>({
@@ -15,7 +15,7 @@ const I18nContext = createContext<I18nContextProps>({
   setLocale: () => {
     return;
   },
-  t: (key) => i18n.t(key),
+  t: (key, options) => i18n.t(key, options),
 });
 
 export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -28,7 +28,11 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   return (
     <I18nContext.Provider
-      value={{ locale, setLocale: changeLocale, t: (key: string) => i18n.t(key) }}
+      value={{
+        locale,
+        setLocale: changeLocale,
+        t: (key: string, options?: Record<string, unknown>) => i18n.t(key, options),
+      }}
     >
       {children}
     </I18nContext.Provider>

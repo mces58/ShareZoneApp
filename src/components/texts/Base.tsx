@@ -9,6 +9,7 @@ import {
 
 import styled, { useTheme } from 'styled-components/native';
 
+import { Theme } from 'src/constants/styles/themes';
 import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types/style-types';
 
 interface BaseTextProps {
@@ -23,10 +24,10 @@ interface BaseTextProps {
 }
 
 const BaseText: React.FC<BaseTextProps> = (props) => {
-  const theme = useTheme();
+  const theme = useTheme() as Theme;
   const {
     text,
-    color = theme.textColor,
+    color = theme.color.text,
     ellipsizeMode,
     flexStyle = {},
     loading = false,

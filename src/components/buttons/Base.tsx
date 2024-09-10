@@ -18,10 +18,10 @@ interface BaseButtonProps {
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
   icon?: React.ReactNode;
   loading?: boolean;
-  shadowStyle?: StyleProp<CustomShadowStyle>;
+  shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
   textColors?: string;
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
-  viewStyle?: StyleProp<CustomViewStyle>;
+  viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
 const BaseButton: React.FC<BaseButtonProps> = ({

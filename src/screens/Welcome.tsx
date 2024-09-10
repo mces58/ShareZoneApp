@@ -2,13 +2,11 @@ import React from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import SpacemanLogo from '../../assets/spaceman.svg';
+import SpacemanSvg from '../../assets/spaceman.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { BaseContainer, Container } from 'src/components/containers';
 import { BaseText, GradientText } from 'src/components/texts';
-import { COLORS } from 'src/constants/styles/colors';
-import { FONTS } from 'src/constants/styles/fonts';
 import { Theme } from 'src/constants/styles/themes';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
@@ -17,7 +15,6 @@ import {
 } from 'src/navigations/RootStackParamList';
 import {
   scaleByAspectRatio,
-  scaleFontSize,
   scaleHeight,
   scaleProportionally,
   scaleWidth,
@@ -40,7 +37,7 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
           justifyContent: 'space-around',
         }}
       >
-        <SpacemanLogo width={scaleByAspectRatio(250)} height={scaleByAspectRatio(250)} />
+        <SpacemanSvg width={scaleByAspectRatio(250)} height={scaleByAspectRatio(250)} />
         <Container
           flexStyle={{ gap: scaleProportionally(15), paddingHorizontal: scaleWidth(10) }}
         >
@@ -54,14 +51,14 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
               paddingVertical: scaleHeight(10),
             }}
             viewStyle={{
-              backgroundColor: theme.backgroundColor,
+              backgroundColor: theme.color.background,
               borderRadius: scaleProportionally(10),
-              borderColor: COLORS.BLUE._300,
+              borderColor: theme.common.color.primary,
             }}
             shadowStyle={{
-              shadowColor: COLORS.BLUE._300,
+              shadowColor: theme.common.color.primary,
               shadowOffset: { width: 0, height: 2 },
-              shadowRadius: 5,
+              shadowRadius: 3,
               shadowOpacity: 0.3,
               elevation: 5,
             }}
@@ -70,17 +67,17 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
               name="react"
               color={{
                 isGradient: true,
-                grads: [COLORS.GREEN._400, COLORS.SKY._400, COLORS.VIOLET._500],
+                grads: theme.common.color.defaultGradient1,
               }}
               size={scaleByAspectRatio(40)}
               strokeWidth={0.75}
             />
             <GradientText
               text={t('app.name') + '!'}
-              colors={[COLORS.INDIGO._500, COLORS.ORANGE._400, COLORS.RED._500]}
+              colors={theme.common.color.defaultGradient2}
               textStyle={{
-                fontFamily: FONTS.Nunito.Bold,
-                fontSize: scaleFontSize(45),
+                fontFamily: theme.common.font.families.bold,
+                fontSize: theme.common.font.sizes._48,
                 textDecorationLine: 'underline',
                 letterSpacing: scaleProportionally(3),
               }}
@@ -89,16 +86,16 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
           <BaseText
             text={t('app.punchline')}
             textStyle={{
-              fontFamily: FONTS.Nunito.Medium,
-              fontSize: scaleFontSize(20),
+              fontFamily: theme.common.font.families.medium,
+              fontSize: theme.common.font.sizes._20,
               textAlign: 'center',
               letterSpacing: scaleProportionally(1.5),
             }}
           />
         </Container>
         <GradientButton
-          text={t('auth.welcome.getStarted')}
-          colors={[COLORS.INDIGO._500, COLORS.ORANGE._400, COLORS.RED._500]}
+          text={t('auth.getStarted')}
+          colors={theme.common.color.defaultGradient2}
           onPress={() => navigation.navigate(NavigationRoutes.SIGNUP)}
           flexStyle={{
             alignSelf: 'center',
@@ -108,8 +105,8 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
             justifyContent: 'center',
           }}
           textStyle={{
-            fontFamily: FONTS.Nunito.Bold,
-            fontSize: scaleFontSize(18),
+            fontFamily: theme.common.font.families.bold,
+            fontSize: theme.common.font.sizes._18,
             letterSpacing: scaleProportionally(1.5),
             textAlign: 'center',
           }}
@@ -117,13 +114,13 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
             borderRadius: scaleProportionally(20),
           }}
           shadowStyle={{
-            shadowColor: COLORS.RED._500,
+            shadowColor: theme.common.color.danger,
             shadowOffset: { width: 0, height: 3 },
             shadowRadius: 5,
             shadowOpacity: 0.3,
             elevation: 5,
           }}
-          icon={<Icon name="arrow" direction="right" strokeWidth={1.3} />}
+          icon={<Icon name="arrow" direction="right" />}
         />
         <Container
           flexStyle={{
@@ -133,18 +130,18 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
           }}
         >
           <BaseText
-            text={t('auth.welcome.alreadyHaveAnAccount')}
+            text={t('auth.alreadyHaveAnAccount')}
             textStyle={{
-              fontFamily: FONTS.Nunito.Bold,
-              fontSize: scaleFontSize(16),
+              fontFamily: theme.common.font.families.bold,
+              fontSize: theme.common.font.sizes._14,
             }}
           />
           <GradientText
-            text={t('auth.welcome.signIn')}
-            colors={[COLORS.INDIGO._500, COLORS.ORANGE._400, COLORS.RED._500]}
+            text={t('auth.signIn')}
+            colors={theme.common.color.defaultGradient2}
             textStyle={{
-              fontFamily: FONTS.Nunito.Bold,
-              fontSize: scaleFontSize(16),
+              fontFamily: theme.common.font.families.bold,
+              fontSize: theme.common.font.sizes._14,
               textDecorationLine: 'underline',
             }}
             onPress={() => navigation.navigate(NavigationRoutes.SIGNIN)}

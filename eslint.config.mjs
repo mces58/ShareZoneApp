@@ -54,10 +54,10 @@ export default tseslint.config(
   {
     rules: {
       // custom rules
-      'always-import/module-require': [
-        'error',
-        { moduleName: 'styled-components/native' },
-      ],
+      // 'always-import/module-require': [
+      //   'error',
+      //   { moduleName: 'styled-components/native' },
+      // ],
       // 'react-native/use-safe-area-view': 'error',
       'react-native/use-touchable-opacity': 'error',
       // 'react-native/not-inline-css': 'error',

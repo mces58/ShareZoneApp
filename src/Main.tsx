@@ -20,5 +20,5 @@ export default Main;
 
 const Container = styled.SafeAreaView<{ theme: Theme }>(({ theme }) => ({
   flex: 1,
-  backgroundColor: theme.backgroundColor,
+  backgroundColor: theme.color.background,
 }));

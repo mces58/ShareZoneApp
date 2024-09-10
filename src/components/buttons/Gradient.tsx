@@ -24,10 +24,10 @@ interface GradientButtonProps {
   gradientDegree?: number;
   icon?: React.ReactNode;
   loading?: boolean;
-  shadowStyle?: StyleProp<CustomShadowStyle>;
+  shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
   textColors?: string;
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
-  viewStyle?: StyleProp<CustomViewStyle>;
+  viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
 const GradientButton: React.FC<GradientButtonProps> = ({
