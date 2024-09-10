@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components/native';
 
 import * as Yup from 'yup';
 
-import SpacemanWithMoonSvg from '../../../assets/spaceman-with-moon.svg';
+import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { BaseContainer, Container } from 'src/components/containers';

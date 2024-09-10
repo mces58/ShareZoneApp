@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import SpacemanWithPlanetsSvg from '../../../assets/spaceman-with-planets.svg';
+import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
 import { BaseContainer, Container } from 'src/components/containers';
 import BaseHeader from 'src/components/headers/Base';
