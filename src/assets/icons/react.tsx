@@ -8,7 +8,7 @@ interface ReactIconProps {
     isGradient: boolean;
     mono: ColorValue;
   };
-  strokeWidth: number;
+  strokeWidth?: number;
 }
 
 const ReactIcon: React.FC<ReactIconProps> = ({ color, strokeWidth }) => {

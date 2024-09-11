@@ -8,6 +8,7 @@ import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import ArrowIcon from './arrow';
 import EyesIcon from './eyes';
+import { GithubIcon, InstagramIcon, LinkedinIcon } from './follow';
 import MailIcon from './mail';
 import ReactIcon from './react';
 import ShortArrowIcon from './short-arrow';
@@ -21,8 +22,6 @@ interface IconColor {
 
 interface BaseIconProps {
   color?: IconColor;
-  isFill?: boolean;
-  isOutline?: boolean;
   onPress?: () => void;
   size?: number;
   strokeWidth?: number;
@@ -39,6 +38,7 @@ interface ArrowIconProps extends BaseIconProps {
     | 'down-right'
     | 'down-left';
   name: 'arrow';
+  fillColor?: ColorValue;
 }
 
 interface ShortArrowIconProps extends BaseIconProps {
@@ -52,15 +52,22 @@ interface ReactIconProps extends BaseIconProps {
 
 interface EyesIconProps extends BaseIconProps {
   name: 'eyes';
+  fillColor?: ColorValue;
   isClose?: boolean;
 }
 
 interface MailIconProps extends BaseIconProps {
   name: 'mail';
+  fillColor?: ColorValue;
 }
 
 interface UserIconProps extends BaseIconProps {
   name: 'user';
+  fillColor?: ColorValue;
+}
+
+interface FollowIconProps extends Omit<BaseIconProps, 'strokeWidth'> {
+  name: 'github' | 'instagram' | 'linkedin';
 }
 
 type IconProps =
@@ -69,38 +76,30 @@ type IconProps =
   | ReactIconProps
   | EyesIconProps
   | MailIconProps
-  | UserIconProps;
+  | UserIconProps
+  | FollowIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
-  const {
-    color = {},
-    name,
-    isFill = false,
-    isOutline = false,
-    onPress,
-    size = scaleByAspectRatio(24),
-    strokeWidth = 1.5,
-  } = props;
+  const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
   const theme = useTheme() as Theme;
   const {
     grads = [theme.color.text],
     isGradient = false,
     mono = theme.color.text,
   } = color;
+  const strokeWidth = 'strokeWidth' in props ? (props.strokeWidth ?? 1.5) : undefined;
 
   const getIconComponent = (): React.ReactNode => {
     const iconProps = {
       color: { grads, isGradient, mono },
-      isFill,
-      isOutline,
       strokeWidth,
       size,
     };
 
     switch (name) {
       case 'arrow': {
-        const { direction } = props as ArrowIconProps;
-        return <ArrowIcon {...iconProps} direction={direction} />;
+        const { direction, fillColor } = props as ArrowIconProps;
+        return <ArrowIcon {...iconProps} direction={direction} fillColor={fillColor} />;
       }
       case 'short-arrow': {
         const { direction } = props as ShortArrowIconProps;
@@ -110,14 +109,25 @@ const Icon: React.FC<IconProps> = (props) => {
         return <ReactIcon {...iconProps} />;
       }
       case 'eyes': {
-        const { isClose = false } = props as EyesIconProps;
-        return <EyesIcon {...iconProps} isClose={isClose} />;
+        const { isClose, fillColor } = props as EyesIconProps;
+        return <EyesIcon {...iconProps} isClose={isClose} fillColor={fillColor} />;
       }
       case 'mail': {
-        return <MailIcon {...iconProps} />;
+        const { fillColor } = props as MailIconProps;
+        return <MailIcon {...iconProps} fillColor={fillColor} />;
       }
       case 'user': {
-        return <UserIcon {...iconProps} />;
+        const { fillColor } = props as UserIconProps;
+        return <UserIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'github': {
+        return <GithubIcon {...iconProps} />;
+      }
+      case 'instagram': {
+        return <InstagramIcon {...iconProps} />;
+      }
+      case 'linkedin': {
+        return <LinkedinIcon {...iconProps} />;
       }
       default:
         return null;

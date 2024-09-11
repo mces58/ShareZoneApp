@@ -12,14 +12,14 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "forgotPassword": "Forgot Password?",
+    "followOn": "Follow on"
+  },
+  "form": {
     "input": {
       "email": "Email",
       "password": "Password",
-      "confirmPassword": "Confirm Password",
       "userName": "Username"
-    }
-  },
-  "form": {
+    },
     "required": "This field is required",
     "invalidEmail": "Enter a valid email address",
     "passwordLength": "Password must be between {{min}} and {{max}} characters",

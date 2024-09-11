@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
+import { Linking } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
-
-import * as Yup from 'yup';
 
 import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
@@ -18,11 +17,10 @@ import {
   NavigationRoutes,
   SignupScreenNavigation,
 } from 'src/navigations/RootStackParamList';
-import {
-  scaleByAspectRatio,
-  scaleHeight,
-  scaleProportionally,
-} from 'src/utils/dimensions';
+import { scaleByAspectRatio } from 'src/utils/dimensions';
+import { SignupValidation } from 'src/validations/signup';
+
+import { createSignupStyles } from '../styles';
 
 interface SignupProps {
   navigation: SignupScreenNavigation;
@@ -32,6 +30,8 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   const theme = useTheme() as Theme;
   const { t } = useI18n();
   const formRef = useRef<{ submit: () => void }>(null);
+  const signupValidation = new SignupValidation(t);
+  const styles = createSignupStyles(theme);
 
   const handleSubmit = (data: unknown): void => {
     const signupData = data as SignupData;
@@ -46,7 +46,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   const fields = [
     {
       name: 'userName',
-      placeholder: 'Username',
+      placeholder: t('form.input.userName'),
       type: 'text' as const,
       icon: (
         <Icon
@@ -55,18 +55,11 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
           color={{ mono: theme.color.textMuted }}
         />
       ),
-      validation: Yup.string()
-        .required(t('form.required'))
-        .min(3, t('form.userNameLength', { min: 3, max: 20 }))
-        .max(20, 'Kullanıcı adı en fazla 20 karakter olmalı')
-        .matches(
-          /^[a-zA-Z0-9_]+$/,
-          t('form.userNamePattern', { pattern: 'a-z, A-Z, 0-9' })
-        ),
+      validation: signupValidation.getUserNameValidation(),
     },
     {
       name: 'email',
-      placeholder: 'Email',
+      placeholder: t('form.input.email'),
       type: 'text' as const,
       icon: (
         <Icon
@@ -75,11 +68,11 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
           color={{ mono: theme.color.textMuted }}
         />
       ),
-      validation: Yup.string().required(t('form.required')).email(t('form.invalidEmail')),
+      validation: signupValidation.getEmailValidation(),
     },
     {
       name: 'password',
-      placeholder: 'Password',
+      placeholder: t('form.input.password'),
       type: 'password' as const,
       icon: (
         <Icon
@@ -88,50 +81,15 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
           color={{ mono: theme.color.textMuted }}
         />
       ),
-      validation: Yup.string()
-        .required(t('form.required'))
-        .min(6, t('form.passwordLength', { min: 6, max: 20 }))
-        .max(20, t('form.passwordLength', { min: 6, max: 20 }))
-        .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
-          t('form.passwordPattern')
-        ),
+      validation: signupValidation.getPasswordValidation(),
     },
   ];
 
   return (
     <BaseContainer>
-      <Container
-        flexStyle={{
-          flex: 1,
-        }}
-      >
+      <Container flexStyle={styles.flex.container}>
         <BaseHeader
           title={t('global.back')}
-          flexStyle={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: '100%',
-            height: scaleHeight(100),
-            paddingVertical: scaleHeight(20),
-            paddingHorizontal: scaleHeight(10),
-          }}
-          viewStyle={{
-            borderBottomLeftRadius: scaleProportionally(20),
-            borderBottomRightRadius: scaleProportionally(20),
-            backgroundColor: theme.color.background,
-          }}
-          shadowStyle={{
-            elevation: 5,
-            shadowColor: theme.color.shadow,
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.3,
-            shadowRadius: 2,
-          }}
-          textStyle={{
-            fontSize: theme.common.font.sizes._24,
-            fontFamily: theme.common.font.families.bold,
-          }}
           icon={
             <Icon
               name="short-arrow"
@@ -139,105 +97,77 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
               onPress={() => navigation.goBack()}
             />
           }
+          flexStyle={styles.flex.header}
+          shadowStyle={styles.shadow.header}
+          textStyle={styles.text.header}
+          viewStyle={styles.view.header}
         />
-        <Container
-          flexStyle={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            paddingVertical: scaleHeight(30),
-          }}
-        >
-          <Container
-            flexStyle={{ width: '90%', alignSelf: 'center', gap: scaleHeight(30) }}
-          >
+        <Container flexStyle={styles.flex.main}>
+          <Container flexStyle={styles.flex.form}>
             <GradientText
-              colors={theme.common.color.defaultGradient2}
               text={t('auth.signUp')}
-              textStyle={{
-                fontFamily: theme.common.font.families.bold,
-                fontSize: theme.common.font.sizes._32,
-                textAlign: 'center',
-                textTransform: 'uppercase',
-                textDecorationLine: 'underline',
-              }}
+              colors={theme.common.color.defaultGradient2}
+              textStyle={styles.text.formHeader}
             />
             <BaseForm fields={fields} onSubmit={handleSubmit} ref={formRef} />
           </Container>
-          <Container
-            flexStyle={{
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
-          >
-            <Container
-              flexStyle={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}
-            >
+          <Container flexStyle={styles.flex.footer}>
+            <Container flexStyle={styles.flex.footerImage}>
               <SpacemanWithMoonSvg
                 width={scaleByAspectRatio(200)}
                 height={scaleByAspectRatio(200)}
               />
             </Container>
-            <Container
-              flexStyle={{
-                width: '60%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingHorizontal: scaleProportionally(10),
-                gap: scaleProportionally(12),
-              }}
-            >
-              <GradientButton
-                text={t('auth.signUp')}
-                colors={theme.common.color.defaultGradient2}
-                onPress={handleFormSubmit}
-                flexStyle={{
-                  alignSelf: 'center',
-                  width: '100%',
-                  height: scaleHeight(50),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                textStyle={{
-                  fontFamily: theme.common.font.families.bold,
-                  fontSize: theme.common.font.sizes._18,
-                  letterSpacing: scaleProportionally(1.5),
-                  textAlign: 'center',
-                }}
-                viewStyle={{
-                  borderRadius: scaleProportionally(20),
-                }}
-                shadowStyle={{
-                  shadowColor: theme.common.color.danger,
-                  shadowOffset: { width: 0, height: 3 },
-                  shadowRadius: 5,
-                  shadowOpacity: 0.3,
-                  elevation: 5,
-                }}
-              />
-              <Container
-                flexStyle={{
-                  flexDirection: 'row',
-                  gap: scaleProportionally(5),
-                  alignItems: 'center',
-                }}
-              >
-                <BaseText
-                  text={t('auth.alreadyHaveAnAccount')}
-                  textStyle={{
-                    fontFamily: theme.common.font.families.bold,
-                    fontSize: theme.common.font.sizes._14,
-                  }}
-                />
-                <GradientText
-                  text={t('auth.signIn')}
+            <Container flexStyle={styles.flex.footerAction}>
+              <Container flexStyle={styles.flex.footerButtonContainer}>
+                <GradientButton
+                  text={t('auth.signUp')}
                   colors={theme.common.color.defaultGradient2}
-                  textStyle={{
-                    fontFamily: theme.common.font.families.bold,
-                    fontSize: theme.common.font.sizes._14,
-                    textDecorationLine: 'underline',
+                  onPress={handleFormSubmit}
+                  flexStyle={styles.flex.button}
+                  shadowStyle={styles.shadow.button}
+                  textStyle={styles.text.button}
+                  viewStyle={styles.view.button}
+                />
+                <Container flexStyle={styles.flex.rowText}>
+                  <BaseText
+                    text={t('auth.alreadyHaveAnAccount')}
+                    textStyle={styles.text.footer}
+                  />
+                  <GradientText
+                    text={t('auth.signIn')}
+                    colors={theme.common.color.defaultGradient2}
+                    onPress={() => navigation.navigate(NavigationRoutes.SIGNIN)}
+                    textStyle={styles.text.link}
+                  />
+                </Container>
+              </Container>
+              <Container flexStyle={styles.flex.follow}>
+                <BaseText
+                  text={t('auth.followOn') + ':'}
+                  textStyle={styles.text.follow}
+                />
+
+                <Icon
+                  name="github"
+                  size={scaleByAspectRatio(18)}
+                  color={{ isGradient: true, grads: theme.common.color.defaultGradient1 }}
+                  onPress={() => Linking.openURL('https://github.com/mces58')}
+                />
+                <Icon
+                  name="instagram"
+                  size={scaleByAspectRatio(18)}
+                  color={{
+                    isGradient: true,
+                    grads: theme.common.color.defaultGradient1,
                   }}
-                  onPress={() => navigation.navigate(NavigationRoutes.SIGNIN)}
+                  onPress={() => Linking.openURL('https://www.instagram.com/mces58')}
+                />
+                <Icon
+                  name="linkedin"
+                  size={scaleByAspectRatio(18)}
+                  color={{ isGradient: true, grads: theme.common.color.defaultGradient1 }}
+                  onPress={() => Linking.openURL('https://www.linkedin.com/in/mces58')}
                 />
               </Container>
             </Container>

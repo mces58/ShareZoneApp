@@ -22,13 +22,12 @@ const BaseInput: React.FC<BaseInputProps> = ({
   icon,
   isSecureText = false,
 }) => {
+  const theme = useTheme() as Theme;
+
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [placeholderTop] = useState<Animated.Value>(new Animated.Value(0));
   const [placeholderLeft] = useState<Animated.Value>(new Animated.Value(0));
   const [placeholderFontSize] = useState<Animated.Value>(new Animated.Value(0));
-
-  const theme = useTheme() as Theme;
-  const focusStyle = isFocused ? COLORS.ORANGE._400 : theme.color.textMuted;
 
   useEffect(() => {
     Animated.timing(placeholderTop, {
@@ -52,16 +51,13 @@ const BaseInput: React.FC<BaseInputProps> = ({
   }, [isFocused, text]);
 
   return (
-    <InputContainer focusStyle={focusStyle}>
+    <InputContainer focusStyle={isFocused ? COLORS.ORANGE._400 : theme.color.textMuted}>
       {icon &&
         React.cloneElement(icon as React.ReactElement, {
           color: {
-            isGradient: isFocused,
-            grads: [focusStyle],
-            mono: theme.color.textMuted,
+            mono: isFocused ? theme.color.textMuted : theme.color.textMuted,
           },
-          isFill: isFocused,
-          isOutline: !isFocused,
+          fillColor: isFocused ? COLORS.ORANGE._400 : 'transparent',
         })}
       <InputWrapper>
         <AnimatedPlaceholder

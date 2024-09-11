@@ -42,7 +42,11 @@ type CustomFlexStyle = Pick<
   | 'marginTop'
   | 'marginVertical'
   | 'overflow'
+  | 'paddingBottom'
   | 'paddingHorizontal'
+  | 'paddingLeft'
+  | 'paddingRight'
+  | 'paddingTop'
   | 'paddingVertical'
   | 'width'
 > & {
@@ -63,7 +67,11 @@ type CustomFlexStyle = Pick<
   marginTop?: number;
   marginVertical?: number;
   overflow?: FlexStyle['overflow'];
+  paddingBottom?: number;
   paddingHorizontal?: number;
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingTop?: number;
   paddingVertical?: number;
   width?: number | string;
 };

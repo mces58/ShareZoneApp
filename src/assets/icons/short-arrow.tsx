@@ -9,7 +9,7 @@ interface ShortArrowIconProps {
     mono: ColorValue;
   };
   direction: 'up' | 'right' | 'down' | 'left';
-  strokeWidth: number;
+  strokeWidth?: number;
 }
 
 const ShortArrowIcon: React.FC<ShortArrowIconProps> = ({

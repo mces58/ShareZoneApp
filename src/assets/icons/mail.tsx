@@ -8,12 +8,11 @@ interface MailIconProps {
     isGradient: boolean;
     mono: ColorValue;
   };
-  isFill: boolean;
-  isOutline: boolean;
-  strokeWidth: number;
+  fillColor?: ColorValue;
+  strokeWidth?: number;
 }
 
-const MailIcon: React.FC<MailIconProps> = ({ color, isFill, isOutline, strokeWidth }) => {
+const MailIcon: React.FC<MailIconProps> = ({ color, fillColor, strokeWidth }) => {
   return (
     <Svg
       fill="none"
@@ -36,13 +35,13 @@ const MailIcon: React.FC<MailIconProps> = ({ color, isFill, isOutline, strokeWid
       </Defs>
       <Path
         d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-        stroke={isOutline ? 'url(#grad)' : color.mono}
-        fill={isFill ? 'url(#grad)' : 'none'}
+        fill={fillColor}
+        stroke={color.isGradient ? 'url(#grad)' : color.mono}
       />
       <Path
         d="M22 6l-10 7L2 6"
-        stroke={isOutline ? 'url(#grad)' : color.mono}
-        fill={isFill ? 'url(#grad)' : 'none'}
+        fill={fillColor}
+        stroke={color.isGradient ? 'url(#grad)' : color.mono}
       />
     </Svg>
   );

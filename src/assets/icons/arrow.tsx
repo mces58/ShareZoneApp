@@ -17,16 +17,14 @@ interface ArrowIconProps {
     | 'up-left'
     | 'down-right'
     | 'down-left';
-  isFill: boolean;
-  isOutline: boolean;
-  strokeWidth: number;
+  fillColor?: ColorValue;
+  strokeWidth?: number;
 }
 
 const ArrowIcon: React.FC<ArrowIconProps> = ({
   color,
   direction,
-  isFill,
-  isOutline,
+  fillColor,
   strokeWidth,
 }) => {
   let d = '';
@@ -80,13 +78,7 @@ const ArrowIcon: React.FC<ArrowIconProps> = ({
           ))}
         </LinearGradient>
       </Defs>
-      <Circle
-        cx="12"
-        cy="12"
-        r="11"
-        fill={isFill ? 'url(#grad)' : 'none'}
-        stroke={isOutline ? 'url(#grad)' : 'none'}
-      />
+      <Circle cx="12" cy="12" r="11" fill={fillColor} />
       <Path
         d={d}
         fill="none"

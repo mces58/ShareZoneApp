@@ -11,14 +11,14 @@
     "alreadyHaveAnAccount": "Zaten bir hesabınız var mı?",
     "signIn": "Giriş Yap",
     "signUp": "Kayıt Ol",
+    "followOn": "Takip Et"
+  },
+  "form": {
     "input": {
       "email": "E-posta",
       "password": "Şifre",
-      "confirmPassword": "Şifreyi Onayla",
       "userName": "Kullanıcı Adı"
-    }
-  },
-  "form": {
+    },
     "required": "Bu alan zorunludur",
     "invalidEmail": "Geçerli bir e-posta adresi girin",
     "passwordLength": "Şifre {{min}} ile {{max}} karakter arasında olmalıdır",
