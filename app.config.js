@@ -21,6 +21,7 @@ export default {
       backgroundColor: '#ffffff',
     },
     package: 'com.sharezoneapp',
+    softwareKeyboardLayoutMode: 'pan',
   },
   web: {
     favicon: './assets/images/favicon.png',
