@@ -2,20 +2,21 @@ import React from 'react';
 import { ColorValue } from 'react-native';
 import { Defs, LinearGradient, Path, Stop, Svg } from 'react-native-svg';
 
-interface ReactIconProps {
+interface LockIconProps {
   color: {
     grads: ColorValue[];
     isGradient: boolean;
     mono: ColorValue;
   };
+  fillColor?: ColorValue;
   strokeWidth?: number;
 }
 
-const ReactIcon: React.FC<ReactIconProps> = ({ color, strokeWidth }) => {
+const LockIcon: React.FC<LockIconProps> = ({ color, fillColor, strokeWidth }) => {
   return (
     <Svg
       fill="none"
-      viewBox="0 0 15 15"
+      viewBox="0 0 24 24"
       height="100%"
       width="100%"
       strokeWidth={strokeWidth}
@@ -33,23 +34,12 @@ const ReactIcon: React.FC<ReactIconProps> = ({ color, strokeWidth }) => {
         </LinearGradient>
       </Defs>
       <Path
+        d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-1V7c0-2.757-2.243-5-5-5zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9V7zm4 10.723V20h-2v-2.277a1.993 1.993 0 01.567-3.677A2.001 2.001 0 0114 16a1.99 1.99 0 01-1 1.723z"
+        fill={fillColor}
         stroke={color.isGradient ? 'url(#grad)' : color.mono}
-        d="M14.5 7.584c0 1.657-3.134 3-7 3s-7-1.343-7-3 3.134-3 7-3 7 1.343 7 3z"
-      />
-      <Path
-        stroke={color.isGradient ? 'url(#grad)' : color.mono}
-        d="M4.166 13.739c1.457.79 4.13-1.327 5.972-4.726 1.841-3.4 2.153-6.795.696-7.584-1.457-.79-4.13 1.327-5.972 4.726-1.841 3.4-2.153 6.795-.696 7.584z"
-      />
-      <Path
-        stroke={color.isGradient ? 'url(#grad)' : color.mono}
-        d="M10.834 13.739c-1.457.79-4.13-1.327-5.972-4.726-1.841-3.4-2.153-6.795-.696-7.584 1.457-.79 4.13 1.327 5.972 4.726 1.841 3.4 2.153 6.795.696 7.584z"
-      />
-      <Path
-        stroke={color.isGradient ? 'url(#grad)' : color.mono}
-        d="M6.5 7.584a1 1 0 102 0 1 1 0 00-2 0z"
       />
     </Svg>
   );
 };
 
-export default ReactIcon;
+export default LockIcon;

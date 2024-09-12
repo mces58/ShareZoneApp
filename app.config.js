@@ -4,10 +4,10 @@ export default {
   slug: 'ShareZoneApp',
   version: '1.0.0',
   orientation: 'portrait',
-  icon: './assets/app-icon.png',
+  icon: './assets/images/app-icon.png',
   userInterfaceStyle: 'automatic',
   splash: {
-    image: './assets/splash.png',
+    image: './assets/images/splash.png',
     resizeMode: 'cover',
     backgroundColor: '#ffffff',
   },
@@ -17,13 +17,14 @@ export default {
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: './assets/adaptive-icon.png',
+      foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
     package: 'com.sharezoneapp',
+    softwareKeyboardLayoutMode: 'pan',
   },
   web: {
-    favicon: './assets/favicon.png',
+    favicon: './assets/images/favicon.png',
   },
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,

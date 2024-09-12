@@ -3,12 +3,28 @@
     "name": "ShareZone",
     "punchline": "Where ideas ignite and visuals create unforgettable moments"
   },
-
+  "global": {
+    "back": "Back"
+  },
   "auth": {
-    "welcome": {
-      "getStarted": "Get Started",
-      "alreadyHaveAnAccount": "Already have an account?",
-      "signIn": "Sign In"
-    }
+    "getStarted": "Get Started",
+    "alreadyHaveAnAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "forgotPassword": "Forgot Password?",
+    "followOn": "Follow on"
+  },
+  "form": {
+    "input": {
+      "email": "Email",
+      "password": "Password",
+      "userName": "Username"
+    },
+    "required": "This field is required",
+    "invalidEmail": "Enter a valid email address",
+    "passwordLength": "Password must be between {{min}} and {{max}} characters",
+    "passwordPattern": "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+    "userNameLength": "Username must be between {{min}} and {{max}} characters",
+    "userNamePattern": "Username can only contain {{pattern}} and underscore (_)"
   }
 }

@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleProp, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  ActivityIndicator,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 import styled from 'styled-components/native';
 
@@ -15,6 +21,7 @@ interface GradientTextProps {
   text: string;
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
   gradientDegree?: number;
+  loading?: boolean;
   onPress?: () => void;
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
 }
@@ -25,6 +32,7 @@ const GradientText: React.FC<GradientTextProps> = (props) => {
     text,
     flexStyle = {},
     gradientDegree = 90,
+    loading = false,
     onPress,
     textStyle = {},
   } = props;
@@ -34,23 +42,27 @@ const GradientText: React.FC<GradientTextProps> = (props) => {
 
   return (
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
-      <MaskedView
-        maskElement={
-          <StyledText flexStyle={flattenedFlexStyle} textStyle={flattenedTextStyle}>
-            {text}
-          </StyledText>
-        }
-      >
-        <LinearGradient {...calculateGradientEndpoints(gradientDegree)} colors={colors}>
-          <StyledText
-            transparent
-            flexStyle={flattenedFlexStyle}
-            textStyle={flattenedTextStyle}
-          >
-            {text}
-          </StyledText>
-        </LinearGradient>
-      </MaskedView>
+      {loading ? (
+        <ActivityIndicator color={colors[0]} size="small" />
+      ) : (
+        <MaskedView
+          maskElement={
+            <StyledText flexStyle={flattenedFlexStyle} textStyle={flattenedTextStyle}>
+              {text}
+            </StyledText>
+          }
+        >
+          <LinearGradient {...calculateGradientEndpoints(gradientDegree)} colors={colors}>
+            <StyledText
+              transparent
+              flexStyle={flattenedFlexStyle}
+              textStyle={flattenedTextStyle}
+            >
+              {text}
+            </StyledText>
+          </LinearGradient>
+        </MaskedView>
+      )}
     </TouchableOpacity>
   );
 };

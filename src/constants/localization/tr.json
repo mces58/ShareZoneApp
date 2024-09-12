@@ -3,12 +3,27 @@
     "name": "ShareZone",
     "punchline": "Fikirlerin alevlendiği ve görsellerin unutulmaz anlar yarattığı yer"
   },
-
+  "global": {
+    "back": "Geri"
+  },
   "auth": {
-    "welcome": {
-      "getStarted": "Hemen başlayın",
-      "alreadyHaveAnAccount": "Zaten bir hesabınız var mı?",
-      "signIn": "Giriş Yap"
-    }
+    "getStarted": "Hemen başlayın",
+    "alreadyHaveAnAccount": "Zaten bir hesabınız var mı?",
+    "signIn": "Giriş Yap",
+    "signUp": "Kayıt Ol",
+    "followOn": "Takip Et"
+  },
+  "form": {
+    "input": {
+      "email": "E-posta",
+      "password": "Şifre",
+      "userName": "Kullanıcı Adı"
+    },
+    "required": "Bu alan zorunludur",
+    "invalidEmail": "Geçerli bir e-posta adresi girin",
+    "passwordLength": "Şifre {{min}} ile {{max}} karakter arasında olmalıdır",
+    "passwordPattern": "Şifre en az bir büyük harf, bir küçük harf ve bir rakam içermelidir",
+    "userNameLength": "Kullanıcı adı {{min}} ile {{max}} karakter arasında olmalıdır",
+    "userNamePattern": "Kullanıcı adı yalnızca {{pattern}} ve alt çizgi (_) içermelidir"
   }
 }
