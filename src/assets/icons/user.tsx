@@ -2,20 +2,21 @@ import React from 'react';
 import { ColorValue } from 'react-native';
 import { Defs, LinearGradient, Path, Stop, Svg } from 'react-native-svg';
 
-interface ReactIconProps {
+interface UserIconProps {
   color: {
     grads: ColorValue[];
     isGradient: boolean;
     mono: ColorValue;
   };
+  fillColor?: ColorValue;
   strokeWidth?: number;
 }
 
-const ReactIcon: React.FC<ReactIconProps> = ({ color, strokeWidth }) => {
+const UserIcon: React.FC<UserIconProps> = ({ color, fillColor, strokeWidth }) => {
   return (
     <Svg
       fill="none"
-      viewBox="0 0 15 15"
+      viewBox="0 0 24 24"
       height="100%"
       width="100%"
       strokeWidth={strokeWidth}
@@ -33,23 +34,12 @@ const ReactIcon: React.FC<ReactIconProps> = ({ color, strokeWidth }) => {
         </LinearGradient>
       </Defs>
       <Path
+        d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"
+        fill={fillColor}
         stroke={color.isGradient ? 'url(#grad)' : color.mono}
-        d="M14.5 7.584c0 1.657-3.134 3-7 3s-7-1.343-7-3 3.134-3 7-3 7 1.343 7 3z"
-      />
-      <Path
-        stroke={color.isGradient ? 'url(#grad)' : color.mono}
-        d="M4.166 13.739c1.457.79 4.13-1.327 5.972-4.726 1.841-3.4 2.153-6.795.696-7.584-1.457-.79-4.13 1.327-5.972 4.726-1.841 3.4-2.153 6.795-.696 7.584z"
-      />
-      <Path
-        stroke={color.isGradient ? 'url(#grad)' : color.mono}
-        d="M10.834 13.739c-1.457.79-4.13-1.327-5.972-4.726-1.841-3.4-2.153-6.795-.696-7.584 1.457-.79 4.13 1.327 5.972 4.726 1.841 3.4 2.153 6.795.696 7.584z"
-      />
-      <Path
-        stroke={color.isGradient ? 'url(#grad)' : color.mono}
-        d="M6.5 7.584a1 1 0 102 0 1 1 0 00-2 0z"
       />
     </Svg>
   );
 };
 
-export default ReactIcon;
+export default UserIcon;

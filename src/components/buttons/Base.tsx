@@ -16,16 +16,20 @@ interface BaseButtonProps {
   onPress: () => void;
   text: string;
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
-  shadowStyle?: StyleProp<CustomShadowStyle>;
+  icon?: React.ReactNode;
+  loading?: boolean;
+  shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
   textColors?: string;
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
-  viewStyle?: StyleProp<CustomViewStyle>;
+  viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
 const BaseButton: React.FC<BaseButtonProps> = ({
   text,
   onPress,
   flexStyle = {},
+  icon,
+  loading = false,
   shadowStyle = {},
   textColors,
   textStyle = {},
@@ -53,9 +57,21 @@ const BaseButton: React.FC<BaseButtonProps> = ({
       onPress={onPress}
       flexStyle={flattenedFlexStyle}
       viewStyle={flattenedViewStyle}
-      style={shadowEffectValue}
+      style={[
+        shadowEffectValue,
+        {
+          flexDirection: 'row',
+          alignItems: 'center',
+        },
+      ]}
     >
-      <BaseText text={text} color={textColors} textStyle={flattenedTextStyle} />
+      <BaseText
+        text={text}
+        color={textColors}
+        textStyle={flattenedTextStyle}
+        loading={loading}
+      />
+      {!loading && icon}
     </Button>
   );
 };

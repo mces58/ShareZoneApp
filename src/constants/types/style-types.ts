@@ -2,12 +2,24 @@ import { FlexStyle, TextStyle, ViewStyle } from 'react-native';
 
 type CustomViewStyle = Pick<
   ViewStyle,
-  'backgroundColor' | 'borderColor' | 'borderRadius' | 'borderStyle' | 'opacity'
+  | 'backgroundColor'
+  | 'borderBottomLeftRadius'
+  | 'borderBottomRightRadius'
+  | 'borderColor'
+  | 'borderRadius'
+  | 'borderStyle'
+  | 'borderTopLeftRadius'
+  | 'borderTopRightRadius'
+  | 'opacity'
 > & {
   backgroundColor?: string;
+  borderBottomLeftRadius?: number;
+  borderBottomRightRadius?: number;
   borderColor?: string;
   borderRadius?: number;
   borderStyle?: ViewStyle['borderStyle'];
+  borderTopLeftRadius?: number;
+  borderTopRightRadius?: number;
   opacity?: number;
 };
 
@@ -23,10 +35,18 @@ type CustomFlexStyle = Pick<
   | 'gap'
   | 'height'
   | 'justifyContent'
+  | 'marginBottom'
   | 'marginHorizontal'
+  | 'marginLeft'
+  | 'marginRight'
+  | 'marginTop'
   | 'marginVertical'
   | 'overflow'
+  | 'paddingBottom'
   | 'paddingHorizontal'
+  | 'paddingLeft'
+  | 'paddingRight'
+  | 'paddingTop'
   | 'paddingVertical'
   | 'width'
 > & {
@@ -40,10 +60,18 @@ type CustomFlexStyle = Pick<
   gap?: FlexStyle['gap'];
   height?: number | string;
   justifyContent?: FlexStyle['justifyContent'];
+  marginBottom?: number;
   marginHorizontal?: number;
+  marginLeft?: number;
+  marginRight?: number;
+  marginTop?: number;
   marginVertical?: number;
   overflow?: FlexStyle['overflow'];
+  paddingBottom?: number;
   paddingHorizontal?: number;
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingTop?: number;
   paddingVertical?: number;
   width?: number | string;
 };

@@ -25,5 +25,5 @@ const Container = styled.SafeAreaView<{
   paddingLeft: insets.left,
   paddingRight: insets.right,
   paddingBottom: insets.bottom,
-  backgroundColor: theme.backgroundColor,
+  backgroundColor: theme.color.background,
 }));

@@ -23,10 +23,11 @@ interface GradientButtonProps {
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
   gradientDegree?: number;
   icon?: React.ReactNode;
-  shadowStyle?: StyleProp<CustomShadowStyle>;
+  loading?: boolean;
+  shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
   textColors?: string;
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
-  viewStyle?: StyleProp<CustomViewStyle>;
+  viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
 const GradientButton: React.FC<GradientButtonProps> = ({
@@ -36,6 +37,7 @@ const GradientButton: React.FC<GradientButtonProps> = ({
   flexStyle = {},
   gradientDegree = 90,
   icon,
+  loading = false,
   shadowStyle = {},
   textColors,
   textStyle = {},
@@ -73,13 +75,19 @@ const GradientButton: React.FC<GradientButtonProps> = ({
           {
             width: '100%',
             flexDirection: 'row',
+            alignItems: 'center',
           },
           flattenedViewStyle,
           Platform.OS === 'android' ? shadowEffectValue : {},
         ]}
       >
-        <BaseText text={text} textStyle={flattenedTextStyle} color={textColors} />
-        {icon}
+        <BaseText
+          text={text}
+          textStyle={flattenedTextStyle}
+          color={textColors}
+          loading={loading}
+        />
+        {!loading && icon}
       </LinearGradient>
     </Button>
   );

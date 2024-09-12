@@ -1,58 +1,36 @@
 import React from 'react';
 import { ColorValue } from 'react-native';
-import { Circle, Defs, LinearGradient, Path, Stop, Svg } from 'react-native-svg';
+import { Defs, LinearGradient, Path, Stop, Svg } from 'react-native-svg';
 
-interface ArrowIconProps {
+interface ShortArrowIconProps {
   color: {
     grads: ColorValue[];
     isGradient: boolean;
     mono: ColorValue;
   };
-  direction:
-    | 'up'
-    | 'right'
-    | 'down'
-    | 'left'
-    | 'up-right'
-    | 'up-left'
-    | 'down-right'
-    | 'down-left';
-  fillColor?: ColorValue;
+  direction: 'up' | 'right' | 'down' | 'left';
   strokeWidth?: number;
 }
 
-const ArrowIcon: React.FC<ArrowIconProps> = ({
+const ShortArrowIcon: React.FC<ShortArrowIconProps> = ({
   color,
   direction,
-  fillColor,
   strokeWidth,
 }) => {
   let d = '';
 
   switch (direction) {
     case 'up':
-      d = 'M12 18V5M5 12l7-7 7 7';
+      d = 'M24 20L16 12L8 20';
       break;
     case 'right':
-      d = 'M6 12h12M12 5l7 7-7 7';
+      d = 'M12 24L20 16L12 8';
       break;
     case 'down':
-      d = 'M12 6v13M19 12l-7 7-7-7';
+      d = 'M8 12L16 20L24 12';
       break;
     case 'left':
-      d = 'M18 12H5M12 19l-7-7 7-7';
-      break;
-    case 'up-right':
-      d = 'M8 16L17 7M7 7h10v10';
-      break;
-    case 'up-left':
-      d = 'M16 16L7 7M7 17V7h10';
-      break;
-    case 'down-right':
-      d = 'M7 7l10 10M17 7v10H7';
-      break;
-    case 'down-left':
-      d = 'M16 8L7 17M17 17H7V7';
+      d = 'M20 8L12 16L20 24';
       break;
     default:
       console.log('Unknown direction!');
@@ -62,7 +40,7 @@ const ArrowIcon: React.FC<ArrowIconProps> = ({
     <Svg
       width="100%"
       height="100%"
-      viewBox="0 0 24 24"
+      viewBox="0 0 32 32"
       fill="none"
       strokeWidth={strokeWidth}
     >
@@ -78,10 +56,8 @@ const ArrowIcon: React.FC<ArrowIconProps> = ({
           ))}
         </LinearGradient>
       </Defs>
-      <Circle cx="12" cy="12" r="11" fill={fillColor} />
       <Path
         d={d}
-        fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
         stroke={color.isGradient ? 'url(#grad)' : color.mono}
@@ -90,4 +66,4 @@ const ArrowIcon: React.FC<ArrowIconProps> = ({
   );
 };
 
-export default ArrowIcon;
+export default ShortArrowIcon;

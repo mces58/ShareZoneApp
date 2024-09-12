@@ -2,7 +2,8 @@ export default {
   meta: {
     type: 'problem',
     docs: {
-      description: 'Ensure a specific module is imported in every .tsx file',
+      description:
+        'Ensure a specific module is imported in every .tsx file inside the component folder',
     },
     schema: [
       {
@@ -20,11 +21,10 @@ export default {
     const moduleName = context.options[0]?.moduleName;
     const filename = context.getFilename();
 
-    const isContextFile = filename.includes('context');
-    const isNavigationFile = filename.includes('navigation');
-    const isScreenFile = filename.includes('screen');
+    const isTSXFile = filename.endsWith('.tsx');
+    const isInComponentFolder = filename.includes('component');
 
-    if (!filename.endsWith('.tsx') || isContextFile || isNavigationFile || isScreenFile) {
+    if (!isTSXFile || !isInComponentFolder) {
       return {};
     }
 
@@ -48,7 +48,7 @@ export default {
         if (!hasImport) {
           context.report({
             node,
-            message: `Module '${moduleName}' must be imported in every .tsx file.`,
+            message: `Module '${moduleName}' must be imported in every .tsx file inside the component folder.`,
           });
         }
       },
