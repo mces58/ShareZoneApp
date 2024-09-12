@@ -3,6 +3,7 @@ import { Linking } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
+import { createSignupFormFields } from './feats/signup-form';
 import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
@@ -29,61 +30,23 @@ interface SignupProps {
 const Signup: React.FC<SignupProps> = ({ navigation }) => {
   const theme = useTheme() as Theme;
   const { t } = useI18n();
-  const formRef = useRef<{ submit: () => void }>(null);
-  const signupValidation = new SignupValidation(t);
+  const formRef = useRef<{ reset: () => void; submit: () => void }>(null);
+  const validation = new SignupValidation(t);
+  const formFields = createSignupFormFields({ t, theme, validation });
   const styles = createSignupStyles(theme);
 
   const handleSubmit = (data: unknown): void => {
-    const signupData = data as SignupData;
-    console.log(signupData);
+    if (formRef.current) {
+      const signupData = data as SignupData;
+      console.log(signupData);
+      formRef.current.reset();
+    }
   };
   const handleFormSubmit = (): void => {
     if (formRef.current) {
       formRef.current.submit();
     }
   };
-
-  const fields = [
-    {
-      name: 'userName',
-      placeholder: t('form.input.userName'),
-      type: 'text' as const,
-      icon: (
-        <Icon
-          name="user"
-          size={scaleByAspectRatio(18)}
-          color={{ mono: theme.color.textMuted }}
-        />
-      ),
-      validation: signupValidation.getUserNameValidation(),
-    },
-    {
-      name: 'email',
-      placeholder: t('form.input.email'),
-      type: 'text' as const,
-      icon: (
-        <Icon
-          name="mail"
-          size={scaleByAspectRatio(18)}
-          color={{ mono: theme.color.textMuted }}
-        />
-      ),
-      validation: signupValidation.getEmailValidation(),
-    },
-    {
-      name: 'password',
-      placeholder: t('form.input.password'),
-      type: 'password' as const,
-      icon: (
-        <Icon
-          name="eyes"
-          size={scaleByAspectRatio(18)}
-          color={{ mono: theme.color.textMuted }}
-        />
-      ),
-      validation: signupValidation.getPasswordValidation(),
-    },
-  ];
 
   return (
     <BaseContainer>
@@ -109,7 +72,16 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
               colors={theme.common.color.defaultGradient2}
               textStyle={styles.text.formHeader}
             />
-            <BaseForm fields={fields} onSubmit={handleSubmit} ref={formRef} />
+            <BaseForm
+              formFields={formFields}
+              onSubmit={handleSubmit}
+              ref={formRef}
+              inputStyle={{
+                flex: styles.flex.formInput,
+                shadow: styles.shadow.formInput,
+                view: styles.view.formInput,
+              }}
+            />
           </Container>
           <Container flexStyle={styles.flex.footer}>
             <Container flexStyle={styles.flex.footerImage}>
@@ -147,7 +119,6 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                   text={t('auth.followOn') + ':'}
                   textStyle={styles.text.follow}
                 />
-
                 <Icon
                   name="github"
                   size={scaleByAspectRatio(18)}

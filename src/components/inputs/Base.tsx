@@ -1,70 +1,113 @@
-import React, { useEffect, useState } from 'react';
-import { Animated, Platform, TextInput, View } from 'react-native';
+import React, { ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
+import { Animated, StyleProp, StyleSheet, TextInput } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
 import { COLORS } from 'src/constants/styles/colors';
 import { Theme } from 'src/constants/styles/themes';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
+import {
+  CustomFlexStyle,
+  CustomShadowStyle,
+  CustomTextStyle,
+  CustomViewStyle,
+} from 'src/constants/types/style-types';
+import { scaleByAspectRatio, scaleProportionally } from 'src/utils/dimensions';
+
+import { Container } from '../containers';
 
 interface BaseInputProps {
   onChangeText: (text: string) => void;
   placeholder: string;
   text: string;
-  icon?: React.ReactNode;
+  extraIcon?: ReactNode;
+  flexStyle?: StyleProp<Pick<CustomFlexStyle, 'alignSelf' | 'width' | 'height'>>;
+  icon?: ReactNode;
   isSecureText?: boolean;
+  shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
+  textStyle?: StyleProp<Partial<CustomTextStyle>>;
+  viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
 const BaseInput: React.FC<BaseInputProps> = ({
   onChangeText,
   placeholder,
   text,
+  extraIcon,
+  flexStyle = {},
   icon,
   isSecureText = false,
+  shadowStyle = {},
+  textStyle = {},
+  viewStyle = {},
 }) => {
   const theme = useTheme() as Theme;
-
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [placeholderTop] = useState<Animated.Value>(new Animated.Value(0));
-  const [placeholderLeft] = useState<Animated.Value>(new Animated.Value(0));
-  const [placeholderFontSize] = useState<Animated.Value>(new Animated.Value(0));
+
+  const placeholderTop = useRef(new Animated.Value(0)).current;
+  const placeholderLeft = useRef(new Animated.Value(scaleByAspectRatio(5))).current;
+  const placeholderFontSize = useRef(
+    new Animated.Value(theme.common.font.sizes._16)
+  ).current;
+
+  const flattenedFlexStyle = StyleSheet.flatten(flexStyle);
+  const flattenedShadowStyle = StyleSheet.flatten(shadowStyle);
+  const flattenedTextStyle = StyleSheet.flatten(textStyle);
+  const flattenedViewStyle = StyleSheet.flatten(viewStyle);
 
   useEffect(() => {
-    Animated.timing(placeholderTop, {
-      toValue:
-        isFocused || text
-          ? Platform.OS === 'ios'
-            ? -scaleByAspectRatio(12)
-            : -scaleByAspectRatio(9)
-          : 0,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
+    const toValueTop = isFocused || text ? -scaleByAspectRatio(12) : 0;
+    const toValueLeft = isFocused || text ? 0 : scaleByAspectRatio(5);
+    const toValueFontSize =
+      isFocused || text ? theme.common.font.sizes._12 : theme.common.font.sizes._18;
 
-    Animated.timing(placeholderLeft, {
-      toValue: isFocused || text ? 0 : scaleByAspectRatio(5),
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-
-    Animated.timing(placeholderFontSize, {
-      toValue:
-        isFocused || text ? theme.common.font.sizes._12 : theme.common.font.sizes._18,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-  }, [isFocused, text]);
+    Animated.parallel([
+      Animated.timing(placeholderTop, {
+        toValue: toValueTop,
+        duration: 200,
+        useNativeDriver: false,
+      }),
+      Animated.timing(placeholderLeft, {
+        toValue: toValueLeft,
+        duration: 200,
+        useNativeDriver: false,
+      }),
+      Animated.timing(placeholderFontSize, {
+        toValue: toValueFontSize,
+        duration: 200,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  }, [isFocused, text, placeholderTop, placeholderLeft, placeholderFontSize, theme]);
 
   return (
-    <InputContainer focusStyle={isFocused ? COLORS.ORANGE._400 : theme.color.textMuted}>
+    <Container
+      flexStyle={[
+        {
+          flexDirection: 'row',
+          alignItems: 'center',
+          borderWidth: 1,
+          paddingHorizontal: scaleProportionally(15),
+          gap: scaleProportionally(5),
+        },
+        flattenedFlexStyle,
+      ]}
+      shadowStyle={flattenedShadowStyle}
+      viewStyle={[
+        {
+          backgroundColor: theme.color.background,
+          borderColor: isFocused ? COLORS.ORANGE._400 : theme.color.border,
+        },
+        flattenedViewStyle,
+      ]}
+    >
       {icon &&
-        React.cloneElement(icon as React.ReactElement, {
+        React.cloneElement(icon as ReactElement, {
           color: {
             mono: isFocused ? theme.color.textMuted : theme.color.textMuted,
           },
           fillColor: isFocused ? COLORS.ORANGE._400 : 'transparent',
         })}
-      <InputWrapper>
+      <Container flexStyle={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
         <AnimatedPlaceholder
           style={{
             top: placeholderTop,
@@ -74,42 +117,21 @@ const BaseInput: React.FC<BaseInputProps> = ({
         >
           {placeholder}
         </AnimatedPlaceholder>
-        <StyledInput
-          onChangeText={onChangeText}
-          placeholder={''}
+        <Input
           value={text}
-          placeholderTextColor={theme.color.textMuted}
+          onChangeText={onChangeText}
+          textStyle={flattenedTextStyle}
           secureTextEntry={isSecureText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
         />
-      </InputWrapper>
-    </InputContainer>
+      </Container>
+      {extraIcon && extraIcon}
+    </Container>
   );
 };
 
 export default BaseInput;
-
-const InputContainer = styled(View)<{ focusStyle: string; theme: Theme }>(
-  ({ focusStyle, theme }) => ({
-    width: '100%',
-    height: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: theme.color.background,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: focusStyle,
-    paddingHorizontal: 10,
-    gap: 5,
-  })
-);
-
-const InputWrapper = styled(View)({
-  flex: 1,
-  flexDirection: 'row',
-  alignItems: 'center',
-});
 
 const AnimatedPlaceholder = styled(Animated.Text)<{ theme: Theme }>(({ theme }) => ({
   position: 'absolute',
@@ -117,9 +139,12 @@ const AnimatedPlaceholder = styled(Animated.Text)<{ theme: Theme }>(({ theme }) 
   fontFamily: theme.common.font.families.regular,
 }));
 
-const StyledInput = styled(TextInput)<{ theme: Theme }>(({ theme }) => ({
-  flex: 1,
-  color: theme.color.textMuted,
-  fontFamily: theme.common.font.families.regular,
-  fontSize: theme.common.font.sizes._16,
-}));
+const Input = styled(TextInput)<{ textStyle: CustomTextStyle; theme: Theme }>(
+  ({ textStyle, theme }) => ({
+    flex: 1,
+    color: theme.color.text,
+    fontFamily: theme.common.font.families.medium,
+    fontSize: theme.common.font.sizes._16,
+    ...textStyle,
+  })
+);

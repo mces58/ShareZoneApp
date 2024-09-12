@@ -9,6 +9,7 @@ import { scaleByAspectRatio } from 'src/utils/dimensions';
 import ArrowIcon from './arrow';
 import EyesIcon from './eyes';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from './follow';
+import LockIcon from './lock';
 import MailIcon from './mail';
 import ReactIcon from './react';
 import ShortArrowIcon from './short-arrow';
@@ -70,6 +71,11 @@ interface FollowIconProps extends Omit<BaseIconProps, 'strokeWidth'> {
   name: 'github' | 'instagram' | 'linkedin';
 }
 
+interface LockIconProps extends BaseIconProps {
+  name: 'lock';
+  fillColor?: ColorValue;
+}
+
 type IconProps =
   | ArrowIconProps
   | ShortArrowIconProps
@@ -77,7 +83,8 @@ type IconProps =
   | EyesIconProps
   | MailIconProps
   | UserIconProps
-  | FollowIconProps;
+  | FollowIconProps
+  | LockIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
   const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
@@ -128,6 +135,10 @@ const Icon: React.FC<IconProps> = (props) => {
       }
       case 'linkedin': {
         return <LinkedinIcon {...iconProps} />;
+      }
+      case 'lock': {
+        const { fillColor } = props as LockIconProps;
+        return <LockIcon {...iconProps} fillColor={fillColor} />;
       }
       default:
         return null;
