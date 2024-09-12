@@ -1,7 +1,16 @@
+/* eslint-disable security/detect-object-injection */
+
 /* eslint-disable react/display-name */
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
+import React, {
+  forwardRef,
+  ReactElement,
+  ReactNode,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { View } from 'react-native';
+import { StyleProp } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
@@ -10,89 +19,146 @@ import * as Yup from 'yup';
 import BaseInput from '../inputs/Base';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Theme } from 'src/constants/styles/themes';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
+import {
+  CustomFlexStyle,
+  CustomShadowStyle,
+  CustomTextStyle,
+  CustomViewStyle,
+} from 'src/constants/types/style-types';
+import { scaleProportionally } from 'src/utils/dimensions';
 
+import { Container } from '../containers';
 import { BaseText } from '../texts';
 
-interface FormField {
+export interface FormField {
   name: string;
   placeholder: string;
   type: 'text' | 'password';
   validation: Yup.StringSchema;
-  icon?: React.ReactNode;
+  extraIcon?: ReactNode;
+  icon?: ReactNode;
 }
 
 interface BaseFormProps {
-  fields: FormField[];
+  formFields: FormField[];
   onSubmit: (data: unknown) => void;
+  inputStyle?: {
+    flex?: StyleProp<Pick<CustomFlexStyle, 'alignSelf' | 'width' | 'height'>>;
+    shadow?: StyleProp<Partial<CustomShadowStyle>>;
+    text?: StyleProp<Partial<CustomTextStyle>>;
+    view?: StyleProp<Partial<CustomViewStyle>>;
+  };
 }
 
-const BaseForm = forwardRef(({ fields, onSubmit }: BaseFormProps, ref) => {
-  const theme = useTheme() as Theme;
+const BaseForm = forwardRef(
+  ({ formFields, onSubmit, inputStyle }: BaseFormProps, ref) => {
+    const theme = useTheme() as Theme;
 
-  const validationSchema = Yup.object().shape(
-    fields.reduce(
-      (acc, field) => {
-        acc[field.name] = field.validation;
-        return acc;
-      },
-      {} as Record<string, Yup.StringSchema>
-    )
-  );
+    const validationSchema = useMemo(
+      () =>
+        Yup.object().shape(
+          formFields.reduce(
+            (acc, field) => {
+              acc[field.name] = field.validation;
+              return acc;
+            },
+            {} as Record<string, Yup.StringSchema>
+          )
+        ),
+      [formFields]
+    );
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(validationSchema),
-  });
+    const {
+      control,
+      handleSubmit,
+      formState: { errors },
+      reset,
+    } = useForm({
+      resolver: yupResolver(validationSchema),
+    });
 
-  useImperativeHandle(ref, () => ({
-    submit: handleSubmit(onSubmit),
-  }));
+    useImperativeHandle(ref, () => ({
+      submit: handleSubmit(onSubmit),
+      reset: (): void => reset(),
+    }));
 
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<Record<string, boolean>>(
+      formFields.reduce(
+        (acc, field) => {
+          if (field.type === 'password') acc[field.name] = false;
+          return acc;
+        },
+        {} as Record<string, boolean>
+      )
+    );
 
-  return (
-    <View>
-      {fields.map((field) => (
-        <View key={field.name} style={{ marginBottom: scaleByAspectRatio(20), gap: 2 }}>
-          <Controller
-            control={control}
-            name={field.name}
-            render={({ field: { onChange, value } }) => (
-              <BaseInput
-                onChangeText={onChange}
-                placeholder={field.placeholder}
-                text={value || ''}
-                isSecureText={field.type === 'password' && !showPassword}
-                icon={
-                  field.icon && field.type === 'password'
-                    ? React.cloneElement(field.icon as React.ReactElement, {
-                        onPress: () => setShowPassword(!showPassword),
-                        isClose: !showPassword,
-                      })
-                    : field.icon
-                }
-              />
-            )}
-          />
-          {errors[field.name] && (
-            <BaseText
-              text={errors[field.name]?.message ?? ''}
-              color={theme.common.color.danger}
-              flexStyle={{ marginLeft: scaleByAspectRatio(10) }}
-              textStyle={{
-                fontSize: theme.common.font.sizes._12,
-                fontFamily: theme.common.font.families.medium,
-              }}
+    const togglePasswordVisibility = (fieldName: string): void => {
+      setShowPassword((prevState) => ({
+        ...prevState,
+        [fieldName]: !prevState[fieldName],
+      }));
+    };
+
+    const renderErrorMessage = (fieldName: string): ReactNode => {
+      const errorMessage = errors[fieldName]?.message ?? '';
+      if (!errorMessage) return null;
+
+      return (
+        <BaseText
+          text={errorMessage}
+          color={theme.common.color.danger}
+          flexStyle={{ marginLeft: scaleProportionally(10) }}
+          textStyle={{
+            fontSize: theme.common.font.sizes._12,
+            fontFamily: theme.common.font.families.medium,
+          }}
+        />
+      );
+    };
+
+    return (
+      <Container>
+        {formFields.map((field) => (
+          <Container
+            key={field.name}
+            flexStyle={{
+              gap: scaleProportionally(3),
+              marginBottom: scaleProportionally(20),
+            }}
+          >
+            <Controller
+              control={control}
+              name={field.name}
+              render={({ field: { onChange, value } }) => (
+                <BaseInput
+                  onChangeText={onChange}
+                  placeholder={field.placeholder}
+                  text={value || ''}
+                  isSecureText={field.type === 'password' && !showPassword[field.name]}
+                  icon={field.icon}
+                  flexStyle={inputStyle?.flex}
+                  shadowStyle={
+                    errors[field.name]?.message ? undefined : inputStyle?.shadow
+                  }
+                  textStyle={inputStyle?.text}
+                  viewStyle={inputStyle?.view}
+                  extraIcon={
+                    field.extraIcon && field.type === 'password'
+                      ? React.cloneElement(field.extraIcon as ReactElement, {
+                          onPress: () => togglePasswordVisibility(field.name),
+                          isClose: !showPassword[field.name],
+                        })
+                      : undefined
+                  }
+                />
+              )}
             />
-          )}
-        </View>
-      ))}
-    </View>
-  );
-});
+            {renderErrorMessage(field.name)}
+          </Container>
+        ))}
+      </Container>
+    );
+  }
+);
 
-export default BaseForm;
+export default React.memo(BaseForm);

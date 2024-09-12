@@ -14,6 +14,7 @@ const enum FlexStyles {
   HEADER = 'header',
   MAIN = 'main',
   FORM = 'form',
+  FORM_INPUT = 'formInput',
   FOOTER = 'footer',
   FOOTER_IMAGE = 'footerImage',
   FOOTER_ACTION = 'footerAction',
@@ -25,6 +26,7 @@ const enum FlexStyles {
 
 const enum ShadowStyles {
   HEADER = 'header',
+  FORM_INPUT = 'formInput',
   BUTTON = 'button',
 }
 
@@ -39,6 +41,7 @@ const enum TextStyles {
 
 const enum ViewStyles {
   HEADER = 'header',
+  FORM_INPUT = 'formInput',
   BUTTON = 'button',
 }
 
@@ -73,6 +76,10 @@ const createSignupStyles = (
       alignSelf: 'center',
       gap: scaleHeight(30),
     },
+    [FlexStyles.FORM_INPUT]: {
+      width: '100%',
+      height: scaleHeight(65),
+    } as Pick<CustomFlexStyle, 'alignSelf' | 'width' | 'height'>,
     [FlexStyles.FOOTER]: {
       flexDirection: 'row',
       width: '90%',
@@ -117,6 +124,13 @@ const createSignupStyles = (
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.3,
       shadowRadius: 2,
+    },
+    [ShadowStyles.FORM_INPUT]: {
+      elevation: 2,
+      shadowColor: theme.color.shadow,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 1,
     },
     [ShadowStyles.BUTTON]: {
       shadowColor: theme.common.color.danger,
@@ -165,6 +179,9 @@ const createSignupStyles = (
       borderBottomLeftRadius: scaleProportionally(20),
       borderBottomRightRadius: scaleProportionally(20),
       backgroundColor: theme.color.background,
+    },
+    [ViewStyles.FORM_INPUT]: {
+      borderRadius: scaleProportionally(15),
     },
     [ViewStyles.BUTTON]: {
       borderRadius: scaleProportionally(20),
