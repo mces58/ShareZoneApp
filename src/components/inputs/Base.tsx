@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Animated, TextInput, View } from 'react-native';
+import { Animated, Platform, TextInput, View } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
@@ -31,7 +31,12 @@ const BaseInput: React.FC<BaseInputProps> = ({
 
   useEffect(() => {
     Animated.timing(placeholderTop, {
-      toValue: isFocused || text ? -scaleByAspectRatio(12) : 0,
+      toValue:
+        isFocused || text
+          ? Platform.OS === 'ios'
+            ? -scaleByAspectRatio(12)
+            : -scaleByAspectRatio(9)
+          : 0,
       duration: 200,
       useNativeDriver: false,
     }).start();
