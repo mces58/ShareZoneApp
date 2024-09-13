@@ -91,7 +91,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
         },
         flattenedFlexStyle,
       ]}
-      shadowStyle={flattenedShadowStyle}
+      shadowStyle={isFocused ? undefined : flattenedShadowStyle}
       viewStyle={[
         {
           backgroundColor: theme.color.background,

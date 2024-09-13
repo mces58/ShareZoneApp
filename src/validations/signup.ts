@@ -1,9 +1,11 @@
 import * as Yup from 'yup';
 
-export class SignupValidation {
-  private t: (key: string, options?: Record<string, unknown>) => string;
+import { TranslationOptions } from 'src/contexts/i18n-context';
 
-  constructor(t: (key: string, options?: Record<string, unknown>) => string) {
+export class SignupValidation {
+  private t: (key: string, options?: TranslationOptions) => string;
+
+  constructor(t: (key: string, options?: TranslationOptions) => string) {
     this.t = t;
   }
 
