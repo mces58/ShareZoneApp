@@ -70,7 +70,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 3000, icon }) =
         <BaseText
           text={message}
           textStyle={{
-            fontSize: theme.common.font.sizes._16,
+            fontSize: theme.common.font.sizes._14,
             fontFamily: theme.common.font.families.medium,
           }}
         />

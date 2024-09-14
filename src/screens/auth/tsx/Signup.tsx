@@ -45,23 +45,23 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   const handleSignup = useCallback(async (data: unknown): Promise<void> => {
     if (!formRef.current) return;
 
+    const { email, password, userName } = data as SignupData;
     setLoading(true);
     setToast(null);
     try {
-      const { email, password } = data as SignupData;
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.signUp({ email, password });
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { user_name: userName } },
+      });
 
       if (error) throw new Error(error.message);
 
-      console.log(session);
       setToast({ message: t('auth.accountCreated'), type: ToastType.Success });
     } catch (err: unknown) {
       if (err instanceof Error)
         setToast({
-          message: t('error.auth.userAlreadyRegistered'),
+          message: t('error.auth.userAlreadyRegistered', { email }),
           type: ToastType.Error,
         });
       else setToast({ message: t('error.default'), type: ToastType.Error });

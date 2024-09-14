@@ -30,7 +30,7 @@
   "error": {
     "default": "Bilinmeyen bir hata oluştu.",
     "auth": {
-      "userAlreadyRegistered": "Kullanıcı zaten kayıtlı."
+      "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}"
     }
   }
 }

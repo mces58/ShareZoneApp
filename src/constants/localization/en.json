@@ -31,7 +31,7 @@
   "error": {
     "default": "An unknown error occurred.",
     "auth": {
-      "userAlreadyRegistered": "User already registered."
+      "userAlreadyRegistered": "This user already registered: {{email}}"
     }
   }
 }
