@@ -111,7 +111,19 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                 view: styles.view.formInput,
               }}
             />
-            {toast && <Toast message={toast.message} type={toast.type} />}
+            {toast && (
+              <Toast
+                message={toast.message}
+                type={toast.type}
+                icon={
+                  toast.type === ToastType.Error ? (
+                    <Icon name="error" fillColor={theme.color.text} strokeWidth={0} />
+                  ) : (
+                    <Icon name="check" fillColor={theme.color.text} strokeWidth={0} />
+                  )
+                }
+              />
+            )}
           </Container>
           <Container flexStyle={styles.flex.footer}>
             <Container flexStyle={styles.flex.footerImage}>
