@@ -12,7 +12,8 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "forgotPassword": "Forgot Password?",
-    "followOn": "Follow on"
+    "followOn": "Follow on",
+    "accountCreated": "Your account has been created successfully."
   },
   "form": {
     "input": {
@@ -26,5 +27,11 @@
     "passwordPattern": "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     "userNameLength": "Username must be between {{min}} and {{max}} characters",
     "userNamePattern": "Username can only contain {{pattern}} and underscore (_)"
+  },
+  "error": {
+    "default": "An unknown error occurred.",
+    "auth": {
+      "userAlreadyRegistered": "This user already registered: {{email}}"
+    }
   }
 }

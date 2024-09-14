@@ -13,6 +13,7 @@ import LockIcon from './lock';
 import MailIcon from './mail';
 import ReactIcon from './react';
 import ShortArrowIcon from './short-arrow';
+import { CheckIcon, ErrorIcon, InfoIcon, WarningIcon } from './status';
 import UserIcon from './user';
 
 interface IconColor {
@@ -76,6 +77,11 @@ interface LockIconProps extends BaseIconProps {
   fillColor?: ColorValue;
 }
 
+interface StatusIconProps extends BaseIconProps {
+  name: 'check' | 'error' | 'info' | 'warning';
+  fillColor?: ColorValue;
+}
+
 type IconProps =
   | ArrowIconProps
   | ShortArrowIconProps
@@ -84,7 +90,8 @@ type IconProps =
   | MailIconProps
   | UserIconProps
   | FollowIconProps
-  | LockIconProps;
+  | LockIconProps
+  | StatusIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
   const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
@@ -139,6 +146,22 @@ const Icon: React.FC<IconProps> = (props) => {
       case 'lock': {
         const { fillColor } = props as LockIconProps;
         return <LockIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'check': {
+        const { fillColor } = props as StatusIconProps;
+        return <CheckIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'error': {
+        const { fillColor } = props as StatusIconProps;
+        return <ErrorIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'info': {
+        const { fillColor } = props as StatusIconProps;
+        return <InfoIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'warning': {
+        const { fillColor } = props as StatusIconProps;
+        return <WarningIcon {...iconProps} fillColor={fillColor} />;
       }
       default:
         return null;

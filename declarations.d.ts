@@ -3,3 +3,9 @@ declare module '*.svg' {
   const content: React.FC<SvgProps>;
   export default content;
 }
+
+declare module '@env' {
+  export const GOOGLE_GENERATIVE_AI_API_KEY: string;
+  export const SUPABASE_ANON_KEY: string;
+  export const SUPABASE_PROJECT_URL: string;
+}
