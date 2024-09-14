@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Linking } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
@@ -11,6 +11,7 @@ import { BaseContainer, Container } from 'src/components/containers';
 import BaseForm from 'src/components/forms/Base';
 import BaseHeader from 'src/components/headers/Base';
 import { BaseText, GradientText } from 'src/components/texts';
+import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
 import { SignupData } from 'src/constants/types/user';
 import { useI18n } from 'src/contexts/i18n-context';
@@ -18,6 +19,7 @@ import {
   NavigationRoutes,
   SignupScreenNavigation,
 } from 'src/navigations/RootStackParamList';
+import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 import { SignupValidation } from 'src/validations/signup';
 
@@ -31,22 +33,49 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   const theme = useTheme() as Theme;
   const { t } = useI18n();
   const formRef = useRef<{ reset: () => void; submit: () => void }>(null);
-  const validation = new SignupValidation(t);
-  const formFields = createSignupFormFields({ t, theme, validation });
-  const styles = createSignupStyles(theme);
+  const validation = useMemo(() => new SignupValidation(t), [t]);
+  const formFields = useMemo(
+    () => createSignupFormFields({ t, theme, validation }),
+    [t, theme, validation]
+  );
+  const styles = useMemo(() => createSignupStyles(theme), [theme]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
-  const handleSubmit = (data: unknown): void => {
-    if (formRef.current) {
-      const signupData = data as SignupData;
-      console.log(signupData);
+  const handleSignup = useCallback(async (data: unknown): Promise<void> => {
+    if (!formRef.current) return;
+
+    const { email, password, userName } = data as SignupData;
+    setLoading(true);
+    setToast(null);
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { user_name: userName } },
+      });
+
+      if (error) throw new Error(error.message);
+
+      setToast({ message: t('auth.accountCreated'), type: ToastType.Success });
+    } catch (err: unknown) {
+      if (err instanceof Error)
+        setToast({
+          message: t('error.auth.userAlreadyRegistered', { email }),
+          type: ToastType.Error,
+        });
+      else setToast({ message: t('error.default'), type: ToastType.Error });
+    } finally {
       formRef.current.reset();
+      setLoading(false);
     }
-  };
-  const handleFormSubmit = (): void => {
+  }, []);
+
+  const handleFormSubmit = useCallback((): void => {
     if (formRef.current) {
       formRef.current.submit();
     }
-  };
+  }, []);
 
   return (
     <BaseContainer>
@@ -74,7 +103,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
             />
             <BaseForm
               formFields={formFields}
-              onSubmit={handleSubmit}
+              onSubmit={handleSignup}
               ref={formRef}
               inputStyle={{
                 flex: styles.flex.formInput,
@@ -82,6 +111,19 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                 view: styles.view.formInput,
               }}
             />
+            {toast && (
+              <Toast
+                message={toast.message}
+                type={toast.type}
+                icon={
+                  toast.type === ToastType.Error ? (
+                    <Icon name="error" fillColor={theme.color.text} strokeWidth={0} />
+                  ) : (
+                    <Icon name="check" fillColor={theme.color.text} strokeWidth={0} />
+                  )
+                }
+              />
+            )}
           </Container>
           <Container flexStyle={styles.flex.footer}>
             <Container flexStyle={styles.flex.footerImage}>
@@ -96,6 +138,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                   text={t('auth.signUp')}
                   colors={theme.common.color.defaultGradient2}
                   onPress={handleFormSubmit}
+                  loading={loading}
                   flexStyle={styles.flex.button}
                   shadowStyle={styles.shadow.button}
                   textStyle={styles.text.button}
@@ -109,7 +152,11 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                   <GradientText
                     text={t('auth.signIn')}
                     colors={theme.common.color.defaultGradient2}
-                    onPress={() => navigation.navigate(NavigationRoutes.SIGNIN)}
+                    onPress={() => {
+                      if (!formRef.current) return;
+                      navigation.navigate(NavigationRoutes.SIGNIN);
+                      formRef.current.reset();
+                    }}
                     textStyle={styles.text.link}
                   />
                 </Container>

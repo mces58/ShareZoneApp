@@ -1,13 +1,17 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 
+import { TranslateOptions } from 'i18n-js';
+
 import i18n from 'src/constants/localization/i18n';
 import { LANGUAGE_CODES } from 'src/constants/localization/languages';
 import { LOCAL_UNITS } from 'src/constants/localization/local-units';
 
+export type TranslationOptions = TranslateOptions;
+
 interface I18nContextProps {
   locale: string;
   setLocale: (locale: string) => void;
-  t: (key: string, options?: Record<string, unknown>) => string;
+  t: (key: string, options?: TranslationOptions) => string;
 }
 
 const I18nContext = createContext<I18nContextProps>({
@@ -31,7 +35,7 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       value={{
         locale,
         setLocale: changeLocale,
-        t: (key: string, options?: Record<string, unknown>) => i18n.t(key, options),
+        t: (key: string, options?: TranslationOptions) => i18n.t(key, options),
       }}
     >
       {children}

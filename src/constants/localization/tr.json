@@ -11,7 +11,8 @@
     "alreadyHaveAnAccount": "Zaten bir hesabınız var mı?",
     "signIn": "Giriş Yap",
     "signUp": "Kayıt Ol",
-    "followOn": "Takip Et"
+    "followOn": "Takip Et",
+    "accountCreated": "Hesabınız başarıyla oluşturuldu."
   },
   "form": {
     "input": {
@@ -25,5 +26,11 @@
     "passwordPattern": "Şifre en az bir büyük harf, bir küçük harf ve bir rakam içermelidir",
     "userNameLength": "Kullanıcı adı {{min}} ile {{max}} karakter arasında olmalıdır",
     "userNamePattern": "Kullanıcı adı yalnızca {{pattern}} ve alt çizgi (_) içermelidir"
+  },
+  "error": {
+    "default": "Bilinmeyen bir hata oluştu.",
+    "auth": {
+      "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}"
+    }
   }
 }
