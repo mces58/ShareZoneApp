@@ -3,3 +3,8 @@ export interface SignupData {
   password: string;
   userName: string;
 }
+
+export interface SigninData {
+  email: string;
+  password: string;
+}

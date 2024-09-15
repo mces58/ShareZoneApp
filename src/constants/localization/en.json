@@ -9,6 +9,7 @@
   "auth": {
     "getStarted": "Get Started",
     "alreadyHaveAnAccount": "Already have an account?",
+    "dontHaveAnAccount": "Don't have an account yet?",
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "forgotPassword": "Forgot Password?",
@@ -31,7 +32,8 @@
   "error": {
     "default": "An unknown error occurred.",
     "auth": {
-      "userAlreadyRegistered": "This user already registered: {{email}}"
+      "userAlreadyRegistered": "This user already registered: {{email}}",
+      "invalidLoginCredentials": "Invalid login credentials."
     }
   }
 }

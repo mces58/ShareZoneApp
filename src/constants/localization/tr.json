@@ -9,6 +9,7 @@
   "auth": {
     "getStarted": "Hemen başlayın",
     "alreadyHaveAnAccount": "Zaten bir hesabınız var mı?",
+    "dontHaveAnAccount": "Henüz bir hesabınız yok mu?",
     "signIn": "Giriş Yap",
     "signUp": "Kayıt Ol",
     "followOn": "Takip Et",
@@ -30,7 +31,8 @@
   "error": {
     "default": "Bilinmeyen bir hata oluştu.",
     "auth": {
-      "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}"
+      "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}",
+      "invalidLoginCredentials": "Geçersiz oturum açma kimlik bilgileri."
     }
   }
 }
