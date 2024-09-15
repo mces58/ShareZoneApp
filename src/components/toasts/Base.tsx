@@ -24,7 +24,7 @@ interface ToastProps {
   icon?: ReactNode;
 }
 
-const Toast: React.FC<ToastProps> = ({ message, type, duration = 3000, icon }) => {
+const Toast: React.FC<ToastProps> = ({ message, type, duration = 2000, icon }) => {
   const [slideAnim] = useState<Animated.Value>(new Animated.Value(-scaleHeight(100)));
   const [visible, setVisible] = useState<boolean>(false);
   const theme = useTheme() as Theme;
@@ -33,7 +33,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, duration = 3000, icon }) =
     const showToast = (): void => {
       Animated.timing(slideAnim, {
         toValue: scaleHeight(10),
-        duration: 500,
+        duration: 450,
         useNativeDriver: true,
       }).start();
     };
