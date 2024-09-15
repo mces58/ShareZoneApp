@@ -43,8 +43,6 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
   const handleSignin = useCallback(async (data: unknown): Promise<void> => {
-    if (!formRef.current) return;
-
     const { email, password } = data as SigninData;
     setLoading(true);
     setToast(null);
@@ -63,7 +61,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
         });
       else setToast({ message: t('error.default'), type: ToastType.Error });
     } finally {
-      formRef.current.reset();
+      if (formRef.current) formRef.current.reset();
       setLoading(false);
     }
   }, []);

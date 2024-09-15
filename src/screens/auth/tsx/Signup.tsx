@@ -43,8 +43,6 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
   const handleSignup = useCallback(async (data: unknown): Promise<void> => {
-    if (!formRef.current) return;
-
     const { email, password, userName } = data as SignupData;
     setLoading(true);
     setToast(null);
@@ -52,7 +50,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { user_name: userName } },
+        options: { data: { user_name: userName, isNewUser: true } },
       });
 
       if (error) throw new Error(error.message);
@@ -66,7 +64,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
         });
       else setToast({ message: t('error.default'), type: ToastType.Error });
     } finally {
-      formRef.current.reset();
+      if (formRef.current) formRef.current.reset();
       setLoading(false);
     }
   }, []);
