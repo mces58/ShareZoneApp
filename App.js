@@ -6,10 +6,10 @@ import { ThemeProvider } from 'styled-components/native';
 import Constants from 'expo-constants';
 import * as SplashScreen from 'expo-splash-screen';
 
-import Main from 'src/Main';
-
 import { DarkTheme, LightTheme, THEMES } from 'src/constants/styles/themes';
+import { AuthProvider } from 'src/contexts/auth-context';
 import { I18nProvider } from 'src/contexts/i18n-context';
+import MainNavigation from 'src/navigations/MainNavigation';
 import { loadFonts } from 'src/utils/load-fonts';
 
 import * as Storybook from './.storybook';
@@ -47,11 +47,13 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <I18nProvider>
-        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-          <Main />
-        </View>
-      </I18nProvider>
+      <AuthProvider>
+        <I18nProvider>
+          <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+            <MainNavigation />
+          </View>
+        </I18nProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 };

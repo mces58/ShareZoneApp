@@ -46,7 +46,7 @@ const enum ViewStyles {
   BUTTON = 'button',
 }
 
-const createSignupStyles = (
+const createSigninStyles = (
   theme: Theme
 ): {
   flex: Record<FlexStyles, CustomFlexStyle>;
@@ -87,11 +87,11 @@ const createSignupStyles = (
       justifyContent: 'space-around',
     },
     [FlexStyles.FOOTER_IMAGE]: {
-      width: '30%',
+      width: '40%',
       alignItems: 'center',
     },
     [FlexStyles.FOOTER_ACTION]: {
-      width: '60%',
+      width: '55%',
       paddingTop: scaleProportionally(40),
     },
     [FlexStyles.FOOTER_BUTTON_CONTAINER]: {
@@ -195,4 +195,4 @@ const createSignupStyles = (
   return { flex, shadow, text, view };
 };
 
-export default createSignupStyles;
+export default createSigninStyles;
