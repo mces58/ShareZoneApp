@@ -101,7 +101,7 @@ const Icon: React.FC<IconProps> = (props) => {
     isGradient = false,
     mono = theme.color.text,
   } = color;
-  const strokeWidth = 'strokeWidth' in props ? (props.strokeWidth ?? 1.5) : undefined;
+  const strokeWidth = 'strokeWidth' in props ? props.strokeWidth : 1.5;
 
   const getIconComponent = (): React.ReactNode => {
     const iconProps = {

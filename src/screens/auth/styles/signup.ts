@@ -62,7 +62,6 @@ const createSignupStyles = (
       alignItems: 'center',
       width: '100%',
       height: scaleHeight(100),
-      paddingVertical: scaleHeight(20),
       paddingHorizontal: scaleHeight(10),
     },
     [FlexStyles.MAIN]: {
