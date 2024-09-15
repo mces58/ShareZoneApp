@@ -52,7 +52,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
   }, []);
 
   return (
-    <Container flexStyle={styles.flex.container}>
+    <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
       <BaseHeader
         title={t('global.back')}
         icon={

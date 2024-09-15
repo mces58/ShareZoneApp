@@ -40,6 +40,7 @@ const enum TextStyles {
 }
 
 const enum ViewStyles {
+  CONTAINER = 'container',
   HEADER = 'header',
   FORM_INPUT = 'formInput',
   BUTTON = 'button',
@@ -175,6 +176,9 @@ const createSignupStyles = (
   });
 
   const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
+    [ViewStyles.CONTAINER]: {
+      backgroundColor: theme.color.background,
+    },
     [ViewStyles.HEADER]: {
       borderBottomLeftRadius: scaleProportionally(20),
       borderBottomRightRadius: scaleProportionally(20),
