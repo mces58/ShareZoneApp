@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleProp } from 'react-native';
+import { Dimensions, StyleProp } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
   CustomFlexStyle,
@@ -30,8 +31,25 @@ const BaseHeader: React.FC<BaseHeaderProps> = ({
   textStyle,
   viewStyle,
 }) => {
+  const insets = useSafeAreaInsets();
+  const { height: screenHeight } = Dimensions.get('window');
+  const flexStyleHeight = (flexStyle as CustomFlexStyle).height;
+
+  const heightNumber =
+    typeof flexStyleHeight === 'string' && flexStyleHeight.endsWith('%')
+      ? (parseFloat(flexStyleHeight) / 100) * screenHeight
+      : typeof flexStyleHeight === 'number'
+        ? flexStyleHeight
+        : 0;
+
+  const newHeight = heightNumber + insets.top;
+
   return (
-    <Container flexStyle={flexStyle} viewStyle={viewStyle} shadowStyle={shadowStyle}>
+    <Container
+      flexStyle={[flexStyle, { paddingTop: insets.top, height: newHeight }]}
+      viewStyle={viewStyle}
+      shadowStyle={shadowStyle}
+    >
       {icon}
       <BaseText text={title} textStyle={textStyle} color={textColor} />
     </Container>
