@@ -8,10 +8,12 @@ import { useAuth } from 'src/contexts/auth-context';
 import { supabase } from 'src/supabase/supabase';
 
 const Home = (): JSX.Element => {
-  const { setAuth } = useAuth();
+  const { setAuthData, user } = useAuth();
+
+  console.log('user', user);
 
   const handleLogout = async (): Promise<void> => {
-    setAuth(null);
+    setAuthData(null);
     const { error } = await supabase.auth.signOut();
     if (error) {
       Alert.alert('Sign out', error.message);

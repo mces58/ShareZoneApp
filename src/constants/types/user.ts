@@ -12,10 +12,10 @@ export interface SigninData {
 export interface User {
   address?: string;
   bio?: string;
-  createdAt?: Date;
+  created_at?: string;
   email?: string;
   id?: string;
   image?: string;
-  phoneNumber?: string;
-  userName?: string;
+  phone_number?: string;
+  user_name?: string;
 }

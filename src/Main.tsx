@@ -8,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Theme } from './constants/styles/themes';
 import { useAuth } from './contexts/auth-context';
 import { MainScreenNavigation, NavigationRoutes } from './navigations/RootStackParamList';
+import { fetchUserById } from './services/user-service';
 import { supabase } from './supabase/supabase';
 
 interface MainProps {
@@ -16,17 +17,19 @@ interface MainProps {
 
 const Main: React.FC<MainProps> = ({ navigation }) => {
   const theme = useTheme() as Theme;
-  const { setAuth } = useAuth();
+  const { setAuthData, setUserData } = useAuth();
 
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session) {
-        setAuth(session.user);
+        setAuthData(session.user);
+
+        const res = await fetchUserById(session.user.id);
+        if (res.success && res.data) setUserData(res.data);
 
         const isNewUser = session.user.user_metadata.isNewUser;
-
         if (isNewUser) {
           setTimeout(() => {
             supabase.auth.updateUser({ data: { isNewUser: null } });
@@ -36,7 +39,7 @@ const Main: React.FC<MainProps> = ({ navigation }) => {
           navigation.navigate(NavigationRoutes.HOME);
         }
       } else {
-        setAuth(null);
+        setAuthData(null);
         navigation.navigate(NavigationRoutes.WELCOME);
       }
     });

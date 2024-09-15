@@ -3,8 +3,8 @@ import React, { createContext, ReactNode, useContext, useState } from 'react';
 import { User } from 'src/constants/types/user';
 
 interface AuthContextProps {
-  setAuth: (user: User | null) => void;
-  setUserData: (userData: Partial<User>) => void;
+  setAuthData: (user: User | null) => void;
+  setUserData: (userData: User) => void;
   user: User | null;
 }
 
@@ -13,13 +13,12 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  const setAuth = (user: User | null): void => setUser(user);
+  const setAuthData = (user: User | null): void => setUser(user);
 
-  const setUserData = (userData: Partial<User>): void =>
-    setUser((prevUser) => (prevUser ? { ...prevUser, ...userData } : prevUser));
+  const setUserData = (userData: User): void => setUser(userData);
 
   return (
-    <AuthContext.Provider value={{ user, setAuth, setUserData }}>
+    <AuthContext.Provider value={{ user, setAuthData, setUserData }}>
       {children}
     </AuthContext.Provider>
   );
