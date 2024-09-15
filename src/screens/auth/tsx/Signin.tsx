@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Linking } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
@@ -11,6 +11,7 @@ import { Container } from 'src/components/containers';
 import BaseForm from 'src/components/forms/Base';
 import BaseHeader from 'src/components/headers/Base';
 import { BaseText, GradientText } from 'src/components/texts';
+import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
 import { SigninData } from 'src/constants/types/user';
 import { useI18n } from 'src/contexts/i18n-context';
@@ -18,6 +19,7 @@ import {
   NavigationRoutes,
   SigninScreenNavigation,
 } from 'src/navigations/RootStackParamList';
+import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 import { SigninValidation } from 'src/validations/signin';
 
@@ -37,12 +39,33 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
     [t, theme, validation]
   );
   const styles = useMemo(() => createSigninStyles(theme), [theme]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
-  const handleSignin = useCallback((data: unknown): void => {
+  const handleSignin = useCallback(async (data: unknown): Promise<void> => {
     if (!formRef.current) return;
 
     const { email, password } = data as SigninData;
-    console.log(email, password);
+    setLoading(true);
+    setToast(null);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) throw new Error(error.message);
+    } catch (err: unknown) {
+      if (err instanceof Error)
+        setToast({
+          message: t('error.auth.invalidLoginCredentials'),
+          type: ToastType.Error,
+        });
+      else setToast({ message: t('error.default'), type: ToastType.Error });
+    } finally {
+      formRef.current.reset();
+      setLoading(false);
+    }
   }, []);
 
   const handleFormSubmit = useCallback((): void => {
@@ -80,6 +103,13 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
               view: styles.view.formInput,
             }}
           />
+          {toast && (
+            <Toast
+              message={toast.message}
+              type={toast.type}
+              icon={<Icon name="error" fillColor={theme.color.text} strokeWidth={0} />}
+            />
+          )}
         </Container>
         <Container flexStyle={styles.flex.footer}>
           <Container flexStyle={styles.flex.footerImage}>
@@ -94,6 +124,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
                 text={t('auth.signIn')}
                 colors={theme.common.color.defaultGradient2}
                 onPress={handleFormSubmit}
+                loading={loading}
                 flexStyle={styles.flex.button}
                 shadowStyle={styles.shadow.button}
                 textStyle={styles.text.button}
