@@ -27,6 +27,7 @@ export const createSignupFormFields = ({
         name="user"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
+        strokeWidth={1}
       />
     ),
     validation: validation.getUserNameValidation(),
@@ -40,6 +41,7 @@ export const createSignupFormFields = ({
         name="mail"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
+        strokeWidth={1}
       />
     ),
     validation: validation.getEmailValidation(),
@@ -53,6 +55,7 @@ export const createSignupFormFields = ({
         name="lock"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
+        strokeWidth={1}
       />
     ),
     validation: validation.getPasswordValidation(),
@@ -61,6 +64,7 @@ export const createSignupFormFields = ({
         name="eyes"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
+        strokeWidth={1.25}
       />
     ),
   },
