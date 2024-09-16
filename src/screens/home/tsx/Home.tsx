@@ -1,39 +1,64 @@
-import React from 'react';
-import { Alert } from 'react-native';
+import React, { useMemo } from 'react';
 
-import { BaseButton } from 'src/components/buttons';
-import { BaseContainer, Container } from 'src/components/containers';
-import { BaseText } from 'src/components/texts';
-import { useAuth } from 'src/contexts/auth-context';
-import { supabase } from 'src/supabase/supabase';
+import { useTheme } from 'styled-components/native';
 
-const Home = (): JSX.Element => {
-  const { setAuthData, user } = useAuth();
+import createHomeStyles from '../styles/home';
+import Icon from 'src/assets/icons';
+import { Container } from 'src/components/containers';
+import BaseHeader from 'src/components/headers/Base';
+import { Theme } from 'src/constants/styles/themes';
+import { useI18n } from 'src/contexts/i18n-context';
+import {
+  HomeScreenNavigation,
+  NavigationRoutes,
+} from 'src/navigations/RootStackParamList';
+import { scaleByAspectRatio } from 'src/utils/dimensions';
 
-  console.log('user', user);
+interface HomeProps {
+  navigation: HomeScreenNavigation;
+}
 
-  const handleLogout = async (): Promise<void> => {
-    setAuthData(null);
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      Alert.alert('Sign out', error.message);
-    }
-  };
+const Home: React.FC<HomeProps> = ({ navigation }) => {
+  const { t } = useI18n();
+  const theme = useTheme() as Theme;
+  const styles = useMemo(() => createHomeStyles(theme), [theme]);
 
   return (
-    <BaseContainer>
-      <Container
-        flexStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 20 }}
-      >
-        <BaseText text="Home" />
-        <BaseButton
-          text="Logout"
-          onPress={handleLogout}
-          flexStyle={{ paddingHorizontal: 20, paddingVertical: 20 }}
-          viewStyle={{ backgroundColor: 'red', borderRadius: 20 }}
-        />
-      </Container>
-    </BaseContainer>
+    <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
+      <BaseHeader
+        title={t('app.name')}
+        icon={<Icon name="react" strokeWidth={0.75} size={scaleByAspectRatio(30)} />}
+        flexStyle={styles.flex.header}
+        viewStyle={styles.view.header}
+        shadowStyle={styles.shadow.header}
+        textStyle={styles.text.header}
+        extraIcons={[
+          <Icon
+            key="heart"
+            name="heart"
+            strokeWidth={0}
+            size={scaleByAspectRatio(22)}
+            onPress={() => navigation.navigate(NavigationRoutes.NOTIFICATION)}
+            fillColor={theme.color.text}
+          />,
+          <Icon
+            key="add-square"
+            name="add-square"
+            strokeWidth={0}
+            size={scaleByAspectRatio(22)}
+            onPress={() => navigation.navigate(NavigationRoutes.POST)}
+            fillColor={theme.color.text}
+          />,
+          <Icon
+            key="user"
+            name="user"
+            strokeWidth={1.7}
+            size={scaleByAspectRatio(22)}
+            onPress={() => navigation.navigate(NavigationRoutes.PROFILE)}
+          />,
+        ]}
+      />
+    </Container>
   );
 };
 
