@@ -1,5 +1,7 @@
 import { FlexStyle, TextStyle, ViewStyle } from 'react-native';
 
+import { ImageStyle } from 'expo-image';
+
 type CustomViewStyle = Pick<
   ViewStyle,
   | 'backgroundColor'
@@ -117,4 +119,22 @@ type CustomShadowStyle = Pick<
   shadowRadius?: ViewStyle['shadowRadius'];
 };
 
-export type { CustomViewStyle, CustomFlexStyle, CustomTextStyle, CustomShadowStyle };
+type CustomImageStyle = Pick<
+  ImageStyle,
+  'borderColor' | 'borderRadius' | 'borderWidth' | 'flex' | 'height' | 'width'
+> & {
+  borderColor?: string;
+  borderRadius?: number;
+  borderWidth?: number;
+  flex?: ImageStyle['flex'];
+  height?: number;
+  width?: number;
+};
+
+export type {
+  CustomViewStyle,
+  CustomFlexStyle,
+  CustomTextStyle,
+  CustomShadowStyle,
+  CustomImageStyle,
+};
