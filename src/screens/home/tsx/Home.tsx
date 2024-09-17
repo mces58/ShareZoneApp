@@ -27,7 +27,14 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
       <BaseHeader
         title={t('app.name')}
-        icon={<Icon name="react" strokeWidth={0.75} size={scaleByAspectRatio(30)} />}
+        icon={
+          <Icon
+            name="react"
+            strokeWidth={0.75}
+            size={scaleByAspectRatio(30)}
+            animated={{ rotate: true }}
+          />
+        }
         flexStyle={styles.flex.header}
         viewStyle={styles.view.header}
         shadowStyle={styles.shadow.header}

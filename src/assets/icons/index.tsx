@@ -52,6 +52,11 @@ interface ShortArrowIconProps extends BaseIconProps {
 
 interface ReactIconProps extends BaseIconProps {
   name: 'react';
+  animated?: {
+    duration?: number;
+    rotate?: boolean;
+    scale?: boolean;
+  };
 }
 
 interface EyesIconProps extends BaseIconProps {
@@ -134,7 +139,8 @@ const Icon: React.FC<IconProps> = (props) => {
         return <ShortArrowIcon {...iconProps} direction={direction} />;
       }
       case 'react': {
-        return <ReactIcon {...iconProps} />;
+        const { animated } = props as ReactIconProps;
+        return <ReactIcon {...iconProps} animated={animated} />;
       }
       case 'eyes': {
         const { isClose, fillColor } = props as EyesIconProps;
