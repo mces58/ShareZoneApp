@@ -50,7 +50,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { user_name: userName, isNewUser: true } },
+        options: { data: { user_name: userName, email, isNewUser: true } },
       });
 
       if (error) throw new Error(error.message);
