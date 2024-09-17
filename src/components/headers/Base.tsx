@@ -61,7 +61,7 @@ const BaseHeader: React.FC<BaseHeaderProps> = ({
         flexStyle={{
           flexDirection: 'row',
           alignItems: 'center',
-          gap: scaleProportionally(10),
+          gap: scaleProportionally(5),
         }}
       >
         {icon}

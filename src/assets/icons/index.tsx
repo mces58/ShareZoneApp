@@ -15,6 +15,7 @@ import LockIcon from './lock';
 import MailIcon from './mail';
 import ReactIcon from './react';
 import ShortArrowIcon from './short-arrow';
+import SignoutIcon from './signout';
 import { CheckIcon, ErrorIcon, InfoIcon, WarningIcon } from './status';
 import UserIcon from './user';
 
@@ -99,6 +100,11 @@ interface AddIconProps extends BaseIconProps {
   fillColor?: ColorValue;
 }
 
+interface SignoutIconProps extends BaseIconProps {
+  name: 'signout';
+  fillColor?: ColorValue;
+}
+
 type IconProps =
   | ArrowIconProps
   | ShortArrowIconProps
@@ -110,7 +116,8 @@ type IconProps =
   | LockIconProps
   | StatusIconProps
   | HeartIconProps
-  | AddIconProps;
+  | AddIconProps
+  | SignoutIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
   const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
@@ -190,6 +197,10 @@ const Icon: React.FC<IconProps> = (props) => {
       case 'add-square': {
         const { fillColor } = props as AddIconProps;
         return <AddSquareIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'signout': {
+        const { fillColor } = props as SignoutIconProps;
+        return <SignoutIcon {...iconProps} fillColor={fillColor} />;
       }
       default:
         return null;

@@ -4,7 +4,10 @@
     "punchline": "Fikirlerin alevlendiği ve görsellerin unutulmaz anlar yarattığı yer"
   },
   "global": {
-    "back": "Geri"
+    "back": "Geri",
+    "confirm": "Onayla",
+    "cancel": "İptal",
+    "ok": "Tamam"
   },
   "auth": {
     "getStarted": "Hemen başlayın",
@@ -34,5 +37,9 @@
       "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}",
       "invalidLoginCredentials": "Geçersiz oturum açma kimlik bilgileri."
     }
+  },
+  "profile": {
+    "title": "Profil",
+    "signout?": "Çıkış yapmak istiyor musunuz?"
   }
 }

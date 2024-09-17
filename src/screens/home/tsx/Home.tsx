@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import createHomeStyles from '../styles/home';
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import BaseHeader from 'src/components/headers/Base';
@@ -15,6 +14,8 @@ import {
   NavigationRoutes,
 } from 'src/navigations/RootStackParamList';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
+
+import { createHomeStyles } from '../styles';
 
 interface HomeProps {
   navigation: HomeScreenNavigation;
@@ -59,7 +60,12 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
             onPress={() => navigation.navigate(NavigationRoutes.POST)}
             fillColor={theme.color.text}
           />,
-          <BaseImage key="avatar" uri={user?.image} imageStyle={styles.image.avatar} />,
+          <BaseImage
+            key="avatar"
+            uri={user?.image}
+            imageStyle={styles.image.avatar}
+            onPress={() => navigation.navigate(NavigationRoutes.PROFILE)}
+          />,
         ]}
       />
     </Container>

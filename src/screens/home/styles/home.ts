@@ -48,8 +48,7 @@ const createHomeStyles = (
     [FlexStyles.HEADER]: {
       width: '100%',
       height: scaleHeight(90),
-      borderWidth: scaleProportionally(1),
-      borderTopWidth: 0,
+      borderBottomWidth: scaleProportionally(1),
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -62,7 +61,7 @@ const createHomeStyles = (
       width: scaleProportionally(35),
       height: scaleProportionally(35),
       borderRadius: scaleProportionally(35) / 2,
-      borderColor: theme.color.text,
+      borderColor: theme.color.border,
       borderWidth: scaleProportionally(1),
     },
   });
@@ -93,8 +92,6 @@ const createHomeStyles = (
     [ViewStyles.HEADER]: {
       borderColor: theme.color.border,
       backgroundColor: theme.color.background,
-      borderBottomLeftRadius: scaleProportionally(20),
-      borderBottomRightRadius: scaleProportionally(20),
     },
   });
 

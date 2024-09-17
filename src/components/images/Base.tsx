@@ -22,7 +22,7 @@ const BaseImage: React.FC<BaseImageProps> = ({
   onPress,
   transition = 750,
 }) => {
-  const blurhash = 'UHF5?xYk^6#M@-5b,1J5@[or[k6.};FxngOZ';
+  const blurhash = 'LEHV6nWB2yk8pyo0adR*.7kCMdnj';
   const flattenedImageStyle = StyleSheet.flatten(imageStyle) as CustomImageStyle;
 
   return (
