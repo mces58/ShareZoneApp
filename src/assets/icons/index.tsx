@@ -6,9 +6,11 @@ import { useTheme } from 'styled-components/native';
 import { Theme } from 'src/constants/styles/themes';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
+import AddSquareIcon from './add';
 import ArrowIcon from './arrow';
 import EyesIcon from './eyes';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from './follow';
+import HeartIcon from './heart';
 import LockIcon from './lock';
 import MailIcon from './mail';
 import ReactIcon from './react';
@@ -50,6 +52,11 @@ interface ShortArrowIconProps extends BaseIconProps {
 
 interface ReactIconProps extends BaseIconProps {
   name: 'react';
+  animated?: {
+    duration?: number;
+    rotate?: boolean;
+    scale?: boolean;
+  };
 }
 
 interface EyesIconProps extends BaseIconProps {
@@ -82,6 +89,16 @@ interface StatusIconProps extends BaseIconProps {
   fillColor?: ColorValue;
 }
 
+interface HeartIconProps extends BaseIconProps {
+  name: 'heart';
+  fillColor?: ColorValue;
+}
+
+interface AddIconProps extends BaseIconProps {
+  name: 'add-square';
+  fillColor?: ColorValue;
+}
+
 type IconProps =
   | ArrowIconProps
   | ShortArrowIconProps
@@ -91,7 +108,9 @@ type IconProps =
   | UserIconProps
   | FollowIconProps
   | LockIconProps
-  | StatusIconProps;
+  | StatusIconProps
+  | HeartIconProps
+  | AddIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
   const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
@@ -120,7 +139,8 @@ const Icon: React.FC<IconProps> = (props) => {
         return <ShortArrowIcon {...iconProps} direction={direction} />;
       }
       case 'react': {
-        return <ReactIcon {...iconProps} />;
+        const { animated } = props as ReactIconProps;
+        return <ReactIcon {...iconProps} animated={animated} />;
       }
       case 'eyes': {
         const { isClose, fillColor } = props as EyesIconProps;
@@ -162,6 +182,14 @@ const Icon: React.FC<IconProps> = (props) => {
       case 'warning': {
         const { fillColor } = props as StatusIconProps;
         return <WarningIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'heart': {
+        const { fillColor } = props as HeartIconProps;
+        return <HeartIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'add-square': {
+        const { fillColor } = props as AddIconProps;
+        return <AddSquareIcon {...iconProps} fillColor={fillColor} />;
       }
       default:
         return null;

@@ -43,6 +43,7 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
                 grads: theme.common.color.defaultGradient1,
               }}
               size={scaleByAspectRatio(40)}
+              animated={{ rotate: true, scale: true }}
               strokeWidth={0.75}
             />
             <GradientText

@@ -27,6 +27,10 @@ type CustomFlexStyle = Pick<
   FlexStyle,
   | 'alignItems'
   | 'alignSelf'
+  | 'borderBottomWidth'
+  | 'borderEndWidth'
+  | 'borderStartWidth'
+  | 'borderTopWidth'
   | 'borderWidth'
   | 'display'
   | 'flex'
@@ -52,6 +56,10 @@ type CustomFlexStyle = Pick<
 > & {
   alignItems?: FlexStyle['alignItems'];
   alignSelf?: FlexStyle['alignSelf'];
+  borderBottomWidth?: FlexStyle['borderWidth'];
+  borderEndWidth?: FlexStyle['borderWidth'];
+  borderStartWidth?: FlexStyle['borderWidth'];
+  borderTopWidth?: FlexStyle['borderWidth'];
   borderWidth?: FlexStyle['borderWidth'];
   display?: FlexStyle['display'];
   flex?: FlexStyle['flex'];
