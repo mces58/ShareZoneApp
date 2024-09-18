@@ -1,6 +1,7 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export const enum NavigationRoutes {
+  EDIT_PROFILE = 'EditProfile',
   HOME = 'Home',
   MAIN = 'Main',
   NOTIFICATION = 'Notification',
@@ -13,6 +14,7 @@ export const enum NavigationRoutes {
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type RootStackParamList = {
+  [NavigationRoutes.EDIT_PROFILE]: undefined;
   [NavigationRoutes.HOME]: undefined;
   [NavigationRoutes.MAIN]: undefined;
   [NavigationRoutes.NOTIFICATION]: undefined;
@@ -23,6 +25,10 @@ export type RootStackParamList = {
   [NavigationRoutes.WELCOME]: undefined;
 };
 
+export type EditProfileScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  NavigationRoutes.EDIT_PROFILE
+>;
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, NavigationRoutes.HOME>;
 type MainScreenProps = NativeStackScreenProps<RootStackParamList, NavigationRoutes.MAIN>;
 type NotificationScreenProps = NativeStackScreenProps<
@@ -47,6 +53,7 @@ type WelcomeScreenProps = NativeStackScreenProps<
   NavigationRoutes.WELCOME
 >;
 
+export type EditProfileScreenNavigation = EditProfileScreenProps['navigation'];
 export type HomeScreenNavigation = HomeScreenProps['navigation'];
 export type MainScreenNavigation = MainScreenProps['navigation'];
 export type NotificationScreenNavigation = NotificationScreenProps['navigation'];
@@ -56,6 +63,7 @@ export type SigninScreenNavigation = SigninScreenProps['navigation'];
 export type SignupScreenNavigation = SignupScreenProps['navigation'];
 export type WelcomeScreenNavigation = WelcomeScreenProps['navigation'];
 
+export type EditProfileScreenRoute = EditProfileScreenProps['route'];
 export type HomeScreenRoute = HomeScreenProps['route'];
 export type MainScreenRoute = MainScreenProps['route'];
 export type NotificationScreenRoute = NotificationScreenProps['route'];

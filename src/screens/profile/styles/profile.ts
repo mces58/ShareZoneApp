@@ -8,7 +8,11 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { scaleHeight, scaleProportionally } from 'src/utils/dimensions';
+import {
+  scaleByAspectRatio,
+  scaleHeight,
+  scaleProportionally,
+} from 'src/utils/dimensions';
 
 const enum FlexStyles {
   CONTAINER = 'container',
@@ -21,6 +25,7 @@ const enum ImageStyles {
 
 const enum ShadowStyles {
   HEADER = 'header',
+  AVATAR = 'avatar',
 }
 
 const enum TextStyles {
@@ -44,6 +49,7 @@ const createProfileStyles = (
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
     [FlexStyles.CONTAINER]: {
       flex: 1,
+      gap: scaleHeight(20),
     },
     [FlexStyles.HEADER]: {
       width: '100%',
@@ -58,11 +64,10 @@ const createProfileStyles = (
 
   const image = StyleSheet.create<Record<ImageStyles, CustomImageStyle>>({
     [ImageStyles.AVATAR]: {
-      width: scaleProportionally(35),
-      height: scaleProportionally(35),
-      borderRadius: scaleProportionally(35) / 2,
-      borderColor: theme.color.border,
-      borderWidth: scaleProportionally(1),
+      alignSelf: 'center',
+      width: scaleByAspectRatio(150),
+      height: scaleByAspectRatio(150),
+      borderRadius: scaleByAspectRatio(150) / 2,
     },
   });
 
@@ -73,6 +78,13 @@ const createProfileStyles = (
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 2,
+    },
+    [ShadowStyles.AVATAR]: {
+      elevation: 5,
+      shadowColor: theme.color.shadow,
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.1,
+      shadowRadius: 5,
     },
   });
 

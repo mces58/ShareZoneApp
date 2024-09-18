@@ -8,7 +8,11 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { scaleHeight, scaleProportionally } from 'src/utils/dimensions';
+import {
+  scaleByAspectRatio,
+  scaleHeight,
+  scaleProportionally,
+} from 'src/utils/dimensions';
 
 const enum FlexStyles {
   CONTAINER = 'container',
@@ -58,9 +62,9 @@ const createHomeStyles = (
 
   const image = StyleSheet.create<Record<ImageStyles, CustomImageStyle>>({
     [ImageStyles.AVATAR]: {
-      width: scaleProportionally(35),
-      height: scaleProportionally(35),
-      borderRadius: scaleProportionally(35) / 2,
+      width: scaleByAspectRatio(35),
+      height: scaleByAspectRatio(35),
+      borderRadius: scaleByAspectRatio(35) / 2,
       borderColor: theme.color.border,
       borderWidth: scaleProportionally(1),
     },

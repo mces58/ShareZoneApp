@@ -6,11 +6,15 @@ import { useTheme } from 'styled-components';
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import BaseHeader from 'src/components/headers/Base';
+import BaseImage from 'src/components/images/Base';
 import { COLORS } from 'src/constants/styles/colors';
 import { Theme } from 'src/constants/styles/themes';
 import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
-import { ProfileScreenNavigation } from 'src/navigations/RootStackParamList';
+import {
+  NavigationRoutes,
+  ProfileScreenNavigation,
+} from 'src/navigations/RootStackParamList';
 import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
@@ -21,7 +25,7 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ navigation }) => {
-  const { setAuthData } = useAuth();
+  const { setAuthData, user } = useAuth();
   const theme = useTheme() as Theme;
   const { t } = useI18n();
   const styles = useMemo(() => createProfileStyles(theme), [theme]);
@@ -79,6 +83,19 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
             onPress={handleSignOut}
           />,
         ]}
+      />
+      <BaseImage
+        uri={user?.image}
+        icon={
+          <Icon
+            name="edit"
+            size={scaleByAspectRatio(28)}
+            fillColor={theme.common.color.primary}
+            onPress={() => navigation.navigate(NavigationRoutes.EDIT_PROFILE)}
+          />
+        }
+        imageStyle={styles.image.avatar}
+        shadowStyle={styles.shadow.avatar}
       />
     </Container>
   );

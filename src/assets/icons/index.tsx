@@ -8,6 +8,7 @@ import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import AddSquareIcon from './add';
 import ArrowIcon from './arrow';
+import EditIcon from './edit';
 import EyesIcon from './eyes';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from './follow';
 import HeartIcon from './heart';
@@ -105,6 +106,11 @@ interface SignoutIconProps extends BaseIconProps {
   fillColor?: ColorValue;
 }
 
+interface EditIconProps extends Omit<BaseIconProps, 'strokeWidth'> {
+  name: 'edit';
+  fillColor?: ColorValue;
+}
+
 type IconProps =
   | ArrowIconProps
   | ShortArrowIconProps
@@ -117,7 +123,8 @@ type IconProps =
   | StatusIconProps
   | HeartIconProps
   | AddIconProps
-  | SignoutIconProps;
+  | SignoutIconProps
+  | EditIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
   const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
@@ -201,6 +208,10 @@ const Icon: React.FC<IconProps> = (props) => {
       case 'signout': {
         const { fillColor } = props as SignoutIconProps;
         return <SignoutIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'edit': {
+        const { fillColor } = props as EditIconProps;
+        return <EditIcon {...iconProps} fillColor={fillColor} />;
       }
       default:
         return null;
