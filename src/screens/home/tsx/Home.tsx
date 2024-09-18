@@ -6,7 +6,9 @@ import createHomeStyles from '../styles/home';
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import BaseHeader from 'src/components/headers/Base';
+import BaseImage from 'src/components/images/Base';
 import { Theme } from 'src/constants/styles/themes';
+import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
   HomeScreenNavigation,
@@ -19,6 +21,7 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
+  const { user } = useAuth();
   const { t } = useI18n();
   const theme = useTheme() as Theme;
   const styles = useMemo(() => createHomeStyles(theme), [theme]);
@@ -56,13 +59,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
             onPress={() => navigation.navigate(NavigationRoutes.POST)}
             fillColor={theme.color.text}
           />,
-          <Icon
-            key="user"
-            name="user"
-            strokeWidth={1.7}
-            size={scaleByAspectRatio(22)}
-            onPress={() => navigation.navigate(NavigationRoutes.PROFILE)}
-          />,
+          <BaseImage key="avatar" uri={user?.image} imageStyle={styles.image.avatar} />,
         ]}
       />
     </Container>

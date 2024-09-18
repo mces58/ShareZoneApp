@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Theme } from 'src/constants/styles/themes';
 import {
   CustomFlexStyle,
+  CustomImageStyle,
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
@@ -12,6 +13,10 @@ import { scaleHeight, scaleProportionally } from 'src/utils/dimensions';
 const enum FlexStyles {
   CONTAINER = 'container',
   HEADER = 'header',
+}
+
+const enum ImageStyles {
+  AVATAR = 'avatar',
 }
 
 const enum ShadowStyles {
@@ -31,6 +36,7 @@ const createHomeStyles = (
   theme: Theme
 ): {
   flex: Record<FlexStyles, CustomFlexStyle>;
+  image: Record<ImageStyles, CustomImageStyle>;
   shadow: Record<ShadowStyles, CustomShadowStyle>;
   text: Record<TextStyles, CustomTextStyle>;
   view: Record<ViewStyles, CustomViewStyle>;
@@ -48,6 +54,16 @@ const createHomeStyles = (
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: scaleProportionally(15),
+    },
+  });
+
+  const image = StyleSheet.create<Record<ImageStyles, CustomImageStyle>>({
+    [ImageStyles.AVATAR]: {
+      width: scaleProportionally(35),
+      height: scaleProportionally(35),
+      borderRadius: scaleProportionally(35) / 2,
+      borderColor: theme.color.text,
+      borderWidth: scaleProportionally(1),
     },
   });
 
@@ -82,7 +98,7 @@ const createHomeStyles = (
     },
   });
 
-  return { flex, shadow, text, view };
+  return { flex, image, shadow, text, view };
 };
 
 export default createHomeStyles;
