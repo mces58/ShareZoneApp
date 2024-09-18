@@ -16,7 +16,7 @@ import { Theme } from 'src/constants/styles/themes';
 import { SignupData } from 'src/constants/types/user';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
-  NavigationRoutes,
+  RootNavigations,
   SignupScreenNavigation,
 } from 'src/navigations/RootStackParamList';
 import { supabase } from 'src/supabase/supabase';
@@ -50,7 +50,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { user_name: userName, isNewUser: true } },
+        options: { data: { user_name: userName, email, isNewUser: true } },
       });
 
       if (error) throw new Error(error.message);
@@ -147,7 +147,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                   colors={theme.common.color.defaultGradient2}
                   onPress={() => {
                     if (!formRef.current) return;
-                    navigation.navigate(NavigationRoutes.SIGNIN);
+                    navigation.navigate(RootNavigations.SIGNIN);
                     formRef.current.reset();
                   }}
                   textStyle={styles.text.link}
