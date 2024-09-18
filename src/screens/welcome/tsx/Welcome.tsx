@@ -10,9 +10,9 @@ import { BaseText, GradientText } from 'src/components/texts';
 import { Theme } from 'src/constants/styles/themes';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
-  NavigationRoutes,
+  RootNavigations,
   WelcomeScreenNavigation,
-} from 'src/navigations/RootStackParamList';
+} from 'src/navigations/root/RootStackParamList';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { createWelcomeStyles } from '../styles';
@@ -57,7 +57,7 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
         <GradientButton
           text={t('auth.getStarted')}
           colors={theme.common.color.defaultGradient2}
-          onPress={() => navigation.navigate(NavigationRoutes.SIGNUP)}
+          onPress={() => navigation.navigate(RootNavigations.SIGNUP)}
           icon={<Icon name="arrow" direction="right" />}
           flexStyle={styles.flex.button}
           shadowStyle={styles.shadow.button}
@@ -72,7 +72,7 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
           <GradientText
             text={t('auth.signIn')}
             colors={theme.common.color.defaultGradient2}
-            onPress={() => navigation.navigate(NavigationRoutes.SIGNIN)}
+            onPress={() => navigation.navigate(RootNavigations.SIGNIN)}
             textStyle={styles.text.link}
           />
         </Container>

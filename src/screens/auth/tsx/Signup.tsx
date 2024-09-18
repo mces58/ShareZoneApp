@@ -16,9 +16,9 @@ import { Theme } from 'src/constants/styles/themes';
 import { SignupData } from 'src/constants/types/user';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
-  NavigationRoutes,
+  RootNavigations,
   SignupScreenNavigation,
-} from 'src/navigations/RootStackParamList';
+} from 'src/navigations/root/RootStackParamList';
 import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 import { SignupValidation } from 'src/validations/signup';
@@ -147,7 +147,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                   colors={theme.common.color.defaultGradient2}
                   onPress={() => {
                     if (!formRef.current) return;
-                    navigation.navigate(NavigationRoutes.SIGNIN);
+                    navigation.navigate(RootNavigations.SIGNIN);
                     formRef.current.reset();
                   }}
                   textStyle={styles.text.link}

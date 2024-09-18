@@ -9,10 +9,11 @@ import BaseImage from 'src/components/images/Base';
 import { Theme } from 'src/constants/styles/themes';
 import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
+import { ProfileNavigations } from 'src/navigations/profile/ProfileStackParamList';
 import {
   HomeScreenNavigation,
-  NavigationRoutes,
-} from 'src/navigations/RootStackParamList';
+  RootNavigations,
+} from 'src/navigations/root/RootStackParamList';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { createHomeStyles } from '../styles';
@@ -49,7 +50,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
             name="heart"
             strokeWidth={0}
             size={scaleByAspectRatio(22)}
-            onPress={() => navigation.navigate(NavigationRoutes.NOTIFICATION)}
+            onPress={() => navigation.navigate(RootNavigations.NOTIFICATION)}
             fillColor={theme.color.text}
           />,
           <Icon
@@ -57,14 +58,18 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
             name="add-square"
             strokeWidth={0}
             size={scaleByAspectRatio(22)}
-            onPress={() => navigation.navigate(NavigationRoutes.POST)}
+            onPress={() => navigation.navigate(RootNavigations.POST)}
             fillColor={theme.color.text}
           />,
           <BaseImage
             key="avatar"
             uri={user?.image}
             imageStyle={styles.image.avatar}
-            onPress={() => navigation.navigate(NavigationRoutes.PROFILE)}
+            onPress={() =>
+              navigation.navigate(RootNavigations.PROFILE_STACK, {
+                screen: ProfileNavigations.PROFILE,
+              })
+            }
           />,
         ]}
       />

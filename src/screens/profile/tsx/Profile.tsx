@@ -12,9 +12,9 @@ import { Theme } from 'src/constants/styles/themes';
 import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
-  NavigationRoutes,
+  ProfileNavigations,
   ProfileScreenNavigation,
-} from 'src/navigations/RootStackParamList';
+} from 'src/navigations/profile/ProfileStackParamList';
 import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
@@ -91,7 +91,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
             name="edit"
             size={scaleByAspectRatio(28)}
             fillColor={theme.common.color.primary}
-            onPress={() => navigation.navigate(NavigationRoutes.PROFILE_EDIT)}
+            onPress={() => navigation.navigate(ProfileNavigations.PROFILE_EDIT)}
           />
         }
         imageStyle={styles.image.avatar}

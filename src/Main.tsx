@@ -7,7 +7,10 @@ import { StatusBar } from 'expo-status-bar';
 
 import { Theme } from './constants/styles/themes';
 import { useAuth } from './contexts/auth-context';
-import { MainScreenNavigation, NavigationRoutes } from './navigations/RootStackParamList';
+import {
+  MainScreenNavigation,
+  RootNavigations,
+} from './navigations/root/RootStackParamList';
 import { fetchUserById } from './services/user-service';
 import { supabase } from './supabase/supabase';
 
@@ -33,14 +36,14 @@ const Main: React.FC<MainProps> = ({ navigation }) => {
         if (isNewUser) {
           setTimeout(() => {
             supabase.auth.updateUser({ data: { isNewUser: null } });
-            navigation.navigate(NavigationRoutes.HOME);
+            navigation.navigate(RootNavigations.HOME);
           }, 2500);
         } else {
-          navigation.navigate(NavigationRoutes.HOME);
+          navigation.navigate(RootNavigations.HOME);
         }
       } else {
         setAuthData(null);
-        navigation.navigate(NavigationRoutes.WELCOME);
+        navigation.navigate(RootNavigations.WELCOME);
       }
     });
 
