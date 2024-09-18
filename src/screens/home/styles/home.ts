@@ -8,7 +8,11 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { scaleHeight, scaleProportionally } from 'src/utils/dimensions';
+import {
+  scaleByAspectRatio,
+  scaleHeight,
+  scaleProportionally,
+} from 'src/utils/dimensions';
 
 const enum FlexStyles {
   CONTAINER = 'container',
@@ -48,8 +52,7 @@ const createHomeStyles = (
     [FlexStyles.HEADER]: {
       width: '100%',
       height: scaleHeight(90),
-      borderWidth: scaleProportionally(1),
-      borderTopWidth: 0,
+      borderBottomWidth: scaleProportionally(1),
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -59,10 +62,10 @@ const createHomeStyles = (
 
   const image = StyleSheet.create<Record<ImageStyles, CustomImageStyle>>({
     [ImageStyles.AVATAR]: {
-      width: scaleProportionally(35),
-      height: scaleProportionally(35),
-      borderRadius: scaleProportionally(35) / 2,
-      borderColor: theme.color.text,
+      width: scaleByAspectRatio(35),
+      height: scaleByAspectRatio(35),
+      borderRadius: scaleByAspectRatio(35) / 2,
+      borderColor: theme.color.border,
       borderWidth: scaleProportionally(1),
     },
   });
@@ -93,8 +96,6 @@ const createHomeStyles = (
     [ViewStyles.HEADER]: {
       borderColor: theme.color.border,
       backgroundColor: theme.color.background,
-      borderBottomLeftRadius: scaleProportionally(20),
-      borderBottomRightRadius: scaleProportionally(20),
     },
   });
 

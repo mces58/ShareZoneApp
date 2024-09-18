@@ -4,7 +4,10 @@
     "punchline": "Where ideas ignite and visuals create unforgettable moments"
   },
   "global": {
-    "back": "Back"
+    "back": "Back",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "ok": "Ok"
   },
   "auth": {
     "getStarted": "Get Started",
@@ -35,5 +38,9 @@
       "userAlreadyRegistered": "This user already registered: {{email}}",
       "invalidLoginCredentials": "Invalid login credentials."
     }
+  },
+  "profile": {
+    "title": "Profile",
+    "signout?": "Do you want to sign out?"
   }
 }

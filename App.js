@@ -9,7 +9,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { DarkTheme, LightTheme, THEMES } from 'src/constants/styles/themes';
 import { AuthProvider } from 'src/contexts/auth-context';
 import { I18nProvider } from 'src/contexts/i18n-context';
-import MainNavigation from 'src/navigations/MainNavigation';
+import RootNavigation from 'src/navigations/RootNavigation';
 import { loadFonts } from 'src/utils/load-fonts';
 
 import * as Storybook from './.storybook';
@@ -50,7 +50,7 @@ const App = () => {
       <AuthProvider>
         <I18nProvider>
           <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-            <MainNavigation />
+            <RootNavigation />
           </View>
         </I18nProvider>
       </AuthProvider>

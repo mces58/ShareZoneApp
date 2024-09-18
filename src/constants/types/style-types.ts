@@ -121,8 +121,15 @@ type CustomShadowStyle = Pick<
 
 type CustomImageStyle = Pick<
   ImageStyle,
-  'borderColor' | 'borderRadius' | 'borderWidth' | 'flex' | 'height' | 'width'
+  | 'alignSelf'
+  | 'borderColor'
+  | 'borderRadius'
+  | 'borderWidth'
+  | 'flex'
+  | 'height'
+  | 'width'
 > & {
+  alignSelf?: ImageStyle['alignSelf'];
   borderColor?: string;
   borderRadius?: number;
   borderWidth?: number;
