@@ -2,8 +2,6 @@ import React, { useMemo } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import { NavigationProps } from 'src/navigations';
-
 import SpacemanSvg from 'assets/svgs/spaceman.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
@@ -11,13 +9,16 @@ import { BaseContainer, Container } from 'src/components/containers';
 import { BaseText, GradientText } from 'src/components/texts';
 import { Theme } from 'src/constants/styles/themes';
 import { useI18n } from 'src/contexts/i18n-context';
-import { RootNavigations } from 'src/navigations/root/RootStackParamList';
+import {
+  RootNavigations,
+  WelcomeScreenNavigation,
+} from 'src/navigations/RootStackParamList';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { createWelcomeStyles } from '../styles';
 
 interface WelcomeProps {
-  navigation: NavigationProps['Root']['WELCOME'];
+  navigation: WelcomeScreenNavigation;
 }
 
 const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {

@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Main from 'src/Main';
 
-import ProfileStack from '../profile/ProfileStack';
+import ProfileStack from './profile/ProfileStack';
 import { Signin, Signup } from 'src/screens/auth';
 import { Home } from 'src/screens/home';
 import { Notification } from 'src/screens/notification';
