@@ -91,7 +91,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
             name="edit"
             size={scaleByAspectRatio(28)}
             fillColor={theme.common.color.primary}
-            onPress={() => navigation.navigate(NavigationRoutes.EDIT_PROFILE)}
+            onPress={() => navigation.navigate(NavigationRoutes.PROFILE_EDIT)}
           />
         }
         imageStyle={styles.image.avatar}

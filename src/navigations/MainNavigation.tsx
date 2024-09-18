@@ -9,8 +9,7 @@ import { Signin, Signup } from 'src/screens/auth';
 import { Home } from 'src/screens/home';
 import { Notification } from 'src/screens/notification';
 import { Post } from 'src/screens/post';
-import { Profile } from 'src/screens/profile';
-import EditProfile from 'src/screens/profile/tsx/EditProfile';
+import { Profile, ProfileEdit } from 'src/screens/profile';
 import { Welcome } from 'src/screens/welcome';
 
 import { NavigationRoutes, RootStackParamList } from './RootStackParamList';
@@ -25,7 +24,7 @@ const MainNavigation = (): JSX.Element => {
           screenOptions={{ headerShown: false }}
           initialRouteName={NavigationRoutes.MAIN}
         >
-          <Stack.Screen name={NavigationRoutes.EDIT_PROFILE} component={EditProfile} />
+          <Stack.Screen name={NavigationRoutes.PROFILE_EDIT} component={ProfileEdit} />
           <Stack.Screen name={NavigationRoutes.HOME} component={Home} />
           <Stack.Screen name={NavigationRoutes.MAIN} component={Main} />
           <Stack.Screen name={NavigationRoutes.NOTIFICATION} component={Notification} />
