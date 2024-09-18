@@ -3,6 +3,8 @@ import { Linking } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
+import { NavigationProps } from 'src/navigations';
+
 import { createSigninFormFields } from './feats/signin-form';
 import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
@@ -15,10 +17,7 @@ import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
 import { SigninData } from 'src/constants/types/user';
 import { useI18n } from 'src/contexts/i18n-context';
-import {
-  RootNavigations,
-  SigninScreenNavigation,
-} from 'src/navigations/root/RootStackParamList';
+import { RootNavigations } from 'src/navigations/root/RootStackParamList';
 import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 import { SigninValidation } from 'src/validations/signin';
@@ -26,7 +25,7 @@ import { SigninValidation } from 'src/validations/signin';
 import { createSigninStyles } from '../styles';
 
 interface SigninProps {
-  navigation: SigninScreenNavigation;
+  navigation: NavigationProps['Root']['SIGNIN'];
 }
 
 const Signin: React.FC<SigninProps> = ({ navigation }) => {

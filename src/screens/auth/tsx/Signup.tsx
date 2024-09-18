@@ -3,6 +3,8 @@ import { Linking } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
+import { NavigationProps } from 'src/navigations';
+
 import { createSignupFormFields } from './feats/signup-form';
 import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
@@ -15,10 +17,7 @@ import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
 import { SignupData } from 'src/constants/types/user';
 import { useI18n } from 'src/contexts/i18n-context';
-import {
-  RootNavigations,
-  SignupScreenNavigation,
-} from 'src/navigations/root/RootStackParamList';
+import { RootNavigations } from 'src/navigations/root/RootStackParamList';
 import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 import { SignupValidation } from 'src/validations/signup';
@@ -26,7 +25,7 @@ import { SignupValidation } from 'src/validations/signup';
 import { createSignupStyles } from '../styles';
 
 interface SignupProps {
-  navigation: SignupScreenNavigation;
+  navigation: NavigationProps['Root']['SIGNUP'];
 }
 
 const Signup: React.FC<SignupProps> = ({ navigation }) => {

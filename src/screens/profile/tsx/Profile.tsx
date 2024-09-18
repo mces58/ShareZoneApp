@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Alert } from 'react-native';
 
+import { NavigationProps } from 'src/navigations';
 import { useTheme } from 'styled-components';
 
 import Icon from 'src/assets/icons';
@@ -11,17 +12,14 @@ import { COLORS } from 'src/constants/styles/colors';
 import { Theme } from 'src/constants/styles/themes';
 import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
-import {
-  ProfileNavigations,
-  ProfileScreenNavigation,
-} from 'src/navigations/profile/ProfileStackParamList';
+import { ProfileNavigations } from 'src/navigations/profile/ProfileStackParamList';
 import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { createProfileStyles } from '../styles';
 
 interface ProfileProps {
-  navigation: ProfileScreenNavigation;
+  navigation: NavigationProps['Profile']['PROFILE'];
 }
 
 const Profile: React.FC<ProfileProps> = ({ navigation }) => {

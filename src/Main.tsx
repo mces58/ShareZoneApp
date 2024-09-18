@@ -7,15 +7,14 @@ import { StatusBar } from 'expo-status-bar';
 
 import { Theme } from './constants/styles/themes';
 import { useAuth } from './contexts/auth-context';
-import {
-  MainScreenNavigation,
-  RootNavigations,
-} from './navigations/root/RootStackParamList';
+import { RootNavigations } from './navigations/root/RootStackParamList';
 import { fetchUserById } from './services/user-service';
 import { supabase } from './supabase/supabase';
 
+import { NavigationProps } from './navigations';
+
 interface MainProps {
-  navigation: MainScreenNavigation;
+  navigation: NavigationProps['Root']['MAIN'];
 }
 
 const Main: React.FC<MainProps> = ({ navigation }) => {

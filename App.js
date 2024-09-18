@@ -6,10 +6,11 @@ import { ThemeProvider } from 'styled-components/native';
 import Constants from 'expo-constants';
 import * as SplashScreen from 'expo-splash-screen';
 
+import { RootNavigation } from 'src/navigations';
+
 import { DarkTheme, LightTheme, THEMES } from 'src/constants/styles/themes';
 import { AuthProvider } from 'src/contexts/auth-context';
 import { I18nProvider } from 'src/contexts/i18n-context';
-import RootNavigation from 'src/navigations/root/RootNavigation';
 import { loadFonts } from 'src/utils/load-fonts';
 
 import * as Storybook from './.storybook';
