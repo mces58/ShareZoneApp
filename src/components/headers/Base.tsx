@@ -72,7 +72,13 @@ const BaseHeader: React.FC<BaseHeaderProps> = ({
         )}
       </Container>
       {extraIcons && (
-        <Container flexStyle={{ flexDirection: 'row', gap: scaleProportionally(10) }}>
+        <Container
+          flexStyle={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: scaleProportionally(10),
+          }}
+        >
           {extraIcons.map((extraIcon) => extraIcon)}
         </Container>
       )}
