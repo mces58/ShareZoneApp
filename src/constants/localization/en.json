@@ -42,5 +42,9 @@
   "profile": {
     "title": "Profile",
     "signout?": "Do you want to sign out?"
+  },
+  "profileEdit": {
+    "title": "Profili Düzenle",
+    "save": "Kaydet"
   }
 }
