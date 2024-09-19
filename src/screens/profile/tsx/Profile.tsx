@@ -76,10 +76,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
             strokeWidth={1}
             size={scaleByAspectRatio(24)}
             fillColor={COLORS.RED._600}
-            color={{
-              grads: [COLORS.RED._500, COLORS.RED._500],
-              isGradient: true,
-            }}
+            color={{ mono: COLORS.RED._600 }}
             onPress={handleSignOut}
           />,
         ]}
@@ -89,8 +86,9 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
         icon={
           <Icon
             name="edit"
-            size={scaleByAspectRatio(28)}
-            fillColor={theme.common.color.primary}
+            size={scaleByAspectRatio(30)}
+            color={{ mono: theme.color.background }}
+            fillColor={theme.color.text}
             onPress={() => navigation.navigate(ProfileNavigations.PROFILE_EDIT)}
           />
         }

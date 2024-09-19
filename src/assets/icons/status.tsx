@@ -106,7 +106,7 @@ const InfoIcon: React.FC<StatusIconProps> = ({ color, fillColor, strokeWidth }) 
         </LinearGradient>
       </Defs>
       <Path
-        d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zm0-9a1 1 0 011 1v4a1 1 0 01-2 0v-4a1 1 0 011-1zm0-4a1 1 0 110 2 1 1 0 010-2z"
+        d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z"
         fill={fillColor}
         stroke={color.isGradient ? 'url(#grad)' : color.mono}
       />

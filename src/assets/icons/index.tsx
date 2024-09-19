@@ -8,12 +8,15 @@ import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import AddSquareIcon from './add';
 import ArrowIcon from './arrow';
+import CameraIcon from './camera';
 import EditIcon from './edit';
 import EyesIcon from './eyes';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from './follow';
 import HeartIcon from './heart';
+import LocationIcon from './location';
 import LockIcon from './lock';
 import MailIcon from './mail';
+import PhoneIcon from './phone';
 import ReactIcon from './react';
 import ShortArrowIcon from './short-arrow';
 import SignoutIcon from './signout';
@@ -111,6 +114,21 @@ interface EditIconProps extends Omit<BaseIconProps, 'strokeWidth'> {
   fillColor?: ColorValue;
 }
 
+interface CameraIconProps extends Omit<BaseIconProps, 'strokeWidth'> {
+  name: 'camera';
+  fillColor?: ColorValue;
+}
+
+interface PhoneIconProps extends BaseIconProps {
+  name: 'phone';
+  fillColor?: ColorValue;
+}
+
+interface LocationIconProps extends BaseIconProps {
+  name: 'location';
+  fillColor?: ColorValue;
+}
+
 type IconProps =
   | ArrowIconProps
   | ShortArrowIconProps
@@ -124,7 +142,10 @@ type IconProps =
   | HeartIconProps
   | AddIconProps
   | SignoutIconProps
-  | EditIconProps;
+  | EditIconProps
+  | CameraIconProps
+  | PhoneIconProps
+  | LocationIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
   const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
@@ -212,6 +233,18 @@ const Icon: React.FC<IconProps> = (props) => {
       case 'edit': {
         const { fillColor } = props as EditIconProps;
         return <EditIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'camera': {
+        const { fillColor } = props as CameraIconProps;
+        return <CameraIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'phone': {
+        const { fillColor } = props as PhoneIconProps;
+        return <PhoneIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'location': {
+        const { fillColor } = props as LocationIconProps;
+        return <LocationIcon {...iconProps} fillColor={fillColor} />;
       }
       default:
         return null;

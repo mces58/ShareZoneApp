@@ -9,13 +9,16 @@ export class SigninValidation {
     this.t = t;
   }
 
-  public getEmailValidation(): Yup.StringSchema {
+  public getEmailValidation(limit: number): Yup.StringSchema {
     return Yup.string()
       .required(this.t('form.required'))
-      .email(this.t('form.invalidEmail'));
+      .email(this.t('form.invalidEmail'))
+      .max(limit, this.t('form.maxLimit', { limit }));
   }
 
-  public getPasswordValidation(): Yup.StringSchema {
-    return Yup.string().required(this.t('form.required'));
+  public getPasswordValidation(limit: number): Yup.StringSchema {
+    return Yup.string()
+      .required(this.t('form.required'))
+      .max(limit, this.t('form.maxLimit', { limit }));
   }
 }
