@@ -59,6 +59,7 @@ const createProfileStyles = (
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingRight: scaleProportionally(15),
+      paddingLeft: scaleProportionally(5),
     },
   });
 

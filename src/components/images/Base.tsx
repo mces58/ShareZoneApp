@@ -48,7 +48,7 @@ const BaseImage: React.FC<BaseImageProps> = ({
       imageStyle={flattenedImageStyle}
       onPress={onPress}
       disabled={!onPress}
-      style={shadowEffectValue}
+      style={[shadowEffectValue, { alignItems: 'center', justifyContent: 'center' }]}
     >
       <Image
         source={{ uri }}
@@ -59,6 +59,8 @@ const BaseImage: React.FC<BaseImageProps> = ({
           width: flattenedImageStyle.width,
           height: flattenedImageStyle.height,
           borderRadius: flattenedImageStyle.borderRadius,
+          borderWidth: flattenedImageStyle.borderWidth,
+          borderColor: flattenedImageStyle.borderColor,
         }}
       />
       {icon && (
