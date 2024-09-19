@@ -30,7 +30,9 @@ export const createSigninFormFields = ({
         strokeWidth={1}
       />
     ),
-    validation: validation.getEmailValidation(),
+    inputMode: 'email',
+    maxLength: 50,
+    validation: validation.getEmailValidation(50),
   },
   {
     name: 'password',
@@ -44,7 +46,8 @@ export const createSigninFormFields = ({
         strokeWidth={1}
       />
     ),
-    validation: validation.getPasswordValidation(),
+    maxLength: 20,
+    validation: validation.getPasswordValidation(20),
     extraIcon: (
       <Icon
         name="eyes"

@@ -48,7 +48,7 @@ const BaseImage: React.FC<BaseImageProps> = ({
       imageStyle={flattenedImageStyle}
       onPress={onPress}
       disabled={!onPress}
-      style={shadowEffectValue}
+      style={[shadowEffectValue, { alignItems: 'center', justifyContent: 'center' }]}
     >
       <Image
         source={{ uri }}
@@ -59,12 +59,18 @@ const BaseImage: React.FC<BaseImageProps> = ({
           width: flattenedImageStyle.width,
           height: flattenedImageStyle.height,
           borderRadius: flattenedImageStyle.borderRadius,
+          borderWidth: flattenedImageStyle.borderWidth,
+          borderColor: flattenedImageStyle.borderColor,
         }}
       />
       {icon && (
         <IconContainer
-          height={flattenedImageStyle.height || 0}
-          width={flattenedImageStyle.height || 0}
+          style={{
+            transform: [
+              { translateY: (flattenedImageStyle.height || 0) / 2 },
+              { translateX: (flattenedImageStyle.width || 0) / 2 },
+            ],
+          }}
         >
           {icon}
         </IconContainer>
@@ -81,11 +87,8 @@ const StyledTouchableOpacity = styled(TouchableOpacity)<{ imageStyle: CustomImag
   })
 );
 
-const IconContainer = styled(View)<{ height: number; width: number }>(
-  ({ height, width }) => ({
-    position: 'absolute',
-    top: '30%',
-    left: '20%',
-    transform: `translate(${width / 2}px, ${height / 2}px)`,
-  })
-);
+const IconContainer = styled(View)({
+  position: 'absolute',
+  top: '30%',
+  left: '15%',
+});

@@ -5,19 +5,19 @@ import { FormField } from 'src/components/forms/Base';
 import { Theme } from 'src/constants/styles/themes';
 import { TranslationOptions } from 'src/contexts/i18n-context';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { SignupValidation } from 'src/validations/signup';
+import { ProfileEditValidation } from 'src/validations/profile-edit';
 
-interface SignupFormFields {
+interface ProfileEditFormFields {
   t: (key: string, options?: TranslationOptions) => string;
   theme: Theme;
-  validation: SignupValidation;
+  validation: ProfileEditValidation;
 }
 
-export const createSignupFormFields = ({
+export const createProfileEditFormFields = ({
   t,
   theme,
   validation,
-}: SignupFormFields): FormField[] => [
+}: ProfileEditFormFields): FormField[] => [
   {
     name: 'userName',
     placeholder: t('form.input.userName'),
@@ -34,42 +34,49 @@ export const createSignupFormFields = ({
     validation: validation.getUserNameValidation(3, 20),
   },
   {
-    name: 'email',
-    placeholder: t('form.input.email'),
+    name: 'phoneNumber',
+    placeholder: t('form.input.phoneNumber'),
     type: 'text' as const,
     icon: (
       <Icon
-        name="mail"
+        name="phone"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
         strokeWidth={1}
       />
     ),
-    inputMode: 'email',
-    maxLength: 50,
-    validation: validation.getEmailValidation(50),
+    inputMode: 'numeric',
+    maxLength: 14,
+    validation: validation.getPhoneNumberValidation(),
   },
   {
-    name: 'password',
-    placeholder: t('form.input.password'),
-    type: 'password' as const,
+    name: 'address',
+    placeholder: t('form.input.address'),
+    type: 'text' as const,
     icon: (
       <Icon
-        name="lock"
+        name="location"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
         strokeWidth={1}
       />
     ),
-    maxLength: 20,
-    validation: validation.getPasswordValidation(6, 20),
-    extraIcon: (
+    maxLength: 50,
+    validation: validation.getMaxLimitValidation(50),
+  },
+  {
+    name: 'bio',
+    placeholder: t('form.input.bio'),
+    type: 'textarea' as const,
+    icon: (
       <Icon
-        name="eyes"
+        name="info"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
-        strokeWidth={1.25}
+        strokeWidth={1}
       />
     ),
+    maxLength: 100,
+    validation: validation.getMaxLimitValidation(100),
   },
 ];
