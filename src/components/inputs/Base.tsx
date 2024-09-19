@@ -12,6 +12,7 @@ import {
   CustomViewStyle,
 } from 'src/constants/types/style-types';
 import { scaleByAspectRatio, scaleProportionally } from 'src/utils/dimensions';
+import { formatPhoneNumber } from 'src/utils/format-phone-number';
 
 import { Container } from '../containers';
 
@@ -22,7 +23,10 @@ interface BaseInputProps {
   extraIcon?: ReactNode;
   flexStyle?: StyleProp<Pick<CustomFlexStyle, 'alignSelf' | 'width' | 'height'>>;
   icon?: ReactNode;
+  inputMode?: 'text' | 'numeric' | 'search' | 'email';
+  isMultiLine?: boolean;
   isSecureText?: boolean;
+  maxLength?: number;
   shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
@@ -35,7 +39,10 @@ const BaseInput: React.FC<BaseInputProps> = ({
   extraIcon,
   flexStyle = {},
   icon,
+  inputMode = 'text',
+  isMultiLine = false,
   isSecureText = false,
+  maxLength,
   shadowStyle = {},
   textStyle = {},
   viewStyle = {},
@@ -53,10 +60,19 @@ const BaseInput: React.FC<BaseInputProps> = ({
   const flattenedShadowStyle = StyleSheet.flatten(shadowStyle);
   const flattenedTextStyle = StyleSheet.flatten(textStyle);
   const flattenedViewStyle = StyleSheet.flatten(viewStyle);
+  const flexStyleHeight = (flexStyle as CustomFlexStyle).height || 0;
+
+  const heightNumber =
+    typeof flexStyleHeight === 'string' && flexStyleHeight.endsWith('%')
+      ? parseFloat(flexStyleHeight)
+      : typeof flexStyleHeight === 'number'
+        ? flexStyleHeight
+        : 0;
 
   useEffect(() => {
-    const toValueTop = isFocused || text ? -scaleByAspectRatio(12) : 0;
-    const toValueLeft = isFocused || text ? 0 : scaleByAspectRatio(5);
+    const toValueTop = isFocused || text ? -scaleByAspectRatio(heightNumber * 0.25) : 0;
+    const toValueLeft =
+      isFocused || text ? -scaleByAspectRatio(2) : scaleByAspectRatio(2);
     const toValueFontSize =
       isFocused || text ? theme.common.font.sizes._12 : theme.common.font.sizes._18;
 
@@ -79,6 +95,11 @@ const BaseInput: React.FC<BaseInputProps> = ({
     ]).start();
   }, [isFocused, text, placeholderTop, placeholderLeft, placeholderFontSize, theme]);
 
+  const handleTextChange = (input: string): void => {
+    if (inputMode === 'numeric') onChangeText(formatPhoneNumber(input));
+    else onChangeText(input);
+  };
+
   return (
     <Container
       flexStyle={[
@@ -87,7 +108,9 @@ const BaseInput: React.FC<BaseInputProps> = ({
           alignItems: 'center',
           borderWidth: 1,
           paddingHorizontal: scaleProportionally(15),
+          paddingTop: scaleProportionally(5),
           gap: scaleProportionally(5),
+          overflow: 'hidden',
         },
         flattenedFlexStyle,
       ]}
@@ -109,6 +132,7 @@ const BaseInput: React.FC<BaseInputProps> = ({
         })}
       <Container flexStyle={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
         <AnimatedPlaceholder
+          isMultiline={isMultiLine}
           style={{
             top: placeholderTop,
             left: placeholderLeft,
@@ -119,11 +143,29 @@ const BaseInput: React.FC<BaseInputProps> = ({
         </AnimatedPlaceholder>
         <Input
           value={text}
-          onChangeText={onChangeText}
+          onChangeText={handleTextChange}
           textStyle={flattenedTextStyle}
           secureTextEntry={isSecureText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          inputMode={inputMode} // Both
+          maxLength={maxLength} // Both
+          multiline={isMultiLine} // Both
+          enterKeyHint={
+            isMultiLine ? 'enter' : inputMode === 'search' ? 'search' : 'done'
+          } // Both
+          clearButtonMode="while-editing" // iOS only
+          clearTextOnFocus // IOS only
+          keyboardAppearance="default" // IOS only
+          scrollEnabled={isMultiLine} // IOS only
+          cursorColor={theme.common.color.primary} // Android only
+          selectionHandleColor={theme.common.color.primary} // Android only
+          autoCapitalize={inputMode === 'email' ? 'none' : 'sentences'} // Both
+          textAlignVertical={isMultiLine ? 'top' : 'center'} // Both
+          style={{
+            height: isMultiLine ? flattenedFlexStyle.height : undefined,
+            paddingVertical: isMultiLine ? scaleProportionally(16) : undefined,
+          }}
         />
       </Container>
       {extraIcon && extraIcon}
@@ -133,18 +175,23 @@ const BaseInput: React.FC<BaseInputProps> = ({
 
 export default BaseInput;
 
-const AnimatedPlaceholder = styled(Animated.Text)<{ theme: Theme }>(({ theme }) => ({
-  position: 'absolute',
-  color: theme.color.textMuted,
-  fontFamily: theme.common.font.families.regular,
-}));
-
-const Input = styled(TextInput)<{ textStyle: CustomTextStyle; theme: Theme }>(
-  ({ textStyle, theme }) => ({
-    flex: 1,
-    color: theme.color.text,
-    fontFamily: theme.common.font.families.medium,
-    fontSize: theme.common.font.sizes._16,
-    ...textStyle,
+const AnimatedPlaceholder = styled(Animated.Text)<{ isMultiline: boolean; theme: Theme }>(
+  ({ isMultiline, theme }) => ({
+    position: 'absolute',
+    backgroundColor: theme.color.background,
+    color: theme.color.textMuted,
+    fontFamily: theme.common.font.families.regular,
+    zIndex: isMultiline ? 1 : 0,
   })
 );
+
+const Input = styled(TextInput)<{
+  textStyle: CustomTextStyle;
+  theme: Theme;
+}>(({ textStyle, theme }) => ({
+  flex: 1,
+  color: theme.color.text,
+  fontFamily: theme.common.font.families.medium,
+  fontSize: theme.common.font.sizes._16,
+  ...textStyle,
+}));

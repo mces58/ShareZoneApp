@@ -17,6 +17,9 @@ import {
 const enum FlexStyles {
   CONTAINER = 'container',
   HEADER = 'header',
+  FORM = 'form',
+  FORM_INPUT = 'formInput',
+  FORM_BUTTON = 'formButton',
 }
 
 const enum ImageStyles {
@@ -24,17 +27,21 @@ const enum ImageStyles {
 }
 
 const enum ShadowStyles {
-  HEADER = 'header',
-  AVATAR = 'avatar',
+  NORMAL = 'normal',
+  SMALL = 'small',
 }
 
 const enum TextStyles {
   HEADER = 'header',
+  SUBHEADER = 'subheader',
+  FORM_BUTTON = 'formButton',
 }
 
 const enum ViewStyles {
   CONTAINER = 'container',
   HEADER = 'header',
+  FORM_INPUT = 'formInput',
+  FORM_BUTTON = 'formButton',
 }
 
 const createProfileEditStyles = (
@@ -61,6 +68,23 @@ const createProfileEditStyles = (
       paddingRight: scaleProportionally(15),
       paddingLeft: scaleProportionally(5),
     },
+    [FlexStyles.FORM]: {
+      width: '90%',
+      alignSelf: 'center',
+      gap: scaleHeight(25),
+      paddingVertical: scaleHeight(20),
+    },
+    [FlexStyles.FORM_INPUT]: {
+      width: '100%',
+      height: scaleHeight(65),
+    } as Pick<CustomFlexStyle, 'alignSelf' | 'width' | 'height'>,
+    [FlexStyles.FORM_BUTTON]: {
+      width: '100%',
+      height: scaleHeight(55),
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
+    },
   });
 
   const image = StyleSheet.create<Record<ImageStyles, CustomImageStyle>>({
@@ -73,19 +97,19 @@ const createProfileEditStyles = (
   });
 
   const shadow = StyleSheet.create<Record<ShadowStyles, CustomShadowStyle>>({
-    [ShadowStyles.HEADER]: {
+    [ShadowStyles.NORMAL]: {
       elevation: 5,
       shadowColor: theme.color.shadow,
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.2,
       shadowRadius: 2,
     },
-    [ShadowStyles.AVATAR]: {
-      elevation: 5,
+    [ShadowStyles.SMALL]: {
+      elevation: 2,
       shadowColor: theme.color.shadow,
-      shadowOffset: { width: 0, height: 0 },
+      shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
-      shadowRadius: 5,
+      shadowRadius: 1,
     },
   });
 
@@ -94,6 +118,18 @@ const createProfileEditStyles = (
       fontSize: theme.common.font.sizes._20,
       fontFamily: theme.common.font.families.bold,
       letterSpacing: scaleProportionally(1.5),
+    },
+    [TextStyles.SUBHEADER]: {
+      fontFamily: theme.common.font.families.semiBold,
+      fontSize: theme.common.font.sizes._16,
+      textAlign: 'center',
+      letterSpacing: scaleProportionally(1),
+    },
+    [TextStyles.FORM_BUTTON]: {
+      fontFamily: theme.common.font.families.bold,
+      fontSize: theme.common.font.sizes._18,
+      letterSpacing: scaleProportionally(1),
+      textDecorationLine: 'underline',
     },
   });
 
@@ -104,6 +140,13 @@ const createProfileEditStyles = (
     [ViewStyles.HEADER]: {
       backgroundColor: theme.color.background,
       borderColor: theme.color.border,
+    },
+    [ViewStyles.FORM_INPUT]: {
+      borderRadius: scaleProportionally(15),
+    },
+    [ViewStyles.FORM_BUTTON]: {
+      backgroundColor: theme.common.color.success,
+      borderRadius: scaleProportionally(15),
     },
   });
 

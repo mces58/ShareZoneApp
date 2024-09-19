@@ -33,10 +33,12 @@ import { BaseText } from '../texts';
 export interface FormField {
   name: string;
   placeholder: string;
-  type: 'text' | 'password';
-  validation: Yup.StringSchema;
+  type: 'text' | 'password' | 'textarea';
   extraIcon?: ReactNode;
   icon?: ReactNode;
+  inputMode?: 'text' | 'numeric' | 'search' | 'email';
+  maxLength?: number;
+  validation?: Yup.StringSchema;
 }
 
 interface BaseFormProps {
@@ -59,7 +61,9 @@ const BaseForm = forwardRef(
         Yup.object().shape(
           formFields.reduce(
             (acc, field) => {
-              acc[field.name] = field.validation;
+              if (field.validation) {
+                acc[field.name] = field.validation;
+              }
               return acc;
             },
             {} as Record<string, Yup.StringSchema>
@@ -134,9 +138,27 @@ const BaseForm = forwardRef(
                   onChangeText={onChange}
                   placeholder={field.placeholder}
                   text={value || ''}
-                  isSecureText={field.type === 'password' && !showPassword[field.name]}
                   icon={field.icon}
-                  flexStyle={inputStyle?.flex}
+                  inputMode={field.inputMode}
+                  isSecureText={field.type === 'password' && !showPassword[field.name]}
+                  isMultiLine={field.type === 'textarea'}
+                  maxLength={field.maxLength}
+                  flexStyle={
+                    field.type === 'textarea'
+                      ? [
+                          inputStyle?.flex,
+                          {
+                            height:
+                              (typeof inputStyle?.flex === 'object' &&
+                              inputStyle.flex &&
+                              'height' in inputStyle.flex &&
+                              typeof inputStyle.flex.height === 'number'
+                                ? inputStyle.flex.height
+                                : 0) * 2,
+                          },
+                        ]
+                      : inputStyle?.flex
+                  }
                   shadowStyle={
                     errors[field.name]?.message ? undefined : inputStyle?.shadow
                   }

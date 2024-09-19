@@ -50,7 +50,7 @@ const Main: React.FC<MainProps> = ({ navigation }) => {
   }, []);
   return (
     <Container>
-      <StatusBar style="auto" />
+      <StatusBar style="auto" backgroundColor={theme.color.background} />
       <ActivityIndicator color={theme.color.text} size="large" />
     </Container>
   );

@@ -7,7 +7,8 @@
     "back": "Back",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "ok": "Ok"
+    "ok": "Ok",
+    "save": "Save"
   },
   "auth": {
     "getStarted": "Get Started",
@@ -23,14 +24,19 @@
     "input": {
       "email": "Email",
       "password": "Password",
-      "userName": "Username"
+      "userName": "Username",
+      "phoneNumber": "Phone Number",
+      "address": "Address",
+      "bio": "About"
     },
     "required": "This field is required",
     "invalidEmail": "Enter a valid email address",
     "passwordLength": "Password must be between {{min}} and {{max}} characters",
     "passwordPattern": "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     "userNameLength": "Username must be between {{min}} and {{max}} characters",
-    "userNamePattern": "Username can only contain {{pattern}} and underscore (_)"
+    "userNamePattern": "Username can only contain {{pattern}} and underscore (_)",
+    "phoneNumberPattern": "Phone number must be in {{pattern}} format",
+    "maxLimit": "Maximum limit reached: {{limit}}"
   },
   "error": {
     "default": "An unknown error occurred.",
@@ -45,6 +51,6 @@
   },
   "profileEdit": {
     "title": "Profili Düzenle",
-    "save": "Kaydet"
+    "subTitle": "You can edit your profile information here."
   }
 }

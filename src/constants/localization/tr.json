@@ -7,7 +7,8 @@
     "back": "Geri",
     "confirm": "Onayla",
     "cancel": "İptal",
-    "ok": "Tamam"
+    "ok": "Tamam",
+    "save": "Kaydet"
   },
   "auth": {
     "getStarted": "Hemen başlayın",
@@ -22,14 +23,19 @@
     "input": {
       "email": "E-posta",
       "password": "Şifre",
-      "userName": "Kullanıcı Adı"
+      "userName": "Kullanıcı Adı",
+      "phoneNumber": "Telefon Numarası",
+      "address": "Adres",
+      "bio": "Hakkımda"
     },
     "required": "Bu alan zorunludur",
     "invalidEmail": "Geçerli bir e-posta adresi girin",
     "passwordLength": "Şifre {{min}} ile {{max}} karakter arasında olmalıdır",
     "passwordPattern": "Şifre en az bir büyük harf, bir küçük harf ve bir rakam içermelidir",
     "userNameLength": "Kullanıcı adı {{min}} ile {{max}} karakter arasında olmalıdır",
-    "userNamePattern": "Kullanıcı adı yalnızca {{pattern}} ve alt çizgi (_) içermelidir"
+    "userNamePattern": "Kullanıcı adı yalnızca {{pattern}} ve alt çizgi (_) içermelidir",
+    "phoneNumberPattern": "Telefon numarası {{pattern}} formatında olmalıdır",
+    "maxLimit": "Maksimum sınırı aştınız: {{limit}}"
   },
   "error": {
     "default": "Bilinmeyen bir hata oluştu.",
@@ -44,6 +50,6 @@
   },
   "profileEdit": {
     "title": "Profili Düzenle",
-    "save": "Kaydet"
+    "subTitle": "Profil bilgilerinizi buradan düzenleyebilirsiniz."
   }
 }
