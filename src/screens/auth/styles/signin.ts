@@ -11,7 +11,6 @@ import { scaleHeight, scaleProportionally } from 'src/utils/dimensions';
 
 const enum FlexStyles {
   CONTAINER = 'container',
-  HEADER = 'header',
   MAIN = 'main',
   FORM = 'form',
   FORM_INPUT = 'formInput',
@@ -21,27 +20,22 @@ const enum FlexStyles {
   FOOTER_BUTTON_CONTAINER = 'footerButtonContainer',
   BUTTON = 'button',
   ROW_TEXT = 'rowText',
-  FOLLOW = 'follow',
 }
 
 const enum ShadowStyles {
-  HEADER = 'header',
   FORM_INPUT = 'formInput',
   BUTTON = 'button',
 }
 
 const enum TextStyles {
-  HEADER = 'header',
   FORM_HEADER = 'formHeader',
   BUTTON = 'button',
   FOOTER = 'footer',
   LINK = 'link',
-  FOLLOW = 'follow',
 }
 
 const enum ViewStyles {
   CONTAINER = 'container',
-  HEADER = 'header',
   FORM_INPUT = 'formInput',
   BUTTON = 'button',
 }
@@ -57,13 +51,6 @@ const createSigninStyles = (
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
     [FlexStyles.CONTAINER]: {
       flex: 1,
-    },
-    [FlexStyles.HEADER]: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      width: '100%',
-      height: scaleHeight(100),
-      paddingHorizontal: scaleHeight(10),
     },
     [FlexStyles.MAIN]: {
       flex: 1,
@@ -110,22 +97,9 @@ const createSigninStyles = (
       justifyContent: 'center',
       gap: scaleProportionally(5),
     },
-    [FlexStyles.FOLLOW]: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: scaleProportionally(5),
-    },
   });
 
   const shadow = StyleSheet.create<Record<ShadowStyles, CustomShadowStyle>>({
-    [ShadowStyles.HEADER]: {
-      elevation: 5,
-      shadowColor: theme.color.shadow,
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.3,
-      shadowRadius: 2,
-    },
     [ShadowStyles.FORM_INPUT]: {
       elevation: 2,
       shadowColor: theme.color.shadow,
@@ -143,10 +117,6 @@ const createSigninStyles = (
   });
 
   const text = StyleSheet.create<Record<TextStyles, CustomTextStyle>>({
-    [TextStyles.HEADER]: {
-      fontSize: theme.common.font.sizes._24,
-      fontFamily: theme.common.font.families.bold,
-    },
     [TextStyles.FORM_HEADER]: {
       fontFamily: theme.common.font.families.bold,
       fontSize: theme.common.font.sizes._32,
@@ -169,19 +139,10 @@ const createSigninStyles = (
       fontSize: theme.common.font.sizes._14,
       textDecorationLine: 'underline',
     },
-    [TextStyles.FOLLOW]: {
-      fontFamily: theme.common.font.families.bold,
-      fontSize: theme.common.font.sizes._16,
-    },
   });
 
   const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
     [ViewStyles.CONTAINER]: {
-      backgroundColor: theme.color.background,
-    },
-    [ViewStyles.HEADER]: {
-      borderBottomLeftRadius: scaleProportionally(20),
-      borderBottomRightRadius: scaleProportionally(20),
       backgroundColor: theme.color.background,
     },
     [ViewStyles.FORM_INPUT]: {

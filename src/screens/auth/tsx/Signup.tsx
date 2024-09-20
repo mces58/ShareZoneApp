@@ -1,15 +1,15 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Linking } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
+import Header from './components/Header';
+import SocialMedia from './components/SocialMedia';
 import { createSignupFormFields } from './feats/signup-form';
 import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { Container } from 'src/components/containers';
 import BaseForm from 'src/components/forms/Base';
-import BaseHeader from 'src/components/headers/Base';
 import { BaseText, GradientText } from 'src/components/texts';
 import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
@@ -52,9 +52,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
         password,
         options: { data: { user_name: userName, email, isNewUser: true } },
       });
-
       if (error) throw new Error(error.message);
-
       setToast({ message: t('auth.accountCreated'), type: ToastType.Success });
     } catch (err: unknown) {
       if (err instanceof Error)
@@ -70,22 +68,15 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   }, []);
 
   const handleFormSubmit = useCallback((): void => {
-    if (formRef.current) {
-      formRef.current.submit();
-    }
+    if (formRef.current) formRef.current.submit();
   }, []);
 
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-      <BaseHeader
+      <Header
         title={t('global.back')}
-        icon={
-          <Icon name="short-arrow" direction="left" onPress={() => navigation.goBack()} />
-        }
-        flexStyle={styles.flex.header}
-        shadowStyle={styles.shadow.header}
-        textStyle={styles.text.header}
-        viewStyle={styles.view.header}
+        theme={theme}
+        onPressHeaderIcon={() => navigation.goBack()}
       />
       <Container flexStyle={styles.flex.main}>
         <Container flexStyle={styles.flex.form}>
@@ -154,30 +145,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                 />
               </Container>
             </Container>
-            <Container flexStyle={styles.flex.follow}>
-              <BaseText text={t('auth.followOn') + ':'} textStyle={styles.text.follow} />
-              <Icon
-                name="github"
-                size={scaleByAspectRatio(18)}
-                color={{ isGradient: true, grads: theme.common.color.defaultGradient1 }}
-                onPress={() => Linking.openURL('https://github.com/mces58')}
-              />
-              <Icon
-                name="instagram"
-                size={scaleByAspectRatio(18)}
-                color={{
-                  isGradient: true,
-                  grads: theme.common.color.defaultGradient1,
-                }}
-                onPress={() => Linking.openURL('https://www.instagram.com/mces58')}
-              />
-              <Icon
-                name="linkedin"
-                size={scaleByAspectRatio(18)}
-                color={{ isGradient: true, grads: theme.common.color.defaultGradient1 }}
-                onPress={() => Linking.openURL('https://www.linkedin.com/in/mces58')}
-              />
-            </Container>
+            <SocialMedia text={t('auth.followOn')} theme={theme} />
           </Container>
         </Container>
       </Container>
