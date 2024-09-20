@@ -2,12 +2,12 @@ import React, { useCallback, useMemo, useRef } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
+import Header from './components/Header';
 import { createProfileEditFormFields } from './feats/profile-edit-form';
 import Icon from 'src/assets/icons';
 import { BaseButton } from 'src/components/buttons';
 import { Container, KeyboardContainer } from 'src/components/containers';
 import BaseForm from 'src/components/forms/Base';
-import BaseHeader from 'src/components/headers/Base';
 import BaseImage from 'src/components/images/Base';
 import { BaseText } from 'src/components/texts';
 import { Theme } from 'src/constants/styles/themes';
@@ -51,20 +51,10 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
       height={{ android: scaleByAspectRatio(250), ios: scaleByAspectRatio(50) }}
     >
       <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-        <BaseHeader
+        <Header
           title={t('profileEdit.title')}
-          icon={
-            <Icon
-              name="short-arrow"
-              direction="left"
-              size={scaleByAspectRatio(26)}
-              onPress={() => navigation.goBack()}
-            />
-          }
-          flexStyle={styles.flex.header}
-          viewStyle={styles.view.header}
-          shadowStyle={styles.shadow.normal}
-          textStyle={styles.text.header}
+          theme={theme}
+          onPressHeaderIcon={() => navigation.goBack()}
         />
         <BaseImage
           uri={user?.image}
