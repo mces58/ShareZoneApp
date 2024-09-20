@@ -3,11 +3,10 @@ import { Alert } from 'react-native';
 
 import { useTheme } from 'styled-components';
 
+import Header from './components/Header';
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
-import BaseHeader from 'src/components/headers/Base';
 import BaseImage from 'src/components/images/Base';
-import { COLORS } from 'src/constants/styles/colors';
 import { Theme } from 'src/constants/styles/themes';
 import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
@@ -55,31 +54,10 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
 
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-      <BaseHeader
+      <Header
         title={t('profile.title')}
-        icon={
-          <Icon
-            name="short-arrow"
-            direction="left"
-            size={scaleByAspectRatio(30)}
-            onPress={() => navigation.goBack()}
-          />
-        }
-        flexStyle={styles.flex.header}
-        viewStyle={styles.view.header}
-        shadowStyle={styles.shadow.header}
-        textStyle={styles.text.header}
-        extraIcons={[
-          <Icon
-            key="signout"
-            name="signout"
-            strokeWidth={1}
-            size={scaleByAspectRatio(24)}
-            fillColor={COLORS.RED._600}
-            color={{ mono: COLORS.RED._600 }}
-            onPress={handleSignOut}
-          />,
-        ]}
+        onPressHeaderIcon={() => navigation.goBack()}
+        onPressExtraHeaderIcon={handleSignOut}
       />
       <BaseImage
         uri={user?.image}
@@ -93,7 +71,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
           />
         }
         imageStyle={styles.image.avatar}
-        shadowStyle={styles.shadow.avatar}
+        shadowStyle={styles.shadow.small}
       />
     </Container>
   );
