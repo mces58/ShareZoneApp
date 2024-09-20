@@ -53,6 +53,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
       <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
         <Header
           title={t('profileEdit.title')}
+          theme={theme}
           onPressHeaderIcon={() => navigation.goBack()}
         />
         <BaseImage
