@@ -19,7 +19,7 @@ export const createProfileEditFormFields = ({
   validation,
 }: ProfileEditFormFields): FormField[] => [
   {
-    name: 'userName',
+    name: 'user_name',
     placeholder: t('form.input.userName'),
     type: 'text' as const,
     icon: (
@@ -34,7 +34,7 @@ export const createProfileEditFormFields = ({
     validation: validation.getUserNameValidation(3, 20),
   },
   {
-    name: 'phoneNumber',
+    name: 'phone_number',
     placeholder: t('form.input.phoneNumber'),
     type: 'text' as const,
     icon: (

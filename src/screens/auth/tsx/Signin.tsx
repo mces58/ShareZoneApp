@@ -55,7 +55,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
     } catch (err: unknown) {
       if (err instanceof Error)
         setToast({
-          message: t('error.auth.invalidLoginCredentials'),
+          message: t('toast.error.invalidLoginCredentials'),
           type: ToastType.Error,
         });
       else setToast({ message: t('error.default'), type: ToastType.Error });
@@ -95,6 +95,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
           />
           {toast && (
             <Toast
+              downHeight={0.05}
               message={toast.message}
               type={toast.type}
               icon={<Icon name="error" fillColor={theme.color.text} strokeWidth={0} />}

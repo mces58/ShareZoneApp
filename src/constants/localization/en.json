@@ -17,8 +17,7 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "forgotPassword": "Forgot Password?",
-    "followOn": "Follow on",
-    "accountCreated": "Your account has been created successfully."
+    "followOn": "Follow on"
   },
   "form": {
     "input": {
@@ -39,11 +38,7 @@
     "maxLimit": "Maximum limit reached: {{limit}}"
   },
   "error": {
-    "default": "An unknown error occurred.",
-    "auth": {
-      "userAlreadyRegistered": "This user already registered: {{email}}",
-      "invalidLoginCredentials": "Invalid login credentials."
-    }
+    "default": "An unknown error occurred."
   },
   "profile": {
     "title": "Profile",
@@ -52,5 +47,17 @@
   "profileEdit": {
     "title": "Profili Düzenle",
     "subTitle": "You can edit your profile information here."
+  },
+  "toast": {
+    "success": {
+      "accountCreated": "Your account has been created successfully.",
+      "profileUpdated": "Your profile has been updated successfully."
+    },
+    "error": {
+      "invalidLoginCredentials": "Invalid login credentials.",
+      "userAlreadyRegistered": "This user already registered: {{email}}",
+      "profileUpdated": "Profile update failed.",
+      "emptyForm": "You haven't made any changes yet."
+    }
   }
 }

@@ -19,7 +19,7 @@ export const createSignupFormFields = ({
   validation,
 }: SignupFormFields): FormField[] => [
   {
-    name: 'userName',
+    name: 'user_name',
     placeholder: t('form.input.userName'),
     type: 'text' as const,
     icon: (
