@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-object-injection */
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Animated } from 'react-native';
+import { Animated, Dimensions } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
@@ -18,30 +18,40 @@ export const enum ToastType {
 }
 
 interface ToastProps {
+  downHeight: number;
   message: string;
   type: ToastType;
   duration?: number;
   icon?: ReactNode;
 }
 
-const Toast: React.FC<ToastProps> = ({ message, type, duration = 2000, icon }) => {
-  const [slideAnim] = useState<Animated.Value>(new Animated.Value(-scaleHeight(100)));
+const Toast: React.FC<ToastProps> = ({
+  downHeight,
+  message,
+  type,
+  duration = 2000,
+  icon,
+}) => {
+  const { width } = Dimensions.get('window');
+  const [slideAnim] = useState<Animated.Value>(
+    new Animated.Value(-scaleHeight(width * 0.5))
+  );
   const [visible, setVisible] = useState<boolean>(false);
   const theme = useTheme() as Theme;
 
   useEffect(() => {
     const showToast = (): void => {
       Animated.timing(slideAnim, {
-        toValue: scaleHeight(10),
-        duration: 450,
+        toValue: -scaleHeight(width) * downHeight,
+        duration: 500,
         useNativeDriver: true,
       }).start();
     };
 
     const hideToast = (): void => {
       Animated.timing(slideAnim, {
-        toValue: -scaleHeight(100),
-        duration: 400,
+        toValue: -scaleHeight(width),
+        duration: 500,
         useNativeDriver: true,
       }).start(() => setVisible(false));
     };
