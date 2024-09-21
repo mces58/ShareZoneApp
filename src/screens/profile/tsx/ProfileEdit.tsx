@@ -27,7 +27,7 @@ interface ProfileEditProps {
 }
 
 const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
-  const { user } = useAuth();
+  const { user, setUserData } = useAuth();
   const theme = useTheme() as Theme;
   const { t } = useI18n();
   const styles = useMemo(() => createProfileEditStyles(theme), [theme]);
@@ -60,14 +60,16 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
       if (user?.id === undefined) throw new Error('User not found');
 
       const res = await updateUserById(user.id, newUser);
-      if (res.success && res.data)
+      if (res.success && res.data) {
+        setUserData(res.data);
         setToast({
           message: t('toast.success.profileUpdated'),
           type: ToastType.Success,
         });
-      setTimeout(() => {
-        navigation.goBack();
-      }, 2000);
+        setTimeout(() => {
+          navigation.goBack();
+        }, 2000);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         setToast({
