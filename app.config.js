@@ -29,5 +29,5 @@ export default {
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
-  plugins: ['expo-localization'],
+  plugins: ['expo-localization', 'expo-image-picker'],
 };
