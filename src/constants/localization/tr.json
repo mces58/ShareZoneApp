@@ -16,8 +16,7 @@
     "dontHaveAnAccount": "Henüz bir hesabınız yok mu?",
     "signIn": "Giriş Yap",
     "signUp": "Kayıt Ol",
-    "followOn": "Takip Et",
-    "accountCreated": "Hesabınız başarıyla oluşturuldu."
+    "followOn": "Takip Et"
   },
   "form": {
     "input": {
@@ -38,11 +37,7 @@
     "maxLimit": "Maksimum sınırı aştınız: {{limit}}"
   },
   "error": {
-    "default": "Bilinmeyen bir hata oluştu.",
-    "auth": {
-      "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}",
-      "invalidLoginCredentials": "Geçersiz oturum açma kimlik bilgileri."
-    }
+    "default": "Bilinmeyen bir hata oluştu."
   },
   "profile": {
     "title": "Profil",
@@ -51,5 +46,17 @@
   "profileEdit": {
     "title": "Profili Düzenle",
     "subTitle": "Profil bilgilerinizi buradan düzenleyebilirsiniz."
+  },
+  "toast": {
+    "success": {
+      "accountCreated": "Hesabınız başarıyla oluşturuldu.",
+      "profileUpdated": "Profil başarıyla güncellendi."
+    },
+    "error": {
+      "invalidLoginCredentials": "Geçersiz oturum açma kimlik bilgileri.",
+      "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}",
+      "profileUpdated": "Profil güncelleme başarısız oldu.",
+      "emptyForm": "Henüz herhangi bir değişiklik yapmadınız."
+    }
   }
 }

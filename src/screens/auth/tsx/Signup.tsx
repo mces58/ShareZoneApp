@@ -43,21 +43,21 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
   const handleSignup = useCallback(async (data: unknown): Promise<void> => {
-    const { email, password, userName } = data as SignupData;
+    const { email, password, user_name } = data as SignupData;
     setLoading(true);
     setToast(null);
     try {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { user_name: userName, email, isNewUser: true } },
+        options: { data: { user_name, email, isNewUser: true } },
       });
       if (error) throw new Error(error.message);
-      setToast({ message: t('auth.accountCreated'), type: ToastType.Success });
+      setToast({ message: t('toast.success.accountCreated'), type: ToastType.Success });
     } catch (err: unknown) {
       if (err instanceof Error)
         setToast({
-          message: t('error.auth.userAlreadyRegistered', { email }),
+          message: t('toast.error.userAlreadyRegistered', { email }),
           type: ToastType.Error,
         });
       else setToast({ message: t('error.default'), type: ToastType.Error });
@@ -97,6 +97,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
           />
           {toast && (
             <Toast
+              downHeight={0.05}
               message={toast.message}
               type={toast.type}
               icon={

@@ -8,7 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Theme } from './constants/styles/themes';
 import { useAuth } from './contexts/auth-context';
 import { MainScreenNavigation, RootNavigations } from './navigations/RootStackParamList';
-import { fetchUserById } from './services/user-service';
+import { getUserById } from './services/user-service';
 import { supabase } from './supabase/supabase';
 
 interface MainProps {
@@ -26,7 +26,7 @@ const Main: React.FC<MainProps> = ({ navigation }) => {
       if (session) {
         setAuthData(session.user);
 
-        const res = await fetchUserById(session.user.id);
+        const res = await getUserById(session.user.id);
         if (res.success && res.data) setUserData(res.data);
 
         const isNewUser = session.user.user_metadata.isNewUser;
