@@ -3,12 +3,13 @@ import { StyleProp, StyleSheet, View } from 'react-native';
 
 import styled from 'styled-components/native';
 
+import { shadowEffect } from 'src/utils';
+
 import {
   CustomFlexStyle,
   CustomShadowStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { shadowEffect } from 'src/utils/shadow-effect';
 
 interface ContainerProps {
   children: React.ReactNode;

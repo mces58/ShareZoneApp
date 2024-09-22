@@ -2,27 +2,27 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import Header from './components/Header';
-import SocialMedia from './components/SocialMedia';
-import { createSigninFormFields } from './feats/signin-form';
-import { SigninFunction } from './functions/signin';
+import { useI18n } from 'src/contexts';
+import { scaleByAspectRatio } from 'src/utils';
+
 import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { Container } from 'src/components/containers';
-import BaseForm from 'src/components/forms/Base';
+import { BaseForm } from 'src/components/forms';
 import { BaseText, GradientText } from 'src/components/texts';
-import Toast, { ToastType } from 'src/components/toasts/Base';
+import { BaseToast, ToastTypes } from 'src/components/toasts';
 import { Theme } from 'src/constants/styles/themes';
-import { useI18n } from 'src/contexts/i18n-context';
 import {
   RootNavigations,
   SigninScreenNavigation,
 } from 'src/navigations/RootStackParamList';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { SigninValidation } from 'src/validations/signin';
 
+import { Header, SocialMedia } from '../components';
+import { createSigninFormFields } from '../feats';
+import { SigninFunction } from '../functions';
 import { createSigninStyles } from '../styles';
+import { SigninValidation } from '../validations';
 
 interface SigninProps {
   navigation: SigninScreenNavigation;
@@ -39,7 +39,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
   );
   const styles = useMemo(() => createSigninStyles(theme), [theme]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: ToastTypes } | null>(null);
 
   const handleSignin = useCallback(async (data: unknown): Promise<void> => {
     await SigninFunction({ data, formRef, setLoading, setToast, t });
@@ -74,7 +74,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
             }}
           />
           {toast && (
-            <Toast
+            <BaseToast
               downHeight={0.05}
               message={toast.message}
               type={toast.type}

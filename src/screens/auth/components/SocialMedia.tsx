@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
 import { Linking, StyleSheet } from 'react-native';
 
+import { scaleByAspectRatio, scaleProportionally } from 'src/utils';
+
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import { BaseText } from 'src/components/texts';
 import { Theme } from 'src/constants/styles/themes';
 import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types/style-types';
-import { scaleByAspectRatio, scaleProportionally } from 'src/utils/dimensions';
 
 interface SocialMediaProps {
   text: string;

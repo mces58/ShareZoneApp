@@ -1,12 +1,11 @@
-import { ToastType } from 'src/components/toasts/Base';
+import { TranslationOptions } from 'src/contexts';
+import { getImageUri, updateUserById, uploadFile } from 'src/services';
+import { openGallery } from 'src/utils';
+
+import { ToastTypes } from 'src/components/toasts';
 import { ImageFolderNames } from 'src/constants/types/supabase';
 import { User } from 'src/constants/types/user';
-import { TranslationOptions } from 'src/contexts/i18n-context';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
-import { getImageUri } from 'src/services/image-service';
-import { uploadFile } from 'src/services/upload-file-service';
-import { updateUserById } from 'src/services/user-service';
-import { openGallery } from 'src/utils/image-picker';
 
 interface ImagePickerParams {
   setUserData: (user: User) => void;
@@ -18,13 +17,13 @@ interface UpdateUserParams {
   formRef: React.MutableRefObject<{ reset: () => void; submit: () => void } | null>;
   navigation: ProfileEditScreenNavigation;
   setLoading: (loading: boolean) => void;
-  setToast: (toast: { message: string; type: ToastType } | null) => void;
+  setToast: (toast: { message: string; type: ToastTypes } | null) => void;
   setUserData: (data: User) => void;
   t: (key: string, options?: TranslationOptions) => string;
   user: User | null;
 }
 
-export const ImagePickerFunction = async ({
+const ImagePickerFunction = async ({
   setUserData,
   user,
 }: ImagePickerParams): Promise<void> => {
@@ -52,7 +51,7 @@ export const ImagePickerFunction = async ({
   }
 };
 
-export const UpdateUserFunction = async ({
+const UpdateUserFunction = async ({
   data,
   formRef,
   navigation,
@@ -74,7 +73,7 @@ export const UpdateUserFunction = async ({
     if (isFormEmpty) {
       setToast({
         message: t('toast.error.emptyForm'),
-        type: ToastType.Error,
+        type: ToastTypes.Error,
       });
       return;
     }
@@ -86,7 +85,7 @@ export const UpdateUserFunction = async ({
       setUserData(res.data);
       setToast({
         message: t('toast.success.profileUpdated'),
-        type: ToastType.Success,
+        type: ToastTypes.Success,
       });
       setTimeout(() => {
         navigation.goBack();
@@ -96,11 +95,13 @@ export const UpdateUserFunction = async ({
     if (error instanceof Error)
       setToast({
         message: t('toast.error.profileUpdated'),
-        type: ToastType.Error,
+        type: ToastTypes.Error,
       });
-    else setToast({ message: t('error.default'), type: ToastType.Error });
+    else setToast({ message: t('error.default'), type: ToastTypes.Error });
   } finally {
     if (formRef.current) formRef.current.reset();
     setLoading(false);
   }
 };
+
+export { ImagePickerFunction, UpdateUserFunction };

@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { TranslationOptions } from 'src/contexts';
+import { scaleByAspectRatio } from 'src/utils';
+
 import Icon from 'src/assets/icons';
 import { FormField } from 'src/components/forms/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { TranslationOptions } from 'src/contexts/i18n-context';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { SigninValidation } from 'src/validations/signin';
+
+import { SigninValidation } from '../validations';
 
 interface SigninFormFields {
   t: (key: string, options?: TranslationOptions) => string;
@@ -13,7 +15,7 @@ interface SigninFormFields {
   validation: SigninValidation;
 }
 
-export const createSigninFormFields = ({
+const createSigninFormFields = ({
   t,
   theme,
   validation,
@@ -58,3 +60,5 @@ export const createSigninFormFields = ({
     ),
   },
 ];
+
+export default createSigninFormFields;

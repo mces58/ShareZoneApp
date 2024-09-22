@@ -1,23 +1,25 @@
 import React from 'react';
 
+import { TranslationOptions } from 'src/contexts';
+import { scaleByAspectRatio } from 'src/utils';
+
 import Icon from 'src/assets/icons';
 import { FormField } from 'src/components/forms/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { TranslationOptions } from 'src/contexts/i18n-context';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { ProfileEditValidation } from 'src/validations/profile-edit';
 
-interface ProfileEditFormFields {
+import { SignupValidation } from '../validations';
+
+interface SignupFormFields {
   t: (key: string, options?: TranslationOptions) => string;
   theme: Theme;
-  validation: ProfileEditValidation;
+  validation: SignupValidation;
 }
 
-export const createProfileEditFormFields = ({
+const createSignupFormFields = ({
   t,
   theme,
   validation,
-}: ProfileEditFormFields): FormField[] => [
+}: SignupFormFields): FormField[] => [
   {
     name: 'user_name',
     placeholder: t('form.input.userName'),
@@ -34,49 +36,44 @@ export const createProfileEditFormFields = ({
     validation: validation.getUserNameValidation(3, 20),
   },
   {
-    name: 'phone_number',
-    placeholder: t('form.input.phoneNumber'),
+    name: 'email',
+    placeholder: t('form.input.email'),
     type: 'text' as const,
     icon: (
       <Icon
-        name="phone"
+        name="mail"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
         strokeWidth={1}
       />
     ),
-    inputMode: 'numeric',
-    maxLength: 14,
-    validation: validation.getPhoneNumberValidation(),
-  },
-  {
-    name: 'address',
-    placeholder: t('form.input.address'),
-    type: 'text' as const,
-    icon: (
-      <Icon
-        name="location"
-        size={scaleByAspectRatio(20)}
-        color={{ mono: theme.color.textMuted }}
-        strokeWidth={1}
-      />
-    ),
+    inputMode: 'email',
     maxLength: 50,
-    validation: validation.getMaxLimitValidation(50),
+    validation: validation.getEmailValidation(50),
   },
   {
-    name: 'bio',
-    placeholder: t('form.input.bio'),
-    type: 'textarea' as const,
+    name: 'password',
+    placeholder: t('form.input.password'),
+    type: 'password' as const,
     icon: (
       <Icon
-        name="info"
+        name="lock"
         size={scaleByAspectRatio(20)}
         color={{ mono: theme.color.textMuted }}
         strokeWidth={1}
       />
     ),
-    maxLength: 100,
-    validation: validation.getMaxLimitValidation(100),
+    maxLength: 20,
+    validation: validation.getPasswordValidation(6, 20),
+    extraIcon: (
+      <Icon
+        name="eyes"
+        size={scaleByAspectRatio(20)}
+        color={{ mono: theme.color.textMuted }}
+        strokeWidth={1.25}
+      />
+    ),
   },
 ];
+
+export default createSignupFormFields;

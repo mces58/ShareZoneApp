@@ -2,19 +2,19 @@ import React, { useMemo } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
+import { useAuth, useI18n } from 'src/contexts';
+import { scaleByAspectRatio } from 'src/utils';
+
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
-import BaseHeader from 'src/components/headers/Base';
-import BaseImage from 'src/components/images/Base';
+import { BaseHeader } from 'src/components/headers';
+import { BaseImage } from 'src/components/images';
 import { Theme } from 'src/constants/styles/themes';
-import { useAuth } from 'src/contexts/auth-context';
-import { useI18n } from 'src/contexts/i18n-context';
 import { ProfileNavigations } from 'src/navigations/profile/ProfileStackParamList';
 import {
   HomeScreenNavigation,
   RootNavigations,
 } from 'src/navigations/RootStackParamList';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { createHomeStyles } from '../styles';
 
