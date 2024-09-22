@@ -14,6 +14,7 @@ import { StyleProp } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
+import { scaleProportionally } from 'src/utils';
 import * as Yup from 'yup';
 
 import BaseInput from '../inputs/Base';
@@ -25,7 +26,6 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { scaleProportionally } from 'src/utils/dimensions';
 
 import { Container } from '../containers';
 import { BaseText } from '../texts';

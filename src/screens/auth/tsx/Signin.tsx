@@ -2,6 +2,8 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
+import { scaleByAspectRatio } from 'src/utils';
+
 import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
@@ -15,7 +17,6 @@ import {
   RootNavigations,
   SigninScreenNavigation,
 } from 'src/navigations/RootStackParamList';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { Header, SocialMedia } from '../components';
 import { createSigninFormFields } from '../feats';

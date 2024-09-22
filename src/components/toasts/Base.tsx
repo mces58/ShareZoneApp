@@ -4,8 +4,9 @@ import { Animated, Dimensions } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
+import { scaleHeight, scaleProportionally, scaleWidth } from 'src/utils';
+
 import { Theme } from 'src/constants/styles/themes';
-import { scaleHeight, scaleProportionally, scaleWidth } from 'src/utils/dimensions';
 
 import { Container } from '../containers';
 import { BaseText } from '../texts';

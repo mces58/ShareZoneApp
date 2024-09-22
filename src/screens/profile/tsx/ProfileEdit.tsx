@@ -2,6 +2,8 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
+import { scaleByAspectRatio } from 'src/utils';
+
 import Icon from 'src/assets/icons';
 import { BaseButton } from 'src/components/buttons';
 import { Container, KeyboardContainer } from 'src/components/containers';
@@ -13,7 +15,6 @@ import { Theme } from 'src/constants/styles/themes';
 import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { Header } from '../components';
 import { createProfileEditFormFields } from '../feats';

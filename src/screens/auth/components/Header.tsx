@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
+import { scaleHeight, scaleProportionally } from 'src/utils';
+
 import Icon from 'src/assets/icons';
 import BaseHeader from 'src/components/headers/Base';
 import { Theme } from 'src/constants/styles/themes';
@@ -10,7 +12,6 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { scaleHeight, scaleProportionally } from 'src/utils/dimensions';
 
 interface HeaderProps {
   onPressHeaderIcon: () => void;

@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
+import { scaleByAspectRatio } from 'src/utils';
+
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import BaseHeader from 'src/components/headers/Base';
@@ -14,7 +16,6 @@ import {
   HomeScreenNavigation,
   RootNavigations,
 } from 'src/navigations/RootStackParamList';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { createHomeStyles } from '../styles';
 

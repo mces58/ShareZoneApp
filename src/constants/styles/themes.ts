@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { scaleFontSize } from 'src/utils/dimensions';
+import { scaleFontSize } from 'src/utils';
 
 import { COLORS } from './colors';
 import { FONTS } from './fonts';

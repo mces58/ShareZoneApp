@@ -3,6 +3,8 @@ import { Animated, StyleProp, StyleSheet, TextInput } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
+import { formatPhoneNumber, scaleByAspectRatio, scaleProportionally } from 'src/utils';
+
 import { COLORS } from 'src/constants/styles/colors';
 import { Theme } from 'src/constants/styles/themes';
 import {
@@ -11,8 +13,6 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { scaleByAspectRatio, scaleProportionally } from 'src/utils/dimensions';
-import { formatPhoneNumber } from 'src/utils/format-phone-number';
 
 import { Container } from '../containers';
 

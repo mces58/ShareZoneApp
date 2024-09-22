@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Alert } from 'react-native';
 
+import { scaleByAspectRatio } from 'src/utils';
 import { useTheme } from 'styled-components';
 
 import Icon from 'src/assets/icons';
@@ -14,7 +15,6 @@ import {
   ProfileScreenNavigation,
 } from 'src/navigations/profile/ProfileStackParamList';
 import { supabase } from 'src/supabase/supabase';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { Header } from '../components';
 import { createProfileStyles } from '../styles';

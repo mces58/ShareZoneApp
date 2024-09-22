@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
+import { scaleByAspectRatio } from 'src/utils';
+
 import SpacemanSvg from 'assets/svgs/spaceman.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
@@ -13,7 +15,6 @@ import {
   RootNavigations,
   WelcomeScreenNavigation,
 } from 'src/navigations/RootStackParamList';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import { createWelcomeStyles } from '../styles';
 

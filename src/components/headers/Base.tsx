@@ -2,13 +2,14 @@ import React, { ReactNode } from 'react';
 import { Dimensions, StyleProp } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { scaleProportionally } from 'src/utils';
+
 import {
   CustomFlexStyle,
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { scaleProportionally } from 'src/utils/dimensions';
 
 import { Container } from '../containers';
 import { BaseText, GradientText } from '../texts';
