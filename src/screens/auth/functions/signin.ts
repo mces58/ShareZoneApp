@@ -1,8 +1,8 @@
+import { TranslationOptions } from 'src/contexts';
 import { supabase } from 'src/supabase';
 
 import { ToastType } from 'src/components/toasts/Base';
 import { SigninData } from 'src/constants/types/user';
-import { TranslationOptions } from 'src/contexts/i18n-context';
 
 interface SigninParams {
   data: unknown;

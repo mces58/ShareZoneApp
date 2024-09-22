@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { TranslationOptions } from 'src/contexts';
 import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { FormField } from 'src/components/forms/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { TranslationOptions } from 'src/contexts/i18n-context';
 
 import { ProfileEditValidation } from '../validations';
 

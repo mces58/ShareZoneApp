@@ -1,10 +1,10 @@
+import { TranslationOptions } from 'src/contexts';
 import { getImageUri, updateUserById, uploadFile } from 'src/services';
 import { openGallery } from 'src/utils';
 
 import { ToastType } from 'src/components/toasts/Base';
 import { ImageFolderNames } from 'src/constants/types/supabase';
 import { User } from 'src/constants/types/user';
-import { TranslationOptions } from 'src/contexts/i18n-context';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
 
 interface ImagePickerParams {
