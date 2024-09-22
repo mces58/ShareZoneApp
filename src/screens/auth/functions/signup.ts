@@ -1,9 +1,9 @@
 import { ToastType } from 'src/components/toasts/Base';
-import { SigninData } from 'src/constants/types/user';
+import { SignupData } from 'src/constants/types/user';
 import { TranslationOptions } from 'src/contexts/i18n-context';
 import { supabase } from 'src/supabase/supabase';
 
-interface SigninParams {
+interface SignupParams {
   data: unknown;
   formRef: React.MutableRefObject<{ reset: () => void } | null>;
   setLoading: (loading: boolean) => void;
@@ -11,26 +11,28 @@ interface SigninParams {
   t: (key: string, options?: TranslationOptions) => string;
 }
 
-export const SigninFunction = async ({
+const SignupFunction = async ({
   data,
   formRef,
   setLoading,
   setToast,
   t,
-}: SigninParams): Promise<void> => {
-  const { email, password } = data as SigninData;
+}: SignupParams): Promise<void> => {
+  const { email, password, user_name } = data as SignupData;
   setLoading(true);
   setToast(null);
   try {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: { data: { user_name, email, isNewUser: true } },
     });
     if (error) throw new Error(error.message);
+    setToast({ message: t('toast.success.accountCreated'), type: ToastType.Success });
   } catch (err: unknown) {
     if (err instanceof Error)
       setToast({
-        message: t('toast.error.invalidLoginCredentials'),
+        message: t('toast.error.userAlreadyRegistered', { email }),
         type: ToastType.Error,
       });
     else setToast({ message: t('error.default'), type: ToastType.Error });
@@ -39,3 +41,5 @@ export const SigninFunction = async ({
     setLoading(false);
   }
 };
+
+export default SignupFunction;

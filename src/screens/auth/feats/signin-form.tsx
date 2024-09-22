@@ -5,34 +5,20 @@ import { FormField } from 'src/components/forms/Base';
 import { Theme } from 'src/constants/styles/themes';
 import { TranslationOptions } from 'src/contexts/i18n-context';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { SignupValidation } from 'src/validations/signup';
 
-interface SignupFormFields {
+import { SigninValidation } from '../validations';
+
+interface SigninFormFields {
   t: (key: string, options?: TranslationOptions) => string;
   theme: Theme;
-  validation: SignupValidation;
+  validation: SigninValidation;
 }
 
-export const createSignupFormFields = ({
+const createSigninFormFields = ({
   t,
   theme,
   validation,
-}: SignupFormFields): FormField[] => [
-  {
-    name: 'user_name',
-    placeholder: t('form.input.userName'),
-    type: 'text' as const,
-    icon: (
-      <Icon
-        name="user"
-        size={scaleByAspectRatio(20)}
-        color={{ mono: theme.color.textMuted }}
-        strokeWidth={1}
-      />
-    ),
-    maxLength: 20,
-    validation: validation.getUserNameValidation(3, 20),
-  },
+}: SigninFormFields): FormField[] => [
   {
     name: 'email',
     placeholder: t('form.input.email'),
@@ -62,7 +48,7 @@ export const createSignupFormFields = ({
       />
     ),
     maxLength: 20,
-    validation: validation.getPasswordValidation(6, 20),
+    validation: validation.getPasswordValidation(20),
     extraIcon: (
       <Icon
         name="eyes"
@@ -73,3 +59,5 @@ export const createSignupFormFields = ({
     ),
   },
 ];
+
+export default createSigninFormFields;

@@ -2,10 +2,6 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import Header from './components/Header';
-import SocialMedia from './components/SocialMedia';
-import { createSigninFormFields } from './feats/signin-form';
-import { SigninFunction } from './functions/signin';
 import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
@@ -20,9 +16,12 @@ import {
   SigninScreenNavigation,
 } from 'src/navigations/RootStackParamList';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { SigninValidation } from 'src/validations/signin';
 
+import { Header, SocialMedia } from '../components';
+import { createSigninFormFields } from '../feats';
+import { SigninFunction } from '../functions';
 import { createSigninStyles } from '../styles';
+import { SigninValidation } from '../validations';
 
 interface SigninProps {
   navigation: SigninScreenNavigation;

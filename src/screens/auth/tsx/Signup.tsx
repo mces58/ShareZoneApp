@@ -2,10 +2,6 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import Header from './components/Header';
-import SocialMedia from './components/SocialMedia';
-import { createSignupFormFields } from './feats/signup-form';
-import { SignupFunction } from './functions/signup';
 import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
@@ -20,9 +16,12 @@ import {
   SignupScreenNavigation,
 } from 'src/navigations/RootStackParamList';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { SignupValidation } from 'src/validations/signup';
 
+import { Header, SocialMedia } from '../components';
+import { createSignupFormFields } from '../feats';
+import { SignupFunction } from '../functions';
 import { createSignupStyles } from '../styles';
+import { SignupValidation } from '../validations';
 
 interface SignupProps {
   navigation: SignupScreenNavigation;
