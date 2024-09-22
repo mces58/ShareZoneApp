@@ -5,6 +5,7 @@ import { useTheme } from 'styled-components/native';
 import Header from './components/Header';
 import SocialMedia from './components/SocialMedia';
 import { createSignupFormFields } from './feats/signup-form';
+import { SignupFunction } from './functions/signup';
 import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
@@ -13,13 +14,11 @@ import BaseForm from 'src/components/forms/Base';
 import { BaseText, GradientText } from 'src/components/texts';
 import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { SignupData } from 'src/constants/types/user';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
   RootNavigations,
   SignupScreenNavigation,
 } from 'src/navigations/RootStackParamList';
-import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 import { SignupValidation } from 'src/validations/signup';
 
@@ -43,28 +42,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
   const handleSignup = useCallback(async (data: unknown): Promise<void> => {
-    const { email, password, user_name } = data as SignupData;
-    setLoading(true);
-    setToast(null);
-    try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { user_name, email, isNewUser: true } },
-      });
-      if (error) throw new Error(error.message);
-      setToast({ message: t('toast.success.accountCreated'), type: ToastType.Success });
-    } catch (err: unknown) {
-      if (err instanceof Error)
-        setToast({
-          message: t('toast.error.userAlreadyRegistered', { email }),
-          type: ToastType.Error,
-        });
-      else setToast({ message: t('error.default'), type: ToastType.Error });
-    } finally {
-      if (formRef.current) formRef.current.reset();
-      setLoading(false);
-    }
+    await SignupFunction({ data, formRef, setLoading, setToast, t });
   }, []);
 
   const handleFormSubmit = useCallback((): void => {
