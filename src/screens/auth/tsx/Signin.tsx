@@ -5,6 +5,7 @@ import { useTheme } from 'styled-components/native';
 import Header from './components/Header';
 import SocialMedia from './components/SocialMedia';
 import { createSigninFormFields } from './feats/signin-form';
+import { SigninFunction } from './functions/signin';
 import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
@@ -13,13 +14,11 @@ import BaseForm from 'src/components/forms/Base';
 import { BaseText, GradientText } from 'src/components/texts';
 import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { SigninData } from 'src/constants/types/user';
 import { useI18n } from 'src/contexts/i18n-context';
 import {
   RootNavigations,
   SigninScreenNavigation,
 } from 'src/navigations/RootStackParamList';
-import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 import { SigninValidation } from 'src/validations/signin';
 
@@ -43,26 +42,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
   const handleSignin = useCallback(async (data: unknown): Promise<void> => {
-    const { email, password } = data as SigninData;
-    setLoading(true);
-    setToast(null);
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) throw new Error(error.message);
-    } catch (err: unknown) {
-      if (err instanceof Error)
-        setToast({
-          message: t('toast.error.invalidLoginCredentials'),
-          type: ToastType.Error,
-        });
-      else setToast({ message: t('error.default'), type: ToastType.Error });
-    } finally {
-      if (formRef.current) formRef.current.reset();
-      setLoading(false);
-    }
+    await SigninFunction({ data, formRef, setLoading, setToast, t });
   }, []);
 
   const handleFormSubmit = useCallback((): void => {
