@@ -12,12 +12,16 @@ import BaseImage from 'src/components/images/Base';
 import { BaseText } from 'src/components/texts';
 import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
+import { ImageFolderNames } from 'src/constants/types/supabase';
 import { User } from 'src/constants/types/user';
 import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
+import { getImageUri } from 'src/services/image-service';
+import { uploadFile } from 'src/services/upload-file-service';
 import { updateUserById } from 'src/services/user-service';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
+import { openGallery } from 'src/utils/image-picker';
 import { ProfileEditValidation } from 'src/validations/profile-edit';
 
 import { createProfileEditStyles } from '../styles';
@@ -27,7 +31,7 @@ interface ProfileEditProps {
 }
 
 const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
-  const { user } = useAuth();
+  const { user, setUserData } = useAuth();
   const theme = useTheme() as Theme;
   const { t } = useI18n();
   const styles = useMemo(() => createProfileEditStyles(theme), [theme]);
@@ -39,6 +43,31 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+
+  const handleImagePicker = useCallback(async () => {
+    try {
+      const { fileUri, mimeType } = await openGallery();
+      setUserData({ ...user, image: fileUri });
+
+      const uploadResponse = await uploadFile({
+        fileUri,
+        folderName: ImageFolderNames.PROFILE,
+        mimeType,
+      });
+
+      if (!uploadResponse) throw new Error('Error uploading image');
+      if (user?.id === undefined) throw new Error('User not found');
+
+      const image = getImageUri(ImageFolderNames.PROFILE, uploadResponse.fileName);
+      const updatedUser = { ...user, image };
+      const updateResponse = await updateUserById(user.id, updatedUser);
+
+      if (updateResponse.success && updateResponse.data) setUserData(updateResponse.data);
+    } catch (error: unknown) {
+      if (error instanceof Error) console.log(error.message);
+      else console.log('Error picking image');
+    }
+  }, []);
 
   const handleUpdateUser = useCallback(async (data: unknown): Promise<void> => {
     const newUser = data as User;
@@ -60,14 +89,16 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
       if (user?.id === undefined) throw new Error('User not found');
 
       const res = await updateUserById(user.id, newUser);
-      if (res.success && res.data)
+      if (res.success && res.data) {
+        setUserData(res.data);
         setToast({
           message: t('toast.success.profileUpdated'),
           type: ToastType.Success,
         });
-      setTimeout(() => {
-        navigation.goBack();
-      }, 2000);
+        setTimeout(() => {
+          navigation.goBack();
+        }, 2000);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         setToast({
@@ -106,6 +137,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
               size={scaleByAspectRatio(30)}
               color={{ mono: theme.color.background }}
               fillColor={theme.color.text}
+              onPress={handleImagePicker}
             />
           }
           imageStyle={styles.image.avatar}
