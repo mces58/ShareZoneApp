@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Alert } from 'react-native';
 
+import { useAuth, useI18n } from 'src/contexts';
 import { supabase } from 'src/supabase';
 import { scaleByAspectRatio } from 'src/utils';
 import { useTheme } from 'styled-components';
@@ -9,8 +10,6 @@ import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import BaseImage from 'src/components/images/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { useAuth } from 'src/contexts/auth-context';
-import { useI18n } from 'src/contexts/i18n-context';
 import {
   ProfileNavigations,
   ProfileScreenNavigation,

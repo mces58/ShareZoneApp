@@ -6,9 +6,9 @@ import styled, { useTheme } from 'styled-components/native';
 import { StatusBar } from 'expo-status-bar';
 
 import { Theme } from './constants/styles/themes';
-import { useAuth } from './contexts/auth-context';
 import { MainScreenNavigation, RootNavigations } from './navigations/RootStackParamList';
 
+import { useAuth } from './contexts';
 import { getUserById } from './services';
 import { supabase } from './supabase';
 

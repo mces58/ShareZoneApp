@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
+import { useAuth, useI18n } from 'src/contexts';
 import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
@@ -12,8 +13,6 @@ import BaseImage from 'src/components/images/Base';
 import { BaseText } from 'src/components/texts';
 import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { useAuth } from 'src/contexts/auth-context';
-import { useI18n } from 'src/contexts/i18n-context';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
 
 import { Header } from '../components';

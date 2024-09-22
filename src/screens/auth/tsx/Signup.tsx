@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
+import { useI18n } from 'src/contexts';
 import { scaleByAspectRatio } from 'src/utils';
 
 import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
@@ -12,7 +13,6 @@ import BaseForm from 'src/components/forms/Base';
 import { BaseText, GradientText } from 'src/components/texts';
 import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { useI18n } from 'src/contexts/i18n-context';
 import {
   RootNavigations,
   SignupScreenNavigation,
