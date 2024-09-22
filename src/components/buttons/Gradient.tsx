@@ -5,14 +5,14 @@ import styled from 'styled-components/native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
+import { calculateGradientEndpoints, shadowEffect } from 'src/utils';
+
 import {
   CustomFlexStyle,
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { calculateGradientEndpoints } from 'src/utils/calculate-gradient-endpoints';
-import { shadowEffect } from 'src/utils/shadow-effect';
 
 import { BaseText } from '../texts';
 

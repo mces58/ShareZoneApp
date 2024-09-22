@@ -3,8 +3,9 @@ import { ColorValue, TouchableOpacity } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
+import { scaleByAspectRatio } from 'src/utils';
+
 import { Theme } from 'src/constants/styles/themes';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
 
 import AddSquareIcon from './add';
 import ArrowIcon from './arrow';

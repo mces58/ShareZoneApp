@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
+
 import { Theme } from 'src/constants/styles/themes';
 import {
   CustomFlexStyle,
@@ -8,11 +10,6 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import {
-  scaleByAspectRatio,
-  scaleHeight,
-  scaleProportionally,
-} from 'src/utils/dimensions';
 
 const enum FlexStyles {
   CONTAINER = 'container',

@@ -14,9 +14,9 @@ import { StyleProp } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
+import { scaleProportionally } from 'src/utils';
 import * as Yup from 'yup';
 
-import BaseInput from '../inputs/Base';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Theme } from 'src/constants/styles/themes';
 import {
@@ -25,9 +25,9 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { scaleProportionally } from 'src/utils/dimensions';
 
 import { Container } from '../containers';
+import { BaseInput } from '../inputs';
 import { BaseText } from '../texts';
 
 export interface FormField {

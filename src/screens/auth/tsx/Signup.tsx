@@ -2,27 +2,27 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import Header from './components/Header';
-import SocialMedia from './components/SocialMedia';
-import { createSignupFormFields } from './feats/signup-form';
-import { SignupFunction } from './functions/signup';
+import { useI18n } from 'src/contexts';
+import { scaleByAspectRatio } from 'src/utils';
+
 import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { Container } from 'src/components/containers';
-import BaseForm from 'src/components/forms/Base';
+import { BaseForm } from 'src/components/forms';
 import { BaseText, GradientText } from 'src/components/texts';
-import Toast, { ToastType } from 'src/components/toasts/Base';
+import { BaseToast, ToastTypes } from 'src/components/toasts';
 import { Theme } from 'src/constants/styles/themes';
-import { useI18n } from 'src/contexts/i18n-context';
 import {
   RootNavigations,
   SignupScreenNavigation,
 } from 'src/navigations/RootStackParamList';
-import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { SignupValidation } from 'src/validations/signup';
 
+import { Header, SocialMedia } from '../components';
+import { createSignupFormFields } from '../feats';
+import { SignupFunction } from '../functions';
 import { createSignupStyles } from '../styles';
+import { SignupValidation } from '../validations';
 
 interface SignupProps {
   navigation: SignupScreenNavigation;
@@ -39,7 +39,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   );
   const styles = useMemo(() => createSignupStyles(theme), [theme]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: ToastTypes } | null>(null);
 
   const handleSignup = useCallback(async (data: unknown): Promise<void> => {
     await SignupFunction({ data, formRef, setLoading, setToast, t });
@@ -74,12 +74,12 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
             }}
           />
           {toast && (
-            <Toast
+            <BaseToast
               downHeight={0.05}
               message={toast.message}
               type={toast.type}
               icon={
-                toast.type === ToastType.Error ? (
+                toast.type === ToastTypes.Error ? (
                   <Icon name="error" fillColor={theme.color.text} strokeWidth={0} />
                 ) : (
                   <Icon name="check" fillColor={theme.color.text} strokeWidth={0} />

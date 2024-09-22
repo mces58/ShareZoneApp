@@ -1,8 +1,7 @@
+import { TranslationOptions } from 'src/contexts';
 import * as Yup from 'yup';
 
-import { TranslationOptions } from 'src/contexts/i18n-context';
-
-export class SignupValidation {
+class SignupValidation {
   private t: (key: string, options?: TranslationOptions) => string;
 
   constructor(t: (key: string, options?: TranslationOptions) => string) {
@@ -38,3 +37,5 @@ export class SignupValidation {
       );
   }
 }
+
+export default SignupValidation;

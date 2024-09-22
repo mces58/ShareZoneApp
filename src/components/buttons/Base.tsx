@@ -3,6 +3,8 @@ import { StyleProp, StyleSheet, TouchableOpacity } from 'react-native';
 
 import styled from 'styled-components/native';
 
+import { shadowEffect } from 'src/utils';
+
 import BaseText from '../texts/Base';
 import {
   CustomFlexStyle,
@@ -10,7 +12,6 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types/style-types';
-import { shadowEffect } from 'src/utils/shadow-effect';
 
 interface BaseButtonProps {
   onPress: () => void;
