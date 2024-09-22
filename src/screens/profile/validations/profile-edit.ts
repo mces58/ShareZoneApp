@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 
 import { TranslationOptions } from 'src/contexts/i18n-context';
 
-export class ProfileEditValidation {
+class ProfileEditValidation {
   private t: (key: string, options?: TranslationOptions) => string;
 
   constructor(t: (key: string, options?: TranslationOptions) => string) {
@@ -30,3 +30,5 @@ export class ProfileEditValidation {
     return Yup.string().max(limit, this.t('form.maxLimit', { limit }));
   }
 }
+
+export default ProfileEditValidation;

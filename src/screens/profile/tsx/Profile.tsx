@@ -3,7 +3,6 @@ import { Alert } from 'react-native';
 
 import { useTheme } from 'styled-components';
 
-import Header from './components/Header';
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import BaseImage from 'src/components/images/Base';
@@ -17,6 +16,7 @@ import {
 import { supabase } from 'src/supabase/supabase';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
 
+import { Header } from '../components';
 import { createProfileStyles } from '../styles';
 
 interface ProfileProps {

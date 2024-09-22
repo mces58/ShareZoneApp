@@ -24,7 +24,7 @@ interface UpdateUserParams {
   user: User | null;
 }
 
-export const ImagePickerFunction = async ({
+const ImagePickerFunction = async ({
   setUserData,
   user,
 }: ImagePickerParams): Promise<void> => {
@@ -52,7 +52,7 @@ export const ImagePickerFunction = async ({
   }
 };
 
-export const UpdateUserFunction = async ({
+const UpdateUserFunction = async ({
   data,
   formRef,
   navigation,
@@ -104,3 +104,5 @@ export const UpdateUserFunction = async ({
     setLoading(false);
   }
 };
+
+export { ImagePickerFunction, UpdateUserFunction };

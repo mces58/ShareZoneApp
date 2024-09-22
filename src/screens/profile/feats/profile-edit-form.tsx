@@ -5,7 +5,8 @@ import { FormField } from 'src/components/forms/Base';
 import { Theme } from 'src/constants/styles/themes';
 import { TranslationOptions } from 'src/contexts/i18n-context';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { ProfileEditValidation } from 'src/validations/profile-edit';
+
+import { ProfileEditValidation } from '../validations';
 
 interface ProfileEditFormFields {
   t: (key: string, options?: TranslationOptions) => string;
@@ -13,7 +14,7 @@ interface ProfileEditFormFields {
   validation: ProfileEditValidation;
 }
 
-export const createProfileEditFormFields = ({
+const createProfileEditFormFields = ({
   t,
   theme,
   validation,
@@ -80,3 +81,5 @@ export const createProfileEditFormFields = ({
     validation: validation.getMaxLimitValidation(100),
   },
 ];
+
+export default createProfileEditFormFields;

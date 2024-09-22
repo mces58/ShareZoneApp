@@ -2,9 +2,6 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
-import Header from './components/Header';
-import { createProfileEditFormFields } from './feats/profile-edit-form';
-import { ImagePickerFunction, UpdateUserFunction } from './functions/profile-edit';
 import Icon from 'src/assets/icons';
 import { BaseButton } from 'src/components/buttons';
 import { Container, KeyboardContainer } from 'src/components/containers';
@@ -17,9 +14,12 @@ import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { ProfileEditValidation } from 'src/validations/profile-edit';
 
+import { Header } from '../components';
+import { createProfileEditFormFields } from '../feats';
+import { ImagePickerFunction, UpdateUserFunction } from '../functions';
 import { createProfileEditStyles } from '../styles';
+import { ProfileEditValidation } from '../validations';
 
 interface ProfileEditProps {
   navigation: ProfileEditScreenNavigation;
