@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components/native';
 
 import Header from './components/Header';
 import { createProfileEditFormFields } from './feats/profile-edit-form';
+import { ImagePickerFunction, UpdateUserFunction } from './functions/profile-edit';
 import Icon from 'src/assets/icons';
 import { BaseButton } from 'src/components/buttons';
 import { Container, KeyboardContainer } from 'src/components/containers';
@@ -12,16 +13,10 @@ import BaseImage from 'src/components/images/Base';
 import { BaseText } from 'src/components/texts';
 import Toast, { ToastType } from 'src/components/toasts/Base';
 import { Theme } from 'src/constants/styles/themes';
-import { ImageFolderNames } from 'src/constants/types/supabase';
-import { User } from 'src/constants/types/user';
 import { useAuth } from 'src/contexts/auth-context';
 import { useI18n } from 'src/contexts/i18n-context';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
-import { getImageUri } from 'src/services/image-service';
-import { uploadFile } from 'src/services/upload-file-service';
-import { updateUserById } from 'src/services/user-service';
 import { scaleByAspectRatio } from 'src/utils/dimensions';
-import { openGallery } from 'src/utils/image-picker';
 import { ProfileEditValidation } from 'src/validations/profile-edit';
 
 import { createProfileEditStyles } from '../styles';
@@ -44,73 +39,29 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
 
-  const handleImagePicker = useCallback(async () => {
-    try {
-      const { fileUri, mimeType } = await openGallery();
-      setUserData({ ...user, image: fileUri });
-
-      const uploadResponse = await uploadFile({
-        fileUri,
-        folderName: ImageFolderNames.PROFILE,
-        mimeType,
-      });
-
-      if (!uploadResponse) throw new Error('Error uploading image');
-      if (user?.id === undefined) throw new Error('User not found');
-
-      const image = getImageUri(ImageFolderNames.PROFILE, uploadResponse.fileName);
-      const updatedUser = { ...user, image };
-      const updateResponse = await updateUserById(user.id, updatedUser);
-
-      if (updateResponse.success && updateResponse.data) setUserData(updateResponse.data);
-    } catch (error: unknown) {
-      if (error instanceof Error) console.log(error.message);
-      else console.log('Error picking image');
+  const handleImagePicker = useCallback(async (): Promise<void> => {
+    if (user) {
+      await ImagePickerFunction({ setUserData, user });
     }
-  }, []);
+  }, [user, setUserData]);
 
-  const handleUpdateUser = useCallback(async (data: unknown): Promise<void> => {
-    const newUser = data as User;
-    setLoading(true);
-    setToast(null);
-
-    try {
-      const isFormEmpty = Object.values(newUser).every(
-        (value) => value === undefined || value === ''
-      );
-      if (isFormEmpty) {
-        setToast({
-          message: t('toast.error.emptyForm'),
-          type: ToastType.Error,
+  const handleUpdateUser = useCallback(
+    async (data: unknown): Promise<void> => {
+      if (user) {
+        await UpdateUserFunction({
+          data,
+          formRef,
+          navigation,
+          setLoading,
+          setToast,
+          setUserData,
+          t,
+          user,
         });
-        return;
       }
-
-      if (user?.id === undefined) throw new Error('User not found');
-
-      const res = await updateUserById(user.id, newUser);
-      if (res.success && res.data) {
-        setUserData(res.data);
-        setToast({
-          message: t('toast.success.profileUpdated'),
-          type: ToastType.Success,
-        });
-        setTimeout(() => {
-          navigation.goBack();
-        }, 2000);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setToast({
-          message: t('toast.error.profileUpdated'),
-          type: ToastType.Error,
-        });
-      } else setToast({ message: t('error.default'), type: ToastType.Error });
-    } finally {
-      if (formRef.current) formRef.current.reset();
-      setLoading(false);
-    }
-  }, []);
+    },
+    [user, setUserData, t, navigation]
+  );
 
   const handleFormSubmit = useCallback((): void => {
     if (formRef.current) {
