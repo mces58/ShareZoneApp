@@ -1,9 +1,9 @@
 import * as FileSystem from 'expo-file-system';
 
 import { decode } from 'base64-arraybuffer';
+import { supabase } from 'src/supabase';
 
 import { BASE_IMAGE_FOLDER, ImageFolderNames } from 'src/constants/types/supabase';
-import { supabase } from 'src/supabase/supabase';
 
 interface UploadFileOptions {
   fileUri: string;

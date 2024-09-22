@@ -1,3 +1,4 @@
+import { getImageUri, updateUserById, uploadFile } from 'src/services';
 import { openGallery } from 'src/utils';
 
 import { ToastType } from 'src/components/toasts/Base';
@@ -5,9 +6,6 @@ import { ImageFolderNames } from 'src/constants/types/supabase';
 import { User } from 'src/constants/types/user';
 import { TranslationOptions } from 'src/contexts/i18n-context';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
-import { getImageUri } from 'src/services/image-service';
-import { uploadFile } from 'src/services/upload-file-service';
-import { updateUserById } from 'src/services/user-service';
 
 interface ImagePickerParams {
   setUserData: (user: User) => void;

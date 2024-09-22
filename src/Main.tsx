@@ -8,8 +8,9 @@ import { StatusBar } from 'expo-status-bar';
 import { Theme } from './constants/styles/themes';
 import { useAuth } from './contexts/auth-context';
 import { MainScreenNavigation, RootNavigations } from './navigations/RootStackParamList';
-import { getUserById } from './services/user-service';
-import { supabase } from './supabase/supabase';
+
+import { getUserById } from './services';
+import { supabase } from './supabase';
 
 interface MainProps {
   navigation: MainScreenNavigation;
