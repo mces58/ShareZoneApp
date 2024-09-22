@@ -11,22 +11,22 @@ import { Theme } from 'src/constants/styles/themes';
 import { Container } from '../containers';
 import { BaseText } from '../texts';
 
-export const enum ToastType {
+export const enum ToastTypes {
   Error = 'error',
   Info = 'info',
   Success = 'success',
   Warn = 'warn',
 }
 
-interface ToastProps {
+interface BaseToastProps {
   downHeight: number;
   message: string;
-  type: ToastType;
+  type: ToastTypes;
   duration?: number;
   icon?: ReactNode;
 }
 
-const Toast: React.FC<ToastProps> = ({
+const BaseToast: React.FC<BaseToastProps> = ({
   downHeight,
   message,
   type,
@@ -90,18 +90,18 @@ const Toast: React.FC<ToastProps> = ({
   );
 };
 
-export default Toast;
+export default BaseToast;
 
-const backgroundColors = (theme: Theme): { [key in ToastType]: string } => ({
-  [ToastType.Error]: theme.common.color.danger,
-  [ToastType.Info]: theme.common.color.primary,
-  [ToastType.Success]: theme.common.color.success,
-  [ToastType.Warn]: theme.common.color.warning,
+const backgroundColors = (theme: Theme): { [key in ToastTypes]: string } => ({
+  [ToastTypes.Error]: theme.common.color.danger,
+  [ToastTypes.Info]: theme.common.color.primary,
+  [ToastTypes.Success]: theme.common.color.success,
+  [ToastTypes.Warn]: theme.common.color.warning,
 });
 
 const AnimatedContainer = styled(Animated.View)<{
   theme: Theme;
-  type: ToastType;
+  type: ToastTypes;
 }>(({ theme, type }) => ({
   position: 'absolute',
   top: -scaleHeight(100),

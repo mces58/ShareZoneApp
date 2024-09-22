@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
 
 import Icon from 'src/assets/icons';
-import BaseHeader from 'src/components/headers/Base';
+import { BaseHeader } from 'src/components/headers';
 import { COLORS } from 'src/constants/styles/colors';
 import { Theme } from 'src/constants/styles/themes';
 import {

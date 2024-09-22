@@ -8,10 +8,10 @@ import { scaleByAspectRatio } from 'src/utils';
 import Icon from 'src/assets/icons';
 import { BaseButton } from 'src/components/buttons';
 import { Container, KeyboardContainer } from 'src/components/containers';
-import BaseForm from 'src/components/forms/Base';
-import BaseImage from 'src/components/images/Base';
+import { BaseForm } from 'src/components/forms';
+import { BaseImage } from 'src/components/images';
 import { BaseText } from 'src/components/texts';
-import Toast, { ToastType } from 'src/components/toasts/Base';
+import { BaseToast, ToastTypes } from 'src/components/toasts';
 import { Theme } from 'src/constants/styles/themes';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
 
@@ -37,7 +37,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
     [t, theme, validation]
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: ToastTypes } | null>(null);
 
   const handleImagePicker = useCallback(async (): Promise<void> => {
     if (user) {
@@ -107,13 +107,13 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
             }}
           />
           {toast && (
-            <Toast
+            <BaseToast
               downHeight={0.25}
               message={toast.message}
               type={toast.type}
-              duration={toast.type === ToastType.Error ? 2500 : 1500}
+              duration={toast.type === ToastTypes.Error ? 2500 : 1500}
               icon={
-                toast.type === ToastType.Error ? (
+                toast.type === ToastTypes.Error ? (
                   <Icon name="error" fillColor={theme.color.text} strokeWidth={0} />
                 ) : (
                   <Icon name="check" fillColor={theme.color.text} strokeWidth={0} />

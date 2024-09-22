@@ -8,7 +8,7 @@ import { useTheme } from 'styled-components';
 
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
-import BaseImage from 'src/components/images/Base';
+import { BaseImage } from 'src/components/images';
 import { Theme } from 'src/constants/styles/themes';
 import {
   ProfileNavigations,

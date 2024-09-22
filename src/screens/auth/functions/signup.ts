@@ -1,14 +1,14 @@
 import { TranslationOptions } from 'src/contexts';
 import { supabase } from 'src/supabase';
 
-import { ToastType } from 'src/components/toasts/Base';
+import { ToastTypes } from 'src/components/toasts';
 import { SignupData } from 'src/constants/types/user';
 
 interface SignupParams {
   data: unknown;
   formRef: React.MutableRefObject<{ reset: () => void } | null>;
   setLoading: (loading: boolean) => void;
-  setToast: (toast: { message: string; type: ToastType } | null) => void;
+  setToast: (toast: { message: string; type: ToastTypes } | null) => void;
   t: (key: string, options?: TranslationOptions) => string;
 }
 
@@ -29,14 +29,14 @@ const SignupFunction = async ({
       options: { data: { user_name, email, isNewUser: true } },
     });
     if (error) throw new Error(error.message);
-    setToast({ message: t('toast.success.accountCreated'), type: ToastType.Success });
+    setToast({ message: t('toast.success.accountCreated'), type: ToastTypes.Success });
   } catch (err: unknown) {
     if (err instanceof Error)
       setToast({
         message: t('toast.error.userAlreadyRegistered', { email }),
-        type: ToastType.Error,
+        type: ToastTypes.Error,
       });
-    else setToast({ message: t('error.default'), type: ToastType.Error });
+    else setToast({ message: t('error.default'), type: ToastTypes.Error });
   } finally {
     if (formRef.current) formRef.current.reset();
     setLoading(false);

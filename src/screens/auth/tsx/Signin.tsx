@@ -9,9 +9,9 @@ import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { Container } from 'src/components/containers';
-import BaseForm from 'src/components/forms/Base';
+import { BaseForm } from 'src/components/forms';
 import { BaseText, GradientText } from 'src/components/texts';
-import Toast, { ToastType } from 'src/components/toasts/Base';
+import { BaseToast, ToastTypes } from 'src/components/toasts';
 import { Theme } from 'src/constants/styles/themes';
 import {
   RootNavigations,
@@ -39,7 +39,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
   );
   const styles = useMemo(() => createSigninStyles(theme), [theme]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: ToastTypes } | null>(null);
 
   const handleSignin = useCallback(async (data: unknown): Promise<void> => {
     await SigninFunction({ data, formRef, setLoading, setToast, t });
@@ -74,7 +74,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
             }}
           />
           {toast && (
-            <Toast
+            <BaseToast
               downHeight={0.05}
               message={toast.message}
               type={toast.type}

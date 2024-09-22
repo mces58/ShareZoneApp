@@ -9,9 +9,9 @@ import SpacemanWithMoonSvg from 'assets/svgs/spaceman-with-moon.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { Container } from 'src/components/containers';
-import BaseForm from 'src/components/forms/Base';
+import { BaseForm } from 'src/components/forms';
 import { BaseText, GradientText } from 'src/components/texts';
-import Toast, { ToastType } from 'src/components/toasts/Base';
+import { BaseToast, ToastTypes } from 'src/components/toasts';
 import { Theme } from 'src/constants/styles/themes';
 import {
   RootNavigations,
@@ -39,7 +39,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
   );
   const styles = useMemo(() => createSignupStyles(theme), [theme]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: ToastTypes } | null>(null);
 
   const handleSignup = useCallback(async (data: unknown): Promise<void> => {
     await SignupFunction({ data, formRef, setLoading, setToast, t });
@@ -74,12 +74,12 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
             }}
           />
           {toast && (
-            <Toast
+            <BaseToast
               downHeight={0.05}
               message={toast.message}
               type={toast.type}
               icon={
-                toast.type === ToastType.Error ? (
+                toast.type === ToastTypes.Error ? (
                   <Icon name="error" fillColor={theme.color.text} strokeWidth={0} />
                 ) : (
                   <Icon name="check" fillColor={theme.color.text} strokeWidth={0} />
