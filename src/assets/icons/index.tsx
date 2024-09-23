@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components/native';
 
 import { scaleByAspectRatio } from 'src/utils';
 
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 
 import AddSquareIcon from './add';
 import ArrowIcon from './arrow';

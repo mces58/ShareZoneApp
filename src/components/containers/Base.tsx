@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import styled from 'styled-components/native';
 
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 
 interface BaseContainerProps {
   children: React.ReactNode;

@@ -5,8 +5,7 @@ import styled, { useTheme } from 'styled-components/native';
 
 import { formatPhoneNumber, scaleByAspectRatio, scaleProportionally } from 'src/utils';
 
-import { COLORS } from 'src/constants/styles/colors';
-import { Theme } from 'src/constants/styles/themes';
+import { COLORS, Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
   CustomShadowStyle,

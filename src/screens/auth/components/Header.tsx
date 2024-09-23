@@ -5,7 +5,7 @@ import { scaleHeight, scaleProportionally } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { BaseHeader } from 'src/components/headers';
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
   CustomShadowStyle,

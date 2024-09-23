@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { scaleByAspectRatio, scaleHeight } from 'src/utils';
 
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
   CustomImageStyle,
