@@ -1,7 +1,7 @@
 import { Platform, StyleProp } from 'react-native';
 
 import { COLORS } from 'src/constants/styles/colors';
-import { CustomShadowStyle } from 'src/constants/types/style-types';
+import { CustomShadowStyle } from 'src/constants/types';
 
 interface ShadowParams {
   elevation?: number;

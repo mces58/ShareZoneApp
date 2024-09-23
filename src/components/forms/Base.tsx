@@ -24,7 +24,7 @@ import {
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
-} from 'src/constants/types/style-types';
+} from 'src/constants/types';
 
 import { Container } from '../containers';
 import { BaseInput } from '../inputs';

@@ -1,6 +1,6 @@
 import { supabase } from 'src/supabase';
 
-import { User } from 'src/constants/types/user';
+import { User } from 'src/constants/types';
 
 export const getUserById = async (
   id: string

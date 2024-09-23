@@ -8,7 +8,7 @@ import {
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
-} from 'src/constants/types/style-types';
+} from 'src/constants/types';
 
 const enum FlexStyles {
   CONTAINER = 'container',

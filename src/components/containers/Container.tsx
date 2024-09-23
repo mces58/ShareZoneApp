@@ -5,11 +5,7 @@ import styled from 'styled-components/native';
 
 import { shadowEffect } from 'src/utils';
 
-import {
-  CustomFlexStyle,
-  CustomShadowStyle,
-  CustomViewStyle,
-} from 'src/constants/types/style-types';
+import { CustomFlexStyle, CustomShadowStyle, CustomViewStyle } from 'src/constants/types';
 
 interface ContainerProps {
   children: React.ReactNode;

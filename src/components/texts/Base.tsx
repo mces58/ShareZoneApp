@@ -10,7 +10,7 @@ import {
 import styled, { useTheme } from 'styled-components/native';
 
 import { Theme } from 'src/constants/styles/themes';
-import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types/style-types';
+import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types';
 
 interface BaseTextProps {
   text: string;

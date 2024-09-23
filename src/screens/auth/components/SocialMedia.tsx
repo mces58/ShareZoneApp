@@ -7,7 +7,7 @@ import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import { BaseText } from 'src/components/texts';
 import { Theme } from 'src/constants/styles/themes';
-import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types/style-types';
+import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types';
 
 interface SocialMediaProps {
   text: string;

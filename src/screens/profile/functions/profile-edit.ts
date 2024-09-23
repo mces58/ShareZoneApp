@@ -3,8 +3,7 @@ import { getImageUri, updateUserById, uploadFile } from 'src/services';
 import { openGallery } from 'src/utils';
 
 import { ToastTypes } from 'src/components/toasts';
-import { ImageFolderNames } from 'src/constants/types/supabase';
-import { User } from 'src/constants/types/user';
+import { ImageFolderNames, User } from 'src/constants/types';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
 
 interface ImagePickerParams {
