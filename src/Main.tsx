@@ -5,7 +5,7 @@ import styled, { useTheme } from 'styled-components/native';
 
 import { StatusBar } from 'expo-status-bar';
 
-import { Theme } from './constants/styles/themes';
+import { Theme } from './constants/styles';
 import { MainScreenNavigation, RootNavigations } from './navigations/RootStackParamList';
 
 import { useAuth } from './contexts';

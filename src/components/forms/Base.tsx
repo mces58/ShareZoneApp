@@ -18,13 +18,13 @@ import { scaleProportionally } from 'src/utils';
 import * as Yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
-} from 'src/constants/types/style-types';
+} from 'src/constants/types';
 
 import { Container } from '../containers';
 import { BaseInput } from '../inputs';

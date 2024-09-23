@@ -1,21 +1,20 @@
-import React, { useMemo } from 'react';
-import { Alert } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
 
 import { useAuth, useI18n } from 'src/contexts';
-import { supabase } from 'src/supabase';
 import { scaleByAspectRatio } from 'src/utils';
 import { useTheme } from 'styled-components';
 
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import { BaseImage } from 'src/components/images';
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 import {
   ProfileNavigations,
   ProfileScreenNavigation,
 } from 'src/navigations/profile/ProfileStackParamList';
 
 import { Header } from '../components';
+import { SignoutFunction } from '../functions';
 import { createProfileStyles } from '../styles';
 
 interface ProfileProps {
@@ -28,28 +27,9 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
   const { t } = useI18n();
   const styles = useMemo(() => createProfileStyles(theme), [theme]);
 
-  const onSignOut = async (): Promise<void> => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      Alert.alert(t('error.default'), error.message);
-    } else {
-      setAuthData(null);
-    }
-  };
-
-  const handleSignOut = (): void => {
-    Alert.alert(t('global.confirm'), t('profile.signout?'), [
-      {
-        text: t('global.cancel'),
-        style: 'cancel',
-      },
-      {
-        text: t('global.ok'),
-        onPress: onSignOut,
-        style: 'destructive',
-      },
-    ]);
-  };
+  const handleSignOut = useCallback((): void => {
+    SignoutFunction({ setAuthData, t });
+  }, []);
 
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>

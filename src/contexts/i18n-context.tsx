@@ -2,9 +2,7 @@ import React, { createContext, ReactNode, useContext, useState } from 'react';
 
 import { TranslateOptions } from 'i18n-js';
 
-import i18n from 'src/constants/localization/i18n';
-import { LANGUAGE_CODES } from 'src/constants/localization/languages';
-import { LOCAL_UNITS } from 'src/constants/localization/local-units';
+import { i18n, LANGUAGE_CODES, LOCAL_UNITS } from 'src/constants/localization';
 
 export type TranslationOptions = TranslateOptions;
 

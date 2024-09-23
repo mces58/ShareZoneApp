@@ -12,7 +12,7 @@ import { BaseForm } from 'src/components/forms';
 import { BaseImage } from 'src/components/images';
 import { BaseText } from 'src/components/texts';
 import { BaseToast, ToastTypes } from 'src/components/toasts';
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
 
 import { Header } from '../components';
@@ -40,14 +40,12 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
   const [toast, setToast] = useState<{ message: string; type: ToastTypes } | null>(null);
 
   const handleImagePicker = useCallback(async (): Promise<void> => {
-    if (user) {
-      await ImagePickerFunction({ setUserData, user });
-    }
+    if (user) await ImagePickerFunction({ setUserData, user });
   }, [user, setUserData]);
 
   const handleUpdateUser = useCallback(
     async (data: unknown): Promise<void> => {
-      if (user) {
+      if (user)
         await UpdateUserFunction({
           data,
           formRef,
@@ -58,7 +56,6 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
           t,
           user,
         });
-      }
     },
     [user, setUserData, t, navigation]
   );

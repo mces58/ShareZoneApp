@@ -9,7 +9,7 @@ import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import { BaseHeader } from 'src/components/headers';
 import { BaseImage } from 'src/components/images';
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 import { ProfileNavigations } from 'src/navigations/profile/ProfileStackParamList';
 import {
   HomeScreenNavigation,

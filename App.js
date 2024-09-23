@@ -9,7 +9,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider, I18nProvider } from 'src/contexts';
 import { loadFonts } from 'src/utils';
 
-import { DarkTheme, LightTheme, THEMES } from 'src/constants/styles/themes';
+import { DarkTheme, LightTheme, THEMES } from 'src/constants/styles';
 import RootNavigation from 'src/navigations/RootNavigation';
 
 import * as Storybook from './.storybook';

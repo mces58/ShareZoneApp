@@ -5,14 +5,13 @@ import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils'
 
 import Icon from 'src/assets/icons';
 import { BaseHeader } from 'src/components/headers';
-import { COLORS } from 'src/constants/styles/colors';
-import { Theme } from 'src/constants/styles/themes';
+import { COLORS, Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
-} from 'src/constants/types/style-types';
+} from 'src/constants/types';
 
 interface HeaderProps {
   onPressHeaderIcon: () => void;

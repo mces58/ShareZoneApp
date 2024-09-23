@@ -10,7 +10,7 @@ import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { BaseContainer, Container } from 'src/components/containers';
 import { BaseText, GradientText } from 'src/components/texts';
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 import {
   RootNavigations,
   WelcomeScreenNavigation,
