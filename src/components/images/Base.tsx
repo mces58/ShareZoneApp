@@ -7,7 +7,7 @@ import { Image } from 'expo-image';
 
 import { shadowEffect } from 'src/utils';
 
-import { CustomImageStyle, CustomShadowStyle } from 'src/constants/types/style-types';
+import { CustomImageStyle, CustomShadowStyle } from 'src/constants/types';
 
 interface BaseImageProps {
   uri: string | undefined;

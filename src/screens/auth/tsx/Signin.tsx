@@ -12,7 +12,7 @@ import { Container } from 'src/components/containers';
 import { BaseForm } from 'src/components/forms';
 import { BaseText, GradientText } from 'src/components/texts';
 import { BaseToast, ToastTypes } from 'src/components/toasts';
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 import {
   RootNavigations,
   SigninScreenNavigation,

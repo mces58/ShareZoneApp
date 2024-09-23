@@ -14,7 +14,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { calculateGradientEndpoints } from 'src/utils';
 
-import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types/style-types';
+import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types';
 
 interface GradientTextProps {
   colors: string[];

@@ -2,7 +2,7 @@ import { TranslationOptions } from 'src/contexts';
 import { supabase } from 'src/supabase';
 
 import { ToastTypes } from 'src/components/toasts';
-import { SigninData } from 'src/constants/types/user';
+import { SigninData } from 'src/constants/types';
 
 interface SigninParams {
   data: unknown;

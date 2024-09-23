@@ -5,7 +5,7 @@ import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { FormField } from 'src/components/forms/Base';
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 
 import { ProfileEditValidation } from '../validations';
 

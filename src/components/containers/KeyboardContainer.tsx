@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { useTheme } from 'styled-components/native';
 
-import { Theme } from 'src/constants/styles/themes';
+import { Theme } from 'src/constants/styles';
 
 interface KeyboardContainerProps {
   children: ReactNode;

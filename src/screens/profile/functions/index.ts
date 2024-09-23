@@ -1,3 +1,4 @@
+import SignoutFunction from './profile';
 import { ImagePickerFunction, UpdateUserFunction } from './profile-edit';
 
-export { ImagePickerFunction, UpdateUserFunction };
+export { SignoutFunction, ImagePickerFunction, UpdateUserFunction };
