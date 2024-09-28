@@ -17,7 +17,7 @@ const onSignout = async ({ setAuthData, t }: FunctionParams): Promise<void> => {
 };
 
 const SignoutFunction = ({ setAuthData, t }: FunctionParams): void => {
-  Alert.alert(t('global.confirm'), t('profile.signout?'), [
+  Alert.alert(t('global.confirm'), t('screens.profile.signout?'), [
     {
       text: t('global.cancel'),
       style: 'cancel',

@@ -59,7 +59,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
       <Container flexStyle={styles.flex.main}>
         <Container flexStyle={styles.flex.form}>
           <GradientText
-            text={t('auth.signIn')}
+            text={t('screens.auth.signIn')}
             colors={theme.common.color.defaultGradient2}
             textStyle={styles.text.formHeader}
           />
@@ -92,7 +92,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
           <Container flexStyle={styles.flex.footerAction}>
             <Container flexStyle={styles.flex.footerButtonContainer}>
               <GradientButton
-                text={t('auth.signIn')}
+                text={t('screens.auth.signIn')}
                 colors={theme.common.color.defaultGradient2}
                 onPress={handleFormSubmit}
                 loading={loading}
@@ -103,11 +103,11 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
               />
               <Container flexStyle={styles.flex.rowText}>
                 <BaseText
-                  text={t('auth.dontHaveAnAccount')}
+                  text={t('screens.auth.dontHaveAnAccount')}
                   textStyle={styles.text.footer}
                 />
                 <GradientText
-                  text={t('auth.signUp')}
+                  text={t('screens.auth.signUp')}
                   colors={theme.common.color.defaultGradient2}
                   onPress={() => {
                     if (!formRef.current) return;
@@ -118,7 +118,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
                 />
               </Container>
             </Container>
-            <SocialMedia text={t('auth.followOn')} theme={theme} />
+            <SocialMedia text={t('screens.auth.followOn')} theme={theme} />
           </Container>
         </Container>
       </Container>

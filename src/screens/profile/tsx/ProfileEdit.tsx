@@ -73,7 +73,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
     >
       <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
         <Header
-          title={t('profileEdit.title')}
+          title={t('screens.profileEdit.title')}
           theme={theme}
           onPressHeaderIcon={() => navigation.goBack()}
         />
@@ -92,7 +92,10 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
           shadowStyle={styles.shadow.small}
         />
         <Container flexStyle={styles.flex.form}>
-          <BaseText text={t('profileEdit.subTitle')} textStyle={styles.text.subheader} />
+          <BaseText
+            text={t('screens.profileEdit.subTitle')}
+            textStyle={styles.text.subheader}
+          />
           <BaseForm
             formFields={formFields}
             onSubmit={handleUpdateUser}
