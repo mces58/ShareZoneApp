@@ -8,15 +8,8 @@
     "confirm": "Onayla",
     "cancel": "İptal",
     "ok": "Tamam",
-    "save": "Kaydet"
-  },
-  "auth": {
-    "getStarted": "Hemen başlayın",
-    "alreadyHaveAnAccount": "Zaten bir hesabınız var mı?",
-    "dontHaveAnAccount": "Henüz bir hesabınız yok mu?",
-    "signIn": "Giriş Yap",
-    "signUp": "Kayıt Ol",
-    "followOn": "Takip Et"
+    "save": "Kaydet",
+    "public": "Herkese Açık"
   },
   "form": {
     "input": {
@@ -25,7 +18,8 @@
       "userName": "Kullanıcı Adı",
       "phoneNumber": "Telefon Numarası",
       "address": "Adres",
-      "bio": "Hakkımda"
+      "bio": "Hakkımda",
+      "richText": "Aklınızdakileri yazın"
     },
     "required": "Bu alan zorunludur",
     "invalidEmail": "Geçerli bir e-posta adresi girin",
@@ -39,14 +33,6 @@
   "error": {
     "default": "Bilinmeyen bir hata oluştu."
   },
-  "profile": {
-    "title": "Profil",
-    "signout?": "Çıkış yapmak istiyor musunuz?"
-  },
-  "profileEdit": {
-    "title": "Profili Düzenle",
-    "subTitle": "Profil bilgilerinizi buradan düzenleyebilirsiniz."
-  },
   "toast": {
     "success": {
       "accountCreated": "Hesabınız başarıyla oluşturuldu.",
@@ -57,6 +43,27 @@
       "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}",
       "profileUpdated": "Profil güncelleme başarısız oldu.",
       "emptyForm": "Henüz herhangi bir değişiklik yapmadınız."
+    }
+  },
+  "screens": {
+    "auth": {
+      "getStarted": "Hemen başlayın",
+      "alreadyHaveAnAccount": "Zaten bir hesabınız var mı?",
+      "dontHaveAnAccount": "Henüz bir hesabınız yok mu?",
+      "signIn": "Giriş Yap",
+      "signUp": "Kayıt Ol",
+      "followOn": "Takip Et"
+    },
+    "profile": {
+      "title": "Profil",
+      "signout?": "Çıkış yapmak istiyor musunuz?"
+    },
+    "profileEdit": {
+      "title": "Profili Düzenle",
+      "subTitle": "Profil bilgilerinizi buradan düzenleyebilirsiniz."
+    },
+    "post": {
+      "title": "Gönderi Oluştur"
     }
   }
 }

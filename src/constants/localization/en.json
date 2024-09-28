@@ -8,16 +8,8 @@
     "confirm": "Confirm",
     "cancel": "Cancel",
     "ok": "Ok",
-    "save": "Save"
-  },
-  "auth": {
-    "getStarted": "Get Started",
-    "alreadyHaveAnAccount": "Already have an account?",
-    "dontHaveAnAccount": "Don't have an account yet?",
-    "signIn": "Sign In",
-    "signUp": "Sign Up",
-    "forgotPassword": "Forgot Password?",
-    "followOn": "Follow on"
+    "save": "Save",
+    "public": "Public"
   },
   "form": {
     "input": {
@@ -26,7 +18,8 @@
       "userName": "Username",
       "phoneNumber": "Phone Number",
       "address": "Address",
-      "bio": "About"
+      "bio": "About",
+      "richText": "What is on your mind?"
     },
     "required": "This field is required",
     "invalidEmail": "Enter a valid email address",
@@ -40,14 +33,6 @@
   "error": {
     "default": "An unknown error occurred."
   },
-  "profile": {
-    "title": "Profile",
-    "signout?": "Do you want to sign out?"
-  },
-  "profileEdit": {
-    "title": "Edit Profile",
-    "subTitle": "You can edit your profile information here."
-  },
   "toast": {
     "success": {
       "accountCreated": "Your account has been created successfully.",
@@ -58,6 +43,28 @@
       "userAlreadyRegistered": "This user already registered: {{email}}",
       "profileUpdated": "Profile update failed.",
       "emptyForm": "You haven't made any changes yet."
+    }
+  },
+  "screens": {
+    "auth": {
+      "getStarted": "Get Started",
+      "alreadyHaveAnAccount": "Already have an account?",
+      "dontHaveAnAccount": "Don't have an account yet?",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "forgotPassword": "Forgot Password?",
+      "followOn": "Follow on"
+    },
+    "profile": {
+      "title": "Profile",
+      "signout?": "Do you want to sign out?"
+    },
+    "profileEdit": {
+      "title": "Edit Profile",
+      "subTitle": "You can edit your profile information here."
+    },
+    "post": {
+      "title": "Create Post"
     }
   }
 }
