@@ -34,7 +34,7 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
       <Header
-        title={t('profile.title')}
+        title={t('screens.profile.title')}
         theme={theme}
         onPressHeaderIcon={() => navigation.goBack()}
         onPressExtraHeaderIcon={handleSignOut}

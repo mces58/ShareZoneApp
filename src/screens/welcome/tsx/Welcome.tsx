@@ -56,7 +56,7 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
           <BaseText text={t('app.punchline')} textStyle={styles.text.subtitle} />
         </Container>
         <GradientButton
-          text={t('auth.getStarted')}
+          text={t('screens.auth.getStarted')}
           colors={theme.common.color.defaultGradient2}
           onPress={() => navigation.navigate(RootNavigations.SIGNUP)}
           icon={<Icon name="arrow" direction="right" />}
@@ -67,11 +67,11 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
         />
         <Container flexStyle={styles.flex.footer}>
           <BaseText
-            text={t('auth.alreadyHaveAnAccount')}
+            text={t('screens.auth.alreadyHaveAnAccount')}
             textStyle={styles.text.footer}
           />
           <GradientText
-            text={t('auth.signIn')}
+            text={t('screens.auth.signIn')}
             colors={theme.common.color.defaultGradient2}
             onPress={() => navigation.navigate(RootNavigations.SIGNIN)}
             textStyle={styles.text.link}
