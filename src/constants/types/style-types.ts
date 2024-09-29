@@ -34,6 +34,7 @@ type CustomFlexStyle = Pick<
   | 'borderStartWidth'
   | 'borderTopWidth'
   | 'borderWidth'
+  | 'bottom'
   | 'display'
   | 'flex'
   | 'flexDirection'
@@ -41,12 +42,14 @@ type CustomFlexStyle = Pick<
   | 'gap'
   | 'height'
   | 'justifyContent'
+  | 'left'
   | 'marginBottom'
   | 'marginHorizontal'
   | 'marginLeft'
   | 'marginRight'
   | 'marginTop'
   | 'marginVertical'
+  | 'minHeight'
   | 'overflow'
   | 'paddingBottom'
   | 'paddingHorizontal'
@@ -54,6 +57,9 @@ type CustomFlexStyle = Pick<
   | 'paddingRight'
   | 'paddingTop'
   | 'paddingVertical'
+  | 'position'
+  | 'right'
+  | 'top'
   | 'width'
 > & {
   alignItems?: FlexStyle['alignItems'];
@@ -63,6 +69,7 @@ type CustomFlexStyle = Pick<
   borderStartWidth?: FlexStyle['borderWidth'];
   borderTopWidth?: FlexStyle['borderWidth'];
   borderWidth?: FlexStyle['borderWidth'];
+  bottom?: number;
   display?: FlexStyle['display'];
   flex?: FlexStyle['flex'];
   flexDirection?: FlexStyle['flexDirection'];
@@ -70,12 +77,14 @@ type CustomFlexStyle = Pick<
   gap?: FlexStyle['gap'];
   height?: number | string;
   justifyContent?: FlexStyle['justifyContent'];
+  left?: number;
   marginBottom?: number;
   marginHorizontal?: number;
   marginLeft?: number;
   marginRight?: number;
   marginTop?: number;
   marginVertical?: number;
+  minHeight?: number;
   overflow?: FlexStyle['overflow'];
   paddingBottom?: number;
   paddingHorizontal?: number;
@@ -83,6 +92,9 @@ type CustomFlexStyle = Pick<
   paddingRight?: number;
   paddingTop?: number;
   paddingVertical?: number;
+  position?: FlexStyle['position'];
+  right?: number;
+  top?: number;
   width?: number | string;
 };
 

@@ -9,7 +9,8 @@
     "cancel": "İptal",
     "ok": "Tamam",
     "save": "Kaydet",
-    "public": "Herkese Açık"
+    "public": "Herkese Açık",
+    "post": "Gönder"
   },
   "form": {
     "input": {
@@ -19,7 +20,7 @@
       "phoneNumber": "Telefon Numarası",
       "address": "Adres",
       "bio": "Hakkımda",
-      "richText": "Aklınızdakileri yazın"
+      "richPlaceholder": "Aklınızdakileri yazın"
     },
     "required": "Bu alan zorunludur",
     "invalidEmail": "Geçerli bir e-posta adresi girin",
@@ -36,13 +37,15 @@
   "toast": {
     "success": {
       "accountCreated": "Hesabınız başarıyla oluşturuldu.",
-      "profileUpdated": "Profil başarıyla güncellendi."
+      "profileUpdated": "Profil başarıyla güncellendi.",
+      "postCreated": "Gönderi başarıyla oluşturuldu."
     },
     "error": {
       "invalidLoginCredentials": "Geçersiz oturum açma kimlik bilgileri.",
       "userAlreadyRegistered": "Bu kullanıcı zaten kayıtlı: {{email}}",
       "profileUpdated": "Profil güncelleme başarısız oldu.",
-      "emptyForm": "Henüz herhangi bir değişiklik yapmadınız."
+      "emptyForm": "Henüz herhangi bir değişiklik yapmadınız.",
+      "selectFile": "Lütfen bir dosya seçin"
     }
   },
   "screens": {
@@ -63,7 +66,9 @@
       "subTitle": "Profil bilgilerinizi buradan düzenleyebilirsiniz."
     },
     "post": {
-      "title": "Gönderi Oluştur"
+      "title": "Gönderi Oluştur",
+      "description": "Dünya senin gözünden nasıl görünüyor?",
+      "addToPost": "Gönderinizi ekleyin"
     }
   }
 }

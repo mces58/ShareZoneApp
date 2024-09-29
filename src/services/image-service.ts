@@ -1,11 +1,11 @@
 import { supabase } from 'src/supabase';
 
-import { BASE_IMAGE_FOLDER, ImageFolderNames } from 'src/constants/types';
+import { BASE_FOLDER, FolderNames } from 'src/constants/types';
 
-export const getImageUri = (folderName: ImageFolderNames, fileName: string): string => {
+export const getImageUri = (folderName: FolderNames, fileName: string): string => {
   const {
     data: { publicUrl },
-  } = supabase.storage.from(`${BASE_IMAGE_FOLDER}/${folderName}`).getPublicUrl(fileName);
+  } = supabase.storage.from(`${BASE_FOLDER}/${folderName}`).getPublicUrl(fileName);
 
   return publicUrl;
 };

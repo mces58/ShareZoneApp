@@ -3,11 +3,11 @@ import * as FileSystem from 'expo-file-system';
 import { decode } from 'base64-arraybuffer';
 import { supabase } from 'src/supabase';
 
-import { BASE_IMAGE_FOLDER, ImageFolderNames } from 'src/constants/types';
+import { BASE_FOLDER, FolderNames } from 'src/constants/types';
 
 interface UploadFileOptions {
   fileUri: string;
-  folderName: ImageFolderNames;
+  folderName: FolderNames;
   mimeType: string;
   encoding?: FileSystem.EncodingType;
 }
@@ -17,7 +17,7 @@ export const uploadFile = async (
 ): Promise<
   | {
       fileName: string;
-      folderName: ImageFolderNames;
+      folderName: FolderNames;
       fullPath: string;
       id: string;
       path: string;
@@ -39,7 +39,7 @@ export const uploadFile = async (
     const fileData = decode(fileContent);
 
     const { data, error } = await supabase.storage
-      .from(BASE_IMAGE_FOLDER)
+      .from(BASE_FOLDER)
       .upload(filePath, fileData, {
         contentType: mimeType,
         cacheControl: '3600',

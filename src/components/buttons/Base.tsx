@@ -16,6 +16,7 @@ import {
 interface BaseButtonProps {
   onPress: () => void;
   text: string;
+  disabled?: boolean;
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
   icon?: React.ReactNode;
   loading?: boolean;
@@ -26,8 +27,9 @@ interface BaseButtonProps {
 }
 
 const BaseButton: React.FC<BaseButtonProps> = ({
-  text,
   onPress,
+  text,
+  disabled = false,
   flexStyle = {},
   icon,
   loading = false,
@@ -56,6 +58,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
   return (
     <Button
       onPress={onPress}
+      disabled={disabled}
       flexStyle={flattenedFlexStyle}
       viewStyle={flattenedViewStyle}
       style={[

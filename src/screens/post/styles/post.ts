@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
 
@@ -15,10 +15,16 @@ const enum FlexStyles {
   CONTAINER = 'container',
   AVATAR = 'avatar',
   AVATAR_TEXT = 'avatarText',
+  TRASH_ICON = 'trashIcon',
+  POST = 'post',
+  ICON = 'icon',
+  BUTTON_WRAPPER = 'buttonWrapper',
+  BUTTON = 'button',
 }
 
 const enum ImageStyles {
   AVATAR = 'avatar',
+  POST = 'post',
 }
 
 const enum ShadowStyles {
@@ -28,11 +34,18 @@ const enum ShadowStyles {
 const enum TextStyles {
   USER_NAME = 'userName',
   PUBLIC = 'public',
+  DESCRIPTION = 'description',
+  ADD_TO_POST = 'addToPost',
+  BUTTON = 'button',
 }
 
 const enum ViewStyles {
   CONTAINER = 'container',
+  POST = 'post',
+  BUTTON = 'button',
 }
+
+const { width: deviceWidth } = Dimensions.get('window');
 
 const createPostStyles = (
   theme: Theme
@@ -52,10 +65,42 @@ const createPostStyles = (
       flexDirection: 'row',
       alignItems: 'center',
       gap: scaleProportionally(10),
-      paddingHorizontal: scaleProportionally(10),
+      paddingHorizontal: scaleProportionally(20),
     },
     [FlexStyles.AVATAR_TEXT]: {
       gap: scaleProportionally(5),
+    },
+    [FlexStyles.TRASH_ICON]: {
+      position: 'absolute',
+      right: scaleProportionally(30),
+      bottom: scaleProportionally(10),
+    },
+    [FlexStyles.POST]: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderWidth: 1,
+      width: '90%',
+      alignSelf: 'center',
+      paddingVertical: scaleProportionally(10),
+      paddingHorizontal: scaleProportionally(10),
+      marginTop: scaleHeight(20),
+    },
+    [FlexStyles.ICON]: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    [FlexStyles.BUTTON_WRAPPER]: {
+      flex: 1,
+      flexDirection: 'column-reverse',
+      paddingVertical: scaleHeight(20),
+    },
+    [FlexStyles.BUTTON]: {
+      width: '90%',
+      height: scaleHeight(55),
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: 'center',
     },
   });
 
@@ -65,6 +110,12 @@ const createPostStyles = (
       width: scaleByAspectRatio(75),
       height: scaleByAspectRatio(75),
       borderRadius: scaleByAspectRatio(75) / 2,
+    },
+    [ImageStyles.POST]: {
+      width: scaleByAspectRatio(deviceWidth * 0.8),
+      height: scaleByAspectRatio(deviceWidth * 0.5),
+      borderRadius: scaleByAspectRatio(10),
+      alignSelf: 'center',
     },
   });
 
@@ -90,11 +141,38 @@ const createPostStyles = (
       letterSpacing: scaleProportionally(0.75),
       textDecorationLine: 'underline',
     },
+    [TextStyles.DESCRIPTION]: {
+      fontSize: theme.common.font.sizes._20,
+      letterSpacing: scaleProportionally(0.5),
+      textAlign: 'center',
+      textTransform: 'capitalize',
+      textDecorationLine: 'underline',
+      fontStyle: 'italic',
+    },
+    [TextStyles.ADD_TO_POST]: {
+      fontSize: theme.common.font.sizes._14,
+      letterSpacing: scaleProportionally(0.5),
+      textTransform: 'capitalize',
+    },
+    [TextStyles.BUTTON]: {
+      fontFamily: theme.common.font.families.bold,
+      fontSize: theme.common.font.sizes._18,
+      letterSpacing: scaleProportionally(1),
+      textDecorationLine: 'underline',
+    },
   });
 
   const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
     [ViewStyles.CONTAINER]: {
       backgroundColor: theme.color.background,
+    },
+    [ViewStyles.POST]: {
+      borderColor: theme.color.border,
+      borderRadius: scaleProportionally(10),
+    },
+    [ViewStyles.BUTTON]: {
+      backgroundColor: theme.common.color.success,
+      borderRadius: scaleProportionally(15),
     },
   });
 
