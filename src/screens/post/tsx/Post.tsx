@@ -7,7 +7,7 @@ import { useAuth, useI18n } from 'src/contexts';
 
 import { Container } from 'src/components/containers';
 import { BaseImage } from 'src/components/images';
-import { RichText } from 'src/components/inputs';
+import { RichInput } from 'src/components/inputs';
 import { BaseText } from 'src/components/texts';
 import { Theme } from 'src/constants/styles';
 import { PostScreenNavigation } from 'src/navigations/RootStackParamList';
@@ -51,7 +51,7 @@ const Post: React.FC<PostProps> = ({ navigation }) => {
         </Container>
       </Container>
       <Container>
-        <RichText editorRef={editorRef} onChange={(text) => (bodyRef.current = text)} />
+        <RichInput editorRef={editorRef} onChange={(text) => (bodyRef.current = text)} />
       </Container>
     </Container>
   );

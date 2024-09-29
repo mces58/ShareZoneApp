@@ -19,7 +19,7 @@
       "phoneNumber": "Phone Number",
       "address": "Address",
       "bio": "About",
-      "richText": "What is on your mind?"
+      "richPlaceholder": "What is on your mind?"
     },
     "required": "This field is required",
     "invalidEmail": "Enter a valid email address",

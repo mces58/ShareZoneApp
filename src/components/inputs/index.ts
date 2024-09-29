@@ -1,4 +1,4 @@
 import BaseInput from './Base';
-import RichText from './RichText';
+import RichInput from './RichInput';
 
-export { BaseInput, RichText };
+export { BaseInput, RichInput };

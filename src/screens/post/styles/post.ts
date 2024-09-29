@@ -52,7 +52,7 @@ const createPostStyles = (
       flexDirection: 'row',
       alignItems: 'center',
       gap: scaleProportionally(10),
-      paddingHorizontal: scaleProportionally(10),
+      paddingHorizontal: scaleProportionally(20),
     },
     [FlexStyles.AVATAR_TEXT]: {
       gap: scaleProportionally(5),
