@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { actions, RichEditor, RichToolbar } from 'react-native-pell-rich-editor';
 
 import { useTheme } from 'styled-components/native';
@@ -8,6 +8,9 @@ import { useI18n } from 'src/contexts';
 import { scaleHeight, scaleProportionally } from 'src/utils';
 
 import { Theme } from 'src/constants/styles';
+
+import { Container } from '../containers';
+import { BaseText } from '../texts';
 
 interface RichInputProps {
   editorRef: React.MutableRefObject<RichEditor | null>;
@@ -24,7 +27,7 @@ const RichInput: React.FC<RichInputProps> = ({
   const { t } = useI18n();
 
   return (
-    <>
+    <Container flexStyle={{ minHeight: height * 1.1 }}>
       <RichToolbar
         editor={editorRef}
         actions={[
@@ -51,10 +54,10 @@ const RichInput: React.FC<RichInputProps> = ({
         ]}
         iconMap={{
           [actions.heading1]: ({ tintColor }: { tintColor: string }) => (
-            <Text style={{ color: tintColor }}>H1</Text>
+            <BaseText color={tintColor} text="H1" />
           ),
           [actions.heading4]: ({ tintColor }: { tintColor: string }) => (
-            <Text style={{ color: tintColor }}>H4</Text>
+            <BaseText color={tintColor} text="H4" />
           ),
         }}
         selectedIconTint={theme.common.color.primary}
@@ -72,7 +75,7 @@ const RichInput: React.FC<RichInputProps> = ({
         containerStyle={[
           styles.richEditor,
           {
-            minHeight: height,
+            minHeight: height * 0.8,
             maxHeight: height,
             backgroundColor: theme.color.background,
             borderColor: theme.color.border,
@@ -86,7 +89,7 @@ const RichInput: React.FC<RichInputProps> = ({
         }}
         scrollEnabled={true}
       />
-    </>
+    </Container>
   );
 };
 

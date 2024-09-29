@@ -20,6 +20,7 @@ interface GradientButtonProps {
   colors: string[];
   onPress: () => void;
   text: string;
+  disabled?: boolean;
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
   gradientDegree?: number;
   icon?: React.ReactNode;
@@ -31,9 +32,10 @@ interface GradientButtonProps {
 }
 
 const GradientButton: React.FC<GradientButtonProps> = ({
-  text,
-  onPress,
   colors,
+  onPress,
+  text,
+  disabled = false,
   flexStyle = {},
   gradientDegree = 90,
   icon,
@@ -63,6 +65,7 @@ const GradientButton: React.FC<GradientButtonProps> = ({
   return (
     <Button
       onPress={onPress}
+      disabled={disabled}
       flexStyle={flattenedFlexStyle}
       viewStyle={flattenedViewStyle}
       style={Platform.OS === 'ios' ? shadowEffectValue : {}}

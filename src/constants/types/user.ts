@@ -19,3 +19,11 @@ export interface User {
   phone_number?: string;
   user_name?: string;
 }
+
+export interface PostData {
+  body: string;
+  created_at: string;
+  file: string;
+  id: string;
+  userId: string;
+}

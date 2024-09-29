@@ -75,7 +75,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
           />
           {toast && (
             <BaseToast
-              downHeight={0.05}
+              downHeight={-75}
               message={toast.message}
               type={toast.type}
               icon={
@@ -102,6 +102,7 @@ const Signup: React.FC<SignupProps> = ({ navigation }) => {
                 colors={theme.common.color.defaultGradient2}
                 onPress={handleFormSubmit}
                 loading={loading}
+                disabled={loading}
                 flexStyle={styles.flex.button}
                 shadowStyle={styles.shadow.button}
                 textStyle={styles.text.button}

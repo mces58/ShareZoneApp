@@ -9,7 +9,8 @@
     "cancel": "Cancel",
     "ok": "Ok",
     "save": "Save",
-    "public": "Public"
+    "public": "Public",
+    "post": "Post"
   },
   "form": {
     "input": {
@@ -36,13 +37,15 @@
   "toast": {
     "success": {
       "accountCreated": "Your account has been created successfully.",
-      "profileUpdated": "Your profile has been updated successfully."
+      "profileUpdated": "Your profile has been updated successfully.",
+      "postCreated": "Your post has been created successfully."
     },
     "error": {
       "invalidLoginCredentials": "Invalid login credentials.",
       "userAlreadyRegistered": "This user already registered: {{email}}",
       "profileUpdated": "Profile update failed.",
-      "emptyForm": "You haven't made any changes yet."
+      "emptyForm": "You haven't made any changes yet.",
+      "selectFile": "Please select a file"
     }
   },
   "screens": {
@@ -64,7 +67,9 @@
       "subTitle": "You can edit your profile information here."
     },
     "post": {
-      "title": "Create Post"
+      "title": "Create Post",
+      "description": "What does the world look like through your eyes?",
+      "addToPost": "Add the your post"
     }
   }
 }
