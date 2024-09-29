@@ -1,6 +1,6 @@
 /* eslint-disable security/detect-object-injection */
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Animated, Dimensions } from 'react-native';
+import { Animated } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
@@ -33,17 +33,14 @@ const BaseToast: React.FC<BaseToastProps> = ({
   duration = 2000,
   icon,
 }) => {
-  const { width } = Dimensions.get('window');
-  const [slideAnim] = useState<Animated.Value>(
-    new Animated.Value(-scaleHeight(width * 0.5))
-  );
+  const [slideAnim] = useState<Animated.Value>(new Animated.Value(-scaleHeight(400)));
   const [visible, setVisible] = useState<boolean>(false);
   const theme = useTheme() as Theme;
 
   useEffect(() => {
     const showToast = (): void => {
       Animated.timing(slideAnim, {
-        toValue: -scaleHeight(width) * downHeight,
+        toValue: -scaleHeight(downHeight),
         duration: 500,
         useNativeDriver: true,
       }).start();
@@ -51,7 +48,7 @@ const BaseToast: React.FC<BaseToastProps> = ({
 
     const hideToast = (): void => {
       Animated.timing(slideAnim, {
-        toValue: -scaleHeight(width),
+        toValue: -scaleHeight(400),
         duration: 500,
         useNativeDriver: true,
       }).start(() => setVisible(false));
@@ -104,7 +101,7 @@ const AnimatedContainer = styled(Animated.View)<{
   type: ToastTypes;
 }>(({ theme, type }) => ({
   position: 'absolute',
-  top: -scaleHeight(100),
+  top: -scaleHeight(200),
   left: scaleWidth(20),
   right: scaleWidth(20),
   backgroundColor: backgroundColors(theme)[type],

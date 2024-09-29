@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { actions, RichEditor, RichToolbar } from 'react-native-pell-rich-editor';
 
 import { useTheme } from 'styled-components/native';
@@ -9,13 +9,16 @@ import { scaleHeight, scaleProportionally } from 'src/utils';
 
 import { Theme } from 'src/constants/styles';
 
-interface RichTextProps {
+import { Container } from '../containers';
+import { BaseText } from '../texts';
+
+interface RichInputProps {
   editorRef: React.MutableRefObject<RichEditor | null>;
   onChange: (text: string) => void;
   height?: number;
 }
 
-const RichText: React.FC<RichTextProps> = ({
+const RichInput: React.FC<RichInputProps> = ({
   editorRef,
   onChange,
   height = scaleHeight(200),
@@ -24,7 +27,7 @@ const RichText: React.FC<RichTextProps> = ({
   const { t } = useI18n();
 
   return (
-    <>
+    <Container flexStyle={{ minHeight: height * 1.1 }}>
       <RichToolbar
         editor={editorRef}
         actions={[
@@ -51,10 +54,10 @@ const RichText: React.FC<RichTextProps> = ({
         ]}
         iconMap={{
           [actions.heading1]: ({ tintColor }: { tintColor: string }) => (
-            <Text style={{ color: tintColor }}>H1</Text>
+            <BaseText color={tintColor} text="H1" />
           ),
           [actions.heading4]: ({ tintColor }: { tintColor: string }) => (
-            <Text style={{ color: tintColor }}>H4</Text>
+            <BaseText color={tintColor} text="H4" />
           ),
         }}
         selectedIconTint={theme.common.color.primary}
@@ -68,11 +71,12 @@ const RichText: React.FC<RichTextProps> = ({
       <RichEditor
         ref={editorRef}
         onChange={(text) => onChange(text)}
-        placeholder={t('form.input.richText') + '...'}
+        placeholder={t('form.input.richPlaceholder') + '...'}
         containerStyle={[
           styles.richEditor,
           {
-            minHeight: height,
+            minHeight: height * 0.8,
+            maxHeight: height,
             backgroundColor: theme.color.background,
             borderColor: theme.color.border,
           },
@@ -83,17 +87,18 @@ const RichText: React.FC<RichTextProps> = ({
           color: theme.color.text,
           placeholderColor: theme.color.border,
         }}
+        scrollEnabled={true}
       />
-    </>
+    </Container>
   );
 };
 
-export default RichText;
+export default RichInput;
 
 const styles = StyleSheet.create({
   toolbar: {
     alignSelf: 'center',
-    width: '95%',
+    width: '90%',
     borderTopRightRadius: scaleProportionally(10),
     borderTopLeftRadius: scaleProportionally(10),
     borderWidth: scaleProportionally(1),
@@ -106,11 +111,12 @@ const styles = StyleSheet.create({
   richEditor: {
     flex: 1,
     alignSelf: 'center',
-    width: '95%',
+    width: '90%',
     paddingHorizontal: scaleProportionally(5),
+    paddingVertical: scaleProportionally(5),
     borderBottomLeftRadius: scaleProportionally(10),
     borderBottomRightRadius: scaleProportionally(10),
     borderWidth: scaleProportionally(1),
-    borderBottomWidth: scaleProportionally(2),
+    borderBottomWidth: scaleProportionally(1.5),
   },
 });

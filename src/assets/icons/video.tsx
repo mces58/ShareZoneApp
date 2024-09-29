@@ -2,7 +2,7 @@ import React from 'react';
 import { ColorValue } from 'react-native';
 import { Circle, Defs, LinearGradient, Path, Stop, Svg } from 'react-native-svg';
 
-interface CameraIconProps {
+interface VideoIconProps {
   color: {
     grads: ColorValue[];
     isGradient: boolean;
@@ -11,7 +11,7 @@ interface CameraIconProps {
   fillColor?: ColorValue;
 }
 
-const CameraIcon: React.FC<CameraIconProps> = ({ color, fillColor }) => {
+const VideoIcon: React.FC<VideoIconProps> = ({ color, fillColor }) => {
   return (
     <Svg fill="none" viewBox="0 0 24 24" height="100%" width="100%">
       <Defs>
@@ -28,8 +28,15 @@ const CameraIcon: React.FC<CameraIconProps> = ({ color, fillColor }) => {
       </Defs>
       <Circle cx="12" cy="12" r="12" fill={fillColor} />
       <Path
-        d="M4 4h3l2-2h6l2 2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2m8 3a5 5 0 00-5 5 5 5 0 005 5 5 5 0 005-5 5 5 0 00-5-5m0 2a3 3 0 013 3 3 3 0 01-3 3 3 3 0 01-3-3 3 3 0 013-3z"
-        fill={color.isGradient ? 'url(#grad)' : color.mono}
+        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14v-4z"
+        stroke={color.isGradient ? 'url(#grad)' : color.mono}
+        scale={0.7}
+        translateX={3.5}
+        translateY={4}
+      />
+      <Path
+        d="M5 6 H13 A2 2 0 0 1 15 8 V16 A2 2 0 0 1 13 18 H5 A2 2 0 0 1 3 16 V8 A2 2 0 0 1 5 6 z"
+        stroke={color.isGradient ? 'url(#grad)' : color.mono}
         scale={0.7}
         translateX={3.5}
         translateY={4}
@@ -38,4 +45,4 @@ const CameraIcon: React.FC<CameraIconProps> = ({ color, fillColor }) => {
   );
 };
 
-export default CameraIcon;
+export default VideoIcon;

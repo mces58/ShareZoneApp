@@ -1,9 +1,11 @@
+import { MediaTypeOptions } from 'expo-image-picker';
+
 import { TranslationOptions } from 'src/contexts';
 import { getImageUri, updateUserById, uploadFile } from 'src/services';
 import { openGallery } from 'src/utils';
 
 import { ToastTypes } from 'src/components/toasts';
-import { ImageFolderNames, User } from 'src/constants/types';
+import { FolderNames, User } from 'src/constants/types';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
 
 interface ImagePickerParams {
@@ -27,19 +29,19 @@ const ImagePickerFunction = async ({
   user,
 }: ImagePickerParams): Promise<void> => {
   try {
-    const { fileUri, mimeType } = await openGallery();
+    const { fileUri, mimeType } = await openGallery(MediaTypeOptions.Images);
     setUserData({ ...user, image: fileUri });
 
     const uploadResponse = await uploadFile({
       fileUri,
-      folderName: ImageFolderNames.PROFILE,
+      folderName: FolderNames.PROFILE,
       mimeType,
     });
 
     if (!uploadResponse) throw new Error('Error uploading image');
     if (user.id === undefined) throw new Error('User not found');
 
-    const image = getImageUri(ImageFolderNames.PROFILE, uploadResponse.fileName);
+    const image = getImageUri(FolderNames.PROFILE, uploadResponse.fileName);
     const updatedUser = { ...user, image };
     const updateResponse = await updateUserById(user.id, updatedUser);
 

@@ -75,7 +75,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
           />
           {toast && (
             <BaseToast
-              downHeight={0.05}
+              downHeight={-75}
               message={toast.message}
               type={toast.type}
               icon={<Icon name="error" fillColor={theme.color.text} strokeWidth={0} />}
@@ -96,6 +96,7 @@ const Signin: React.FC<SigninProps> = ({ navigation }) => {
                 colors={theme.common.color.defaultGradient2}
                 onPress={handleFormSubmit}
                 loading={loading}
+                disabled={loading}
                 flexStyle={styles.flex.button}
                 shadowStyle={styles.shadow.button}
                 textStyle={styles.text.button}

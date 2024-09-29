@@ -108,10 +108,9 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
           />
           {toast && (
             <BaseToast
-              downHeight={0.25}
+              downHeight={50}
               message={toast.message}
               type={toast.type}
-              duration={toast.type === ToastTypes.Error ? 2500 : 1500}
               icon={
                 toast.type === ToastTypes.Error ? (
                   <Icon name="error" fillColor={theme.color.text} strokeWidth={0} />
@@ -125,6 +124,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
             text={t('global.save')}
             onPress={handleFormSubmit}
             loading={loading}
+            disabled={loading}
             flexStyle={styles.flex.formButton}
             viewStyle={styles.view.formButton}
             shadowStyle={styles.shadow.normal}

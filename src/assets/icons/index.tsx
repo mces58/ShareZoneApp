@@ -13,6 +13,7 @@ import CameraIcon from './camera';
 import EditIcon from './edit';
 import EyesIcon from './eyes';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from './follow';
+import GalleryIcon from './gallery';
 import HeartIcon from './heart';
 import LocationIcon from './location';
 import LockIcon from './lock';
@@ -22,7 +23,9 @@ import ReactIcon from './react';
 import ShortArrowIcon from './short-arrow';
 import SignoutIcon from './signout';
 import { CheckIcon, ErrorIcon, InfoIcon, WarningIcon } from './status';
+import TrashIcon from './trash';
 import UserIcon from './user';
+import VideoIcon from './video';
 
 interface IconColor {
   grads?: ColorValue[];
@@ -130,6 +133,20 @@ interface LocationIconProps extends BaseIconProps {
   fillColor?: ColorValue;
 }
 
+interface VideoIconProps extends Omit<BaseIconProps, 'strokeWidth'> {
+  name: 'video';
+  fillColor?: ColorValue;
+}
+interface GalleryIconProps extends BaseIconProps {
+  name: 'gallery';
+  fillColor?: ColorValue;
+}
+
+interface TrashIconProps extends BaseIconProps {
+  name: 'trash';
+  fillColor?: ColorValue;
+}
+
 type IconProps =
   | ArrowIconProps
   | ShortArrowIconProps
@@ -146,7 +163,10 @@ type IconProps =
   | EditIconProps
   | CameraIconProps
   | PhoneIconProps
-  | LocationIconProps;
+  | LocationIconProps
+  | VideoIconProps
+  | GalleryIconProps
+  | TrashIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
   const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
@@ -246,6 +266,18 @@ const Icon: React.FC<IconProps> = (props) => {
       case 'location': {
         const { fillColor } = props as LocationIconProps;
         return <LocationIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'video': {
+        const { fillColor } = props as VideoIconProps;
+        return <VideoIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'gallery': {
+        const { fillColor } = props as GalleryIconProps;
+        return <GalleryIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'trash': {
+        const { fillColor } = props as TrashIconProps;
+        return <TrashIcon {...iconProps} fillColor={fillColor} />;
       }
       default:
         return null;

@@ -5,8 +5,8 @@ import {
   CustomTextStyle,
   CustomViewStyle,
 } from './style-types';
-import { BASE_IMAGE_FOLDER, ImageFolderNames } from './supabase';
-import { SigninData, SignupData, User } from './user';
+import { BASE_FOLDER, FolderNames } from './supabase';
+import { PostData, SigninData, SignupData, User } from './user';
 
 export type {
   CustomFlexStyle,
@@ -16,6 +16,6 @@ export type {
   CustomViewStyle,
 };
 
-export { BASE_IMAGE_FOLDER, ImageFolderNames };
+export { BASE_FOLDER, FolderNames };
 
-export type { SignupData, SigninData, User };
+export type { PostData, SignupData, SigninData, User };
