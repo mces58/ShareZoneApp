@@ -1,5 +1,5 @@
 /* eslint-disable security/detect-object-injection */
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { Animated } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
@@ -26,7 +26,7 @@ interface BaseToastProps {
   icon?: ReactNode;
 }
 
-const BaseToast: React.FC<BaseToastProps> = ({
+const BaseToast: FC<BaseToastProps> = ({
   downHeight,
   message,
   type,

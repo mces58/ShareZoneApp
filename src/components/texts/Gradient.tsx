@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   ActivityIndicator,
   StyleProp,
@@ -26,7 +26,7 @@ interface GradientTextProps {
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
 }
 
-const GradientText: React.FC<GradientTextProps> = (props) => {
+const GradientText: FC<GradientTextProps> = (props) => {
   const {
     colors,
     text,

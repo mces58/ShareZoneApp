@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { StyleProp, StyleSheet } from 'react-native';
 
 import { ResizeMode, Video } from 'expo-av';
@@ -20,7 +20,7 @@ interface BaseVideoProps {
   volume?: number;
 }
 
-const BaseVideo: React.FC<BaseVideoProps> = ({
+const BaseVideo: FC<BaseVideoProps> = ({
   uri,
   isLooping = false,
   isMuted = false,

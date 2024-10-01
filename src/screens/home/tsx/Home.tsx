@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
@@ -22,7 +22,7 @@ interface HomeProps {
   navigation: HomeScreenNavigation;
 }
 
-const Home: React.FC<HomeProps> = ({ navigation }) => {
+const Home: FC<HomeProps> = ({ navigation }) => {
   const { user } = useAuth();
   const { t } = useI18n();
   const theme = useTheme() as Theme;
@@ -32,14 +32,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
       <BaseHeader
         title={t('app.name')}
-        icon={
-          <Icon
-            name="react"
-            strokeWidth={0.75}
-            size={scaleByAspectRatio(30)}
-            animated={{ rotate: true }}
-          />
-        }
+        icon={<Icon name="react" strokeWidth={0.75} size={scaleByAspectRatio(30)} />}
         flexStyle={styles.flex.header}
         viewStyle={styles.view.header}
         shadowStyle={styles.shadow.header}

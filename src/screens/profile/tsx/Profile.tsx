@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 
 import { useAuth, useI18n } from 'src/contexts';
 import { scaleByAspectRatio } from 'src/utils';
@@ -21,7 +21,7 @@ interface ProfileProps {
   navigation: ProfileScreenNavigation;
 }
 
-const Profile: React.FC<ProfileProps> = ({ navigation }) => {
+const Profile: FC<ProfileProps> = ({ navigation }) => {
   const { setAuthData, user } = useAuth();
   const theme = useTheme() as Theme;
   const { t } = useI18n();

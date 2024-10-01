@@ -3,6 +3,7 @@
 /* eslint-disable react/display-name */
 import React, {
   forwardRef,
+  memo,
   ReactElement,
   ReactNode,
   useImperativeHandle,
@@ -183,4 +184,4 @@ const BaseForm = forwardRef(
   }
 );
 
-export default React.memo(BaseForm);
+export default memo(BaseForm);

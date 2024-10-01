@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Linking, StyleSheet } from 'react-native';
 
 import { scaleByAspectRatio, scaleProportionally } from 'src/utils';
@@ -14,7 +14,7 @@ interface SocialMediaProps {
   theme: Theme;
 }
 
-const SocialMedia: React.FC<SocialMediaProps> = ({ text, theme }) => {
+const SocialMedia: FC<SocialMediaProps> = ({ text, theme }) => {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (

@@ -1,3 +1,5 @@
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
+
 import { MediaTypeOptions } from 'expo-image-picker';
 
 import { TranslationOptions } from 'src/contexts';
@@ -15,10 +17,10 @@ interface ImagePickerParams {
 
 interface UpdateUserParams {
   data: unknown;
-  formRef: React.MutableRefObject<{ reset: () => void; submit: () => void } | null>;
+  formRef: MutableRefObject<{ reset: () => void; submit: () => void } | null>;
   navigation: ProfileEditScreenNavigation;
-  setLoading: (loading: boolean) => void;
-  setToast: (toast: { message: string; type: ToastTypes } | null) => void;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  setToast: Dispatch<SetStateAction<{ message: string; type: ToastTypes } | null>>;
   setUserData: (data: User) => void;
   t: (key: string, options?: TranslationOptions) => string;
   user: User | null;

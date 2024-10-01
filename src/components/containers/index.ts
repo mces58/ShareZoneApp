@@ -1,6 +1,6 @@
 import BaseContainer from './Base';
 import Container from './Container';
-import KeyboardContainer from './KeyboardContainer';
+import Keyboard from './Keyboard';
 import Scroll from './Scroll';
 
-export { BaseContainer, Container, KeyboardContainer, Scroll };
+export { BaseContainer, Container, Keyboard, Scroll };

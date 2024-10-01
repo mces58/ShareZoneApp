@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
@@ -20,7 +20,7 @@ interface HeaderProps {
   onPressExtraHeaderIcon?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
+const Header: FC<HeaderProps> = ({
   onPressHeaderIcon,
   theme,
   title,

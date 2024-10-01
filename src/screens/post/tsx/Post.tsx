@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { Animated } from 'react-native';
 import { RichEditor } from 'react-native-pell-rich-editor';
 
@@ -26,12 +26,12 @@ interface PostProps {
   navigation: PostScreenNavigation;
 }
 
-const Post: React.FC<PostProps> = ({ navigation }) => {
+const Post: FC<PostProps> = ({ navigation }) => {
   const { user } = useAuth();
   const { t } = useI18n();
   const theme = useTheme() as Theme;
   const styles = useMemo(() => createPostStyles(theme), [theme]);
-  const bodyRef = useRef('');
+  const bodyRef = useRef<string>('');
   const editorRef = useRef<RichEditor | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [file, setFile] = useState<{
