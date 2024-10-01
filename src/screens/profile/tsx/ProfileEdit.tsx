@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
@@ -7,7 +7,7 @@ import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { BaseButton } from 'src/components/buttons';
-import { Container, KeyboardContainer } from 'src/components/containers';
+import { Container, Keyboard } from 'src/components/containers';
 import { BaseForm } from 'src/components/forms';
 import { BaseImage } from 'src/components/images';
 import { BaseText } from 'src/components/texts';
@@ -25,7 +25,7 @@ interface ProfileEditProps {
   navigation: ProfileEditScreenNavigation;
 }
 
-const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
+const ProfileEdit: FC<ProfileEditProps> = ({ navigation }) => {
   const { user, setUserData } = useAuth();
   const theme = useTheme() as Theme;
   const { t } = useI18n();
@@ -68,9 +68,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
   }, []);
 
   return (
-    <KeyboardContainer
-      height={{ android: scaleByAspectRatio(250), ios: scaleByAspectRatio(50) }}
-    >
+    <Keyboard height={{ android: scaleByAspectRatio(250), ios: scaleByAspectRatio(50) }}>
       <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
         <Header
           title={t('screens.profileEdit.title')}
@@ -132,7 +130,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ navigation }) => {
           />
         </Container>
       </Container>
-    </KeyboardContainer>
+    </Keyboard>
   );
 };
 

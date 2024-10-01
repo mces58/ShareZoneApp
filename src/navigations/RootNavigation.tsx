@@ -37,4 +37,5 @@ const RootNavigation = (): JSX.Element => {
     </SafeAreaProvider>
   );
 };
+
 export default RootNavigation;

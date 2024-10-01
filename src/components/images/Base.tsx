@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo } from 'react';
+import React, { FC, ReactNode, useMemo } from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import styled from 'styled-components/native';
@@ -19,7 +19,7 @@ interface BaseImageProps {
   transition?: number;
 }
 
-const BaseImage: React.FC<BaseImageProps> = ({
+const BaseImage: FC<BaseImageProps> = ({
   uri,
   contentFit = 'cover',
   icon,

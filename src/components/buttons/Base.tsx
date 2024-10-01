@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, ReactNode, useMemo } from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity } from 'react-native';
 
 import styled from 'styled-components/native';
@@ -18,7 +18,7 @@ interface BaseButtonProps {
   text: string;
   disabled?: boolean;
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   loading?: boolean;
   shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
   textColors?: string;
@@ -26,7 +26,7 @@ interface BaseButtonProps {
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
-const BaseButton: React.FC<BaseButtonProps> = ({
+const BaseButton: FC<BaseButtonProps> = ({
   onPress,
   text,
   disabled = false,

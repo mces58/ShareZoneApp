@@ -1,4 +1,13 @@
-import React, { ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
+import React, {
+  Dispatch,
+  FC,
+  ReactElement,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Animated, StyleProp, StyleSheet, TextInput } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
@@ -16,7 +25,7 @@ import {
 import { Container } from '../containers';
 
 interface BaseInputProps {
-  onChangeText: (text: string) => void;
+  onChangeText: Dispatch<SetStateAction<string>>;
   placeholder: string;
   text: string;
   extraIcon?: ReactNode;
@@ -31,7 +40,7 @@ interface BaseInputProps {
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
-const BaseInput: React.FC<BaseInputProps> = ({
+const BaseInput: FC<BaseInputProps> = ({
   onChangeText,
   placeholder,
   text,

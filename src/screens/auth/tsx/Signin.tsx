@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
@@ -28,7 +28,7 @@ interface SigninProps {
   navigation: SigninScreenNavigation;
 }
 
-const Signin: React.FC<SigninProps> = ({ navigation }) => {
+const Signin: FC<SigninProps> = ({ navigation }) => {
   const theme = useTheme() as Theme;
   const { t } = useI18n();
   const formRef = useRef<{ reset: () => void; submit: () => void }>(null);

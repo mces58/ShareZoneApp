@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, ReactNode, useMemo } from 'react';
 import { Platform, StyleProp, StyleSheet, TouchableOpacity } from 'react-native';
 
 import styled from 'styled-components/native';
@@ -23,7 +23,7 @@ interface GradientButtonProps {
   disabled?: boolean;
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
   gradientDegree?: number;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   loading?: boolean;
   shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
   textColors?: string;
@@ -31,7 +31,7 @@ interface GradientButtonProps {
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
-const GradientButton: React.FC<GradientButtonProps> = ({
+const GradientButton: FC<GradientButtonProps> = ({
   colors,
   onPress,
   text,

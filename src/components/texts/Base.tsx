@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   ActivityIndicator,
   StyleProp,
@@ -23,7 +23,7 @@ interface BaseTextProps {
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
 }
 
-const BaseText: React.FC<BaseTextProps> = (props) => {
+const BaseText: FC<BaseTextProps> = (props) => {
   const theme = useTheme() as Theme;
   const {
     text,

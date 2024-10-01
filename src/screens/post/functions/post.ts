@@ -1,3 +1,4 @@
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { RichEditor } from 'react-native-pell-rich-editor';
 
 import { MediaTypeOptions } from 'expo-image-picker';
@@ -10,18 +11,20 @@ import { ToastTypes } from 'src/components/toasts';
 import { User } from 'src/constants/types';
 
 interface MediaPickerParams {
-  setFile: (file: { mimeType: string; type: string; uri: string }) => void;
+  setFile: Dispatch<
+    SetStateAction<{ mimeType: string; type: string; uri: string } | null>
+  >;
 }
 
 interface PostFunctionsParams {
-  bodyRef: React.MutableRefObject<string>;
-  editorRef: React.MutableRefObject<RichEditor | null>;
+  bodyRef: MutableRefObject<string>;
+  editorRef: MutableRefObject<RichEditor | null>;
   file: { mimeType: string; type: string; uri: string } | null;
-  setFile: React.Dispatch<
-    React.SetStateAction<{ mimeType: string; type: string; uri: string } | null>
+  setFile: Dispatch<
+    SetStateAction<{ mimeType: string; type: string; uri: string } | null>
   >;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setToast: (toast: { message: string; type: ToastTypes } | null) => void;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  setToast: Dispatch<SetStateAction<{ message: string; type: ToastTypes } | null>>;
   t: (key: string, options?: TranslationOptions) => string;
   user: User;
 }

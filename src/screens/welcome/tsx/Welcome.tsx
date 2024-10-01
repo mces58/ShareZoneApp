@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
@@ -22,7 +22,7 @@ interface WelcomeProps {
   navigation: WelcomeScreenNavigation;
 }
 
-const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
+const Welcome: FC<WelcomeProps> = ({ navigation }) => {
   const { t } = useI18n();
   const theme = useTheme() as Theme;
   const styles = useMemo(() => createWelcomeStyles(theme), [theme]);
