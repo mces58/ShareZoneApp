@@ -24,7 +24,7 @@ import {
 
 import { Container } from '../containers';
 
-interface BaseInputProps {
+interface InputProps {
   onChangeText: Dispatch<SetStateAction<string>>;
   placeholder: string;
   text: string;
@@ -40,7 +40,7 @@ interface BaseInputProps {
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
-const BaseInput: FC<BaseInputProps> = ({
+const Input: FC<InputProps> = ({
   onChangeText,
   placeholder,
   text,
@@ -149,7 +149,7 @@ const BaseInput: FC<BaseInputProps> = ({
         >
           {placeholder}
         </AnimatedPlaceholder>
-        <Input
+        <StyledInput
           value={text}
           onChangeText={handleTextChange}
           textStyle={flattenedTextStyle}
@@ -181,7 +181,7 @@ const BaseInput: FC<BaseInputProps> = ({
   );
 };
 
-export default BaseInput;
+export default Input;
 
 const AnimatedPlaceholder = styled(Animated.Text)<{ isMultiline: boolean; theme: Theme }>(
   ({ isMultiline, theme }) => ({
@@ -193,7 +193,7 @@ const AnimatedPlaceholder = styled(Animated.Text)<{ isMultiline: boolean; theme:
   })
 );
 
-const Input = styled(TextInput)<{
+const StyledInput = styled(TextInput)<{
   textStyle: CustomTextStyle;
   theme: Theme;
 }>(({ textStyle, theme }) => ({

@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
 
 import Icon from 'src/assets/icons';
-import { BaseHeader } from 'src/components/headers';
+import { Header } from 'src/components/headers';
 import { COLORS, Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
@@ -13,14 +13,14 @@ import {
   CustomViewStyle,
 } from 'src/constants/types';
 
-interface HeaderProps {
+interface SubHeaderProps {
   onPressHeaderIcon: () => void;
   theme: Theme;
   title: string;
   onPressExtraHeaderIcon?: () => void;
 }
 
-const Header: FC<HeaderProps> = ({
+const SubHeader: FC<SubHeaderProps> = ({
   onPressHeaderIcon,
   theme,
   title,
@@ -29,7 +29,7 @@ const Header: FC<HeaderProps> = ({
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <BaseHeader
+    <Header
       title={title}
       icon={
         <Icon
@@ -60,7 +60,7 @@ const Header: FC<HeaderProps> = ({
   );
 };
 
-export default Header;
+export default SubHeader;
 
 const enum StyleNames {
   HEADER = 'header',

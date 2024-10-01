@@ -1,3 +1,3 @@
-import BaseVideo from './Base';
+import Video from './Video';
 
-export { BaseVideo };
+export { Video };

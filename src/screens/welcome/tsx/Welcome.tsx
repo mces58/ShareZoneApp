@@ -8,8 +8,8 @@ import { scaleByAspectRatio } from 'src/utils';
 import SpacemanSvg from 'assets/svgs/spaceman.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
-import { BaseContainer, Container } from 'src/components/containers';
-import { BaseText, GradientText } from 'src/components/texts';
+import { Container, Wrapper } from 'src/components/containers';
+import { GradientText, Text } from 'src/components/texts';
 import { Theme } from 'src/constants/styles';
 import {
   RootNavigations,
@@ -28,7 +28,7 @@ const Welcome: FC<WelcomeProps> = ({ navigation }) => {
   const styles = useMemo(() => createWelcomeStyles(theme), [theme]);
 
   return (
-    <BaseContainer>
+    <Wrapper>
       <Container flexStyle={styles.flex.container}>
         <SpacemanSvg width={scaleByAspectRatio(250)} height={scaleByAspectRatio(250)} />
         <Container flexStyle={styles.flex.header}>
@@ -53,7 +53,7 @@ const Welcome: FC<WelcomeProps> = ({ navigation }) => {
               textStyle={styles.text.title}
             />
           </Container>
-          <BaseText text={t('app.punchline')} textStyle={styles.text.subtitle} />
+          <Text text={t('app.punchline')} textStyle={styles.text.subtitle} />
         </Container>
         <GradientButton
           text={t('screens.auth.getStarted')}
@@ -66,7 +66,7 @@ const Welcome: FC<WelcomeProps> = ({ navigation }) => {
           viewStyle={styles.view.button}
         />
         <Container flexStyle={styles.flex.footer}>
-          <BaseText
+          <Text
             text={t('screens.auth.alreadyHaveAnAccount')}
             textStyle={styles.text.footer}
           />
@@ -78,7 +78,7 @@ const Welcome: FC<WelcomeProps> = ({ navigation }) => {
           />
         </Container>
       </Container>
-    </BaseContainer>
+    </Wrapper>
   );
 };
 

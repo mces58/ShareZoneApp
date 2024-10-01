@@ -8,17 +8,17 @@ import { useAuth, useI18n } from 'src/contexts';
 import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
-import { BaseButton } from 'src/components/buttons';
+import { Button } from 'src/components/buttons';
 import { Container, Scroll } from 'src/components/containers';
-import { BaseImage } from 'src/components/images';
+import { Image } from 'src/components/images';
 import { RichInput } from 'src/components/inputs';
-import { BaseText, GradientText } from 'src/components/texts';
-import { BaseToast, ToastTypes } from 'src/components/toasts';
-import { BaseVideo } from 'src/components/videos';
+import { GradientText, Text } from 'src/components/texts';
+import { Toast, ToastTypes } from 'src/components/toasts';
+import { Video } from 'src/components/videos';
 import { Theme } from 'src/constants/styles';
 import { PostScreenNavigation } from 'src/navigations/RootStackParamList';
 
-import { Header } from '../components';
+import { SubHeader } from '../components';
 import { ImagePickerFunction, PostFunctions, VideoPickerFunction } from '../functions';
 import { createPostStyles } from '../styles';
 
@@ -85,20 +85,20 @@ const Post: FC<PostProps> = ({ navigation }) => {
   return (
     <Scroll>
       <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-        <Header
+        <SubHeader
           title={t('screens.post.title')}
           theme={theme}
           onPressHeaderIcon={() => navigation.goBack()}
         />
         <Container flexStyle={styles.flex.avatar}>
-          <BaseImage
+          <Image
             uri={user?.image}
             imageStyle={styles.image.avatar}
             shadowStyle={styles.shadow.small}
           />
           <Container flexStyle={styles.flex.avatarText}>
-            <BaseText text={user?.user_name || ''} textStyle={styles.text.userName} />
-            <BaseText
+            <Text text={user?.user_name || ''} textStyle={styles.text.userName} />
+            <Text
               text={t('global.public')}
               textStyle={styles.text.public}
               color={theme.color.textMuted}
@@ -111,7 +111,7 @@ const Post: FC<PostProps> = ({ navigation }) => {
           textStyle={styles.text.description}
         />
         <Container flexStyle={styles.flex.post} viewStyle={styles.view.post}>
-          <BaseText
+          <Text
             text={t('screens.post.addToPost')}
             textStyle={styles.text.addToPost}
             color={theme.color.textMuted}
@@ -135,13 +135,13 @@ const Post: FC<PostProps> = ({ navigation }) => {
         {file && (
           <Animated.View style={{ opacity: fadeAnim }}>
             {file.type === 'image' ? (
-              <BaseImage
+              <Image
                 uri={file.uri}
                 imageStyle={styles.image.post}
                 shadowStyle={styles.shadow.small}
               />
             ) : (
-              <BaseVideo
+              <Video
                 uri={file.uri}
                 isLooping
                 shouldPlay
@@ -162,7 +162,7 @@ const Post: FC<PostProps> = ({ navigation }) => {
         )}
         <RichInput editorRef={editorRef} onChange={(text) => (bodyRef.current = text)} />
         <Container flexStyle={styles.flex.buttonWrapper}>
-          <BaseButton
+          <Button
             text={t('global.post')}
             onPress={handlePost}
             loading={loading}
@@ -173,7 +173,7 @@ const Post: FC<PostProps> = ({ navigation }) => {
             shadowStyle={styles.shadow.small}
           />
           {toast && (
-            <BaseToast
+            <Toast
               downHeight={325}
               message={toast.message}
               type={toast.type}

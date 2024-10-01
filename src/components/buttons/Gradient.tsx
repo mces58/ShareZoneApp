@@ -14,7 +14,7 @@ import {
   CustomViewStyle,
 } from 'src/constants/types';
 
-import { BaseText } from '../texts';
+import { Text } from '../texts';
 
 interface GradientButtonProps {
   colors: string[];
@@ -63,7 +63,7 @@ const GradientButton: FC<GradientButtonProps> = ({
   );
 
   return (
-    <Button
+    <StyledButton
       onPress={onPress}
       disabled={disabled}
       flexStyle={flattenedFlexStyle}
@@ -84,7 +84,7 @@ const GradientButton: FC<GradientButtonProps> = ({
           Platform.OS === 'android' ? shadowEffectValue : {},
         ]}
       >
-        <BaseText
+        <Text
           text={text}
           textStyle={flattenedTextStyle}
           color={textColors}
@@ -92,13 +92,13 @@ const GradientButton: FC<GradientButtonProps> = ({
         />
         {!loading && icon}
       </LinearGradient>
-    </Button>
+    </StyledButton>
   );
 };
 
 export default GradientButton;
 
-const Button = styled(TouchableOpacity)<{
+const StyledButton = styled(TouchableOpacity)<{
   flexStyle: CustomFlexStyle;
   viewStyle: CustomViewStyle;
 }>(({ flexStyle, viewStyle }) => ({

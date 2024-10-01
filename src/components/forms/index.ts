@@ -1,3 +1,5 @@
-import BaseForm from './Base';
+import Form from './Form';
+import { FormField } from './Form';
 
-export { BaseForm };
+export type { FormField };
+export { Form };

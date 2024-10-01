@@ -9,16 +9,16 @@ import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
 import { Container } from 'src/components/containers';
-import { BaseForm } from 'src/components/forms';
-import { BaseText, GradientText } from 'src/components/texts';
-import { BaseToast, ToastTypes } from 'src/components/toasts';
+import { Form } from 'src/components/forms';
+import { GradientText, Text } from 'src/components/texts';
+import { Toast, ToastTypes } from 'src/components/toasts';
 import { Theme } from 'src/constants/styles';
 import {
   RootNavigations,
   SigninScreenNavigation,
 } from 'src/navigations/RootStackParamList';
 
-import { Header, SocialMedia } from '../components';
+import { SocialMedia, SubHeader } from '../components';
 import { createSigninFormFields } from '../feats';
 import { SigninFunction } from '../functions';
 import { createSigninStyles } from '../styles';
@@ -51,7 +51,7 @@ const Signin: FC<SigninProps> = ({ navigation }) => {
 
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-      <Header
+      <SubHeader
         title={t('global.back')}
         theme={theme}
         onPressHeaderIcon={() => navigation.goBack()}
@@ -63,7 +63,7 @@ const Signin: FC<SigninProps> = ({ navigation }) => {
             colors={theme.common.color.defaultGradient2}
             textStyle={styles.text.formHeader}
           />
-          <BaseForm
+          <Form
             formFields={formFields}
             onSubmit={handleSignin}
             ref={formRef}
@@ -74,7 +74,7 @@ const Signin: FC<SigninProps> = ({ navigation }) => {
             }}
           />
           {toast && (
-            <BaseToast
+            <Toast
               downHeight={-75}
               message={toast.message}
               type={toast.type}
@@ -103,7 +103,7 @@ const Signin: FC<SigninProps> = ({ navigation }) => {
                 viewStyle={styles.view.button}
               />
               <Container flexStyle={styles.flex.rowText}>
-                <BaseText
+                <Text
                   text={t('screens.auth.dontHaveAnAccount')}
                   textStyle={styles.text.footer}
                 />

@@ -5,18 +5,18 @@ import styled from 'styled-components/native';
 
 import { Theme } from 'src/constants/styles';
 
-interface BaseContainerProps {
+interface WrapperProps {
   children: ReactNode;
 }
 
-const BaseContainer: FC<BaseContainerProps> = ({ children }) => {
+const Wrapper: FC<WrapperProps> = ({ children }) => {
   const insets = useSafeAreaInsets();
-  return <Container insets={insets}>{children}</Container>;
+  return <StyledContainer insets={insets}>{children}</StyledContainer>;
 };
 
-export default BaseContainer;
+export default Wrapper;
 
-const Container = styled(SafeAreaView)<{
+const StyledContainer = styled(SafeAreaView)<{
   insets: { bottom: number; left: number; right: number; top: number };
   theme: Theme;
 }>(({ insets, theme }) => ({

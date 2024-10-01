@@ -7,8 +7,8 @@ import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
-import { BaseHeader } from 'src/components/headers';
-import { BaseImage } from 'src/components/images';
+import { Header } from 'src/components/headers';
+import { Image } from 'src/components/images';
 import { Theme } from 'src/constants/styles';
 import { ProfileNavigations } from 'src/navigations/profile/ProfileStackParamList';
 import {
@@ -30,7 +30,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
 
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-      <BaseHeader
+      <Header
         title={t('app.name')}
         icon={<Icon name="react" strokeWidth={0.75} size={scaleByAspectRatio(30)} />}
         flexStyle={styles.flex.header}
@@ -54,7 +54,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
             onPress={() => navigation.navigate(RootNavigations.POST)}
             fillColor={theme.color.text}
           />,
-          <BaseImage
+          <Image
             key="avatar"
             uri={user?.image}
             imageStyle={styles.image.avatar}
