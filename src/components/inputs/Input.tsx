@@ -12,7 +12,12 @@ import { Animated, StyleProp, StyleSheet, TextInput } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
-import { formatPhoneNumber, scaleByAspectRatio, scaleProportionally } from 'src/utils';
+import {
+  formatPhoneNumber,
+  scaleByAspectRatio,
+  scaleHeight,
+  scaleProportionally,
+} from 'src/utils';
 
 import { COLORS, Theme } from 'src/constants/styles';
 import {
@@ -172,7 +177,7 @@ const Input: FC<InputProps> = ({
           textAlignVertical={isMultiLine ? 'top' : 'center'} // Both
           style={{
             height: isMultiLine ? flattenedFlexStyle.height : undefined,
-            paddingVertical: isMultiLine ? scaleProportionally(16) : undefined,
+            paddingVertical: isMultiLine ? scaleHeight(16) : undefined,
           }}
         />
       </Container>

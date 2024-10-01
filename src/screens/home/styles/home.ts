@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
+import { scaleProportionally } from 'src/utils';
 
 import { Theme } from 'src/constants/styles';
 import {
@@ -13,24 +13,17 @@ import {
 
 const enum FlexStyles {
   CONTAINER = 'container',
-  HEADER = 'header',
+  BODY = 'body',
 }
 
-const enum ImageStyles {
-  AVATAR = 'avatar',
-}
+const enum ImageStyles {}
 
-const enum ShadowStyles {
-  HEADER = 'header',
-}
+const enum ShadowStyles {}
 
-const enum TextStyles {
-  HEADER = 'header',
-}
+const enum TextStyles {}
 
 const enum ViewStyles {
   CONTAINER = 'container',
-  HEADER = 'header',
 }
 
 const createHomeStyles = (
@@ -46,52 +39,21 @@ const createHomeStyles = (
     [FlexStyles.CONTAINER]: {
       flex: 1,
     },
-    [FlexStyles.HEADER]: {
-      width: '100%',
-      height: scaleHeight(90),
-      borderBottomWidth: scaleProportionally(1),
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingHorizontal: scaleProportionally(15),
+    [FlexStyles.BODY]: {
+      flex: 1,
+      paddingVertical: scaleProportionally(20),
+      gap: scaleProportionally(20),
     },
   });
 
-  const image = StyleSheet.create<Record<ImageStyles, CustomImageStyle>>({
-    [ImageStyles.AVATAR]: {
-      width: scaleByAspectRatio(35),
-      height: scaleByAspectRatio(35),
-      borderRadius: scaleByAspectRatio(35) / 2,
-      borderColor: theme.color.border,
-      borderWidth: scaleProportionally(1),
-    },
-  });
+  const image = StyleSheet.create<Record<ImageStyles, CustomImageStyle>>({});
 
-  const shadow = StyleSheet.create<Record<ShadowStyles, CustomShadowStyle>>({
-    [ShadowStyles.HEADER]: {
-      elevation: 5,
-      shadowColor: theme.color.shadow,
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 2,
-    },
-  });
+  const shadow = StyleSheet.create<Record<ShadowStyles, CustomShadowStyle>>({});
 
-  const text = StyleSheet.create<Record<TextStyles, CustomTextStyle>>({
-    [TextStyles.HEADER]: {
-      fontSize: theme.common.font.sizes._32,
-      fontFamily: theme.common.font.families.bold,
-      letterSpacing: scaleProportionally(1.5),
-      textDecorationLine: 'underline',
-    },
-  });
+  const text = StyleSheet.create<Record<TextStyles, CustomTextStyle>>({});
 
   const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
     [ViewStyles.CONTAINER]: {
-      backgroundColor: theme.color.background,
-    },
-    [ViewStyles.HEADER]: {
-      borderColor: theme.color.border,
       backgroundColor: theme.color.background,
     },
   });

@@ -100,7 +100,7 @@ const AnimatedContainer = styled(Animated.View)<{
   right: scaleWidth(20),
   backgroundColor: backgroundColors(theme)[type],
   borderRadius: scaleProportionally(10),
-  paddingVertical: scaleProportionally(20),
+  paddingVertical: scaleHeight(20),
   paddingHorizontal: scaleProportionally(10),
   zIndex: 1,
 }));

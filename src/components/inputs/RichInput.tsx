@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '90%',
     paddingHorizontal: scaleProportionally(5),
-    paddingVertical: scaleProportionally(5),
+    paddingVertical: scaleHeight(5),
     borderBottomLeftRadius: scaleProportionally(10),
     borderBottomRightRadius: scaleProportionally(10),
     borderWidth: scaleProportionally(1),

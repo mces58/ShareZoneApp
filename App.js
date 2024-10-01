@@ -62,12 +62,16 @@ let AppEntryPoint = App;
 
 if (Constants.expoConfig?.extra?.storybookEnabled) {
   SplashScreen.hideAsync();
-  LogBox.ignoreLogs([
-    'fontFamily',
-    'Expected style',
-    'Node of type rule not supported as an inline style',
-  ]);
   AppEntryPoint = Storybook.default;
 }
+
+LogBox.ignoreLogs([
+  'fontFamily',
+  'Expected style',
+  'Node of type rule not supported as an inline style',
+  'Warning: TNodeChildrenRenderer:',
+  'Warning: MemoizedTNodeRenderer:',
+  'Warning: TRenderEngineProvider:',
+]);
 
 export default AppEntryPoint;

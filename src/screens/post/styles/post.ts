@@ -82,7 +82,7 @@ const createPostStyles = (
       borderWidth: 1,
       width: '90%',
       alignSelf: 'center',
-      paddingVertical: scaleProportionally(10),
+      paddingVertical: scaleHeight(10),
       paddingHorizontal: scaleProportionally(10),
       marginTop: scaleHeight(20),
     },

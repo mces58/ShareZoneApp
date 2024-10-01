@@ -1,21 +1,21 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
 import { useAuth, useI18n } from 'src/contexts';
-import { scaleByAspectRatio } from 'src/utils';
+import { getPosts, getUserById } from 'src/services';
+import { supabase } from 'src/supabase';
 
-import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
-import { Header } from 'src/components/headers';
-import { Image } from 'src/components/images';
 import { Theme } from 'src/constants/styles';
+import { PostData } from 'src/constants/types';
 import { ProfileNavigations } from 'src/navigations/profile/ProfileStackParamList';
 import {
   HomeScreenNavigation,
   RootNavigations,
 } from 'src/navigations/RootStackParamList';
 
+import { PostCards, SubHeader } from '../components';
 import { createHomeStyles } from '../styles';
 
 interface HomeProps {
@@ -27,45 +27,65 @@ const Home: FC<HomeProps> = ({ navigation }) => {
   const { t } = useI18n();
   const theme = useTheme() as Theme;
   const styles = useMemo(() => createHomeStyles(theme), [theme]);
+  const [posts, setPosts] = useState<PostData[]>([]);
+
+  let limit = 0;
+
+  useEffect(() => {
+    const post_channels = supabase
+      .channel('posts')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'posts' },
+        async (payload) => {
+          if (payload.eventType === 'INSERT' && payload.new.id) {
+            const newPost = { ...payload.new };
+            const res = await getUserById(newPost.user_id);
+            if (res.success && res.data) {
+              newPost.user = res.data;
+              setPosts((prev) => [{ ...newPost } as PostData, ...prev]);
+            }
+          }
+        }
+      )
+      .subscribe();
+
+    fetchPosts();
+
+    return (): void => {
+      supabase.removeChannel(post_channels);
+    };
+  }, []);
+
+  const fetchPosts = async (): Promise<void> => {
+    limit += 10;
+    const res = await getPosts(limit);
+    if (res.success && res.data) {
+      setPosts(res.data);
+    }
+  };
+
+  console.log(posts[0]);
 
   return (
-    <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-      <Header
+    <Container flexStyle={styles.flex.container}>
+      <SubHeader
         title={t('app.name')}
-        icon={<Icon name="react" strokeWidth={0.75} size={scaleByAspectRatio(30)} />}
-        flexStyle={styles.flex.header}
-        viewStyle={styles.view.header}
-        shadowStyle={styles.shadow.header}
-        textStyle={styles.text.header}
-        extraIcons={[
-          <Icon
-            key="heart"
-            name="heart"
-            strokeWidth={0}
-            size={scaleByAspectRatio(22)}
-            onPress={() => navigation.navigate(RootNavigations.NOTIFICATION)}
-            fillColor={theme.color.text}
-          />,
-          <Icon
-            key="add-square"
-            name="add-square"
-            strokeWidth={0}
-            size={scaleByAspectRatio(22)}
-            onPress={() => navigation.navigate(RootNavigations.POST)}
-            fillColor={theme.color.text}
-          />,
-          <Image
-            key="avatar"
-            uri={user?.image}
-            imageStyle={styles.image.avatar}
-            onPress={() =>
-              navigation.navigate(RootNavigations.PROFILE_STACK, {
-                screen: ProfileNavigations.PROFILE,
-              })
-            }
-          />,
-        ]}
+        theme={theme}
+        uri={user?.image}
+        onPressNotificationHeaderIcon={() =>
+          navigation.navigate(RootNavigations.NOTIFICATION)
+        }
+        onPressPostHeaderIcon={() => navigation.navigate(RootNavigations.POST)}
+        onPressProfileHeaderIcon={() =>
+          navigation.navigate(RootNavigations.PROFILE_STACK, {
+            screen: ProfileNavigations.PROFILE,
+          })
+        }
       />
+      <Container flexStyle={styles.flex.body}>
+        <PostCards posts={posts} theme={theme} />
+      </Container>
     </Container>
   );
 };
