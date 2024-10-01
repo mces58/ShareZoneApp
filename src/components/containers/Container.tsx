@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, ReactNode, useMemo } from 'react';
 import { StyleProp, StyleSheet, View } from 'react-native';
 
 import styled from 'styled-components/native';
@@ -8,13 +8,13 @@ import { shadowEffect } from 'src/utils';
 import { CustomFlexStyle, CustomShadowStyle, CustomViewStyle } from 'src/constants/types';
 
 interface ContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
   shadowStyle?: StyleProp<Partial<CustomShadowStyle>>;
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
-const Container: React.FC<ContainerProps> = ({
+const Container: FC<ContainerProps> = ({
   children,
   flexStyle = {},
   shadowStyle = {},

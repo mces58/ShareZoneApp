@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Dimensions, StyleProp } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -29,7 +29,7 @@ interface BaseHeaderProps {
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
-const BaseHeader: React.FC<BaseHeaderProps> = ({
+const BaseHeader: FC<BaseHeaderProps> = ({
   title,
   extraIcons,
   flexStyle = {},

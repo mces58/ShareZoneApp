@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, MutableRefObject } from 'react';
 import { StyleSheet } from 'react-native';
 import { actions, RichEditor, RichToolbar } from 'react-native-pell-rich-editor';
 
@@ -13,12 +13,12 @@ import { Container } from '../containers';
 import { BaseText } from '../texts';
 
 interface RichInputProps {
-  editorRef: React.MutableRefObject<RichEditor | null>;
+  editorRef: MutableRefObject<RichEditor | null>;
   onChange: (text: string) => void;
   height?: number;
 }
 
-const RichInput: React.FC<RichInputProps> = ({
+const RichInput: FC<RichInputProps> = ({
   editorRef,
   onChange,
   height = scaleHeight(200),

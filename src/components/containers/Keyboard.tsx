@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -6,7 +6,7 @@ import { useTheme } from 'styled-components/native';
 
 import { Theme } from 'src/constants/styles';
 
-interface KeyboardContainerProps {
+interface KeyboardProps {
   children: ReactNode;
   height?: {
     android: number;
@@ -14,7 +14,7 @@ interface KeyboardContainerProps {
   };
 }
 
-const KeyboardContainer: React.FC<KeyboardContainerProps> = ({ children, height }) => {
+const Keyboard: FC<KeyboardProps> = ({ children, height }) => {
   const theme = useTheme() as Theme;
   return (
     <KeyboardAwareScrollView
@@ -29,4 +29,4 @@ const KeyboardContainer: React.FC<KeyboardContainerProps> = ({ children, height 
   );
 };
 
-export default KeyboardContainer;
+export default Keyboard;

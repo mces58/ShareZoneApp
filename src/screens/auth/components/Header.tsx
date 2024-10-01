@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { scaleHeight, scaleProportionally } from 'src/utils';
@@ -19,7 +19,7 @@ interface HeaderProps {
   title: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ onPressHeaderIcon, theme, title }) => {
+const Header: FC<HeaderProps> = ({ onPressHeaderIcon, theme, title }) => {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (

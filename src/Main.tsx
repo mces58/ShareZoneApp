@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import styled, { useTheme } from 'styled-components/native';
 
@@ -16,7 +17,7 @@ interface MainProps {
   navigation: MainScreenNavigation;
 }
 
-const Main: React.FC<MainProps> = ({ navigation }) => {
+const Main: FC<MainProps> = ({ navigation }) => {
   const theme = useTheme() as Theme;
   const { setAuthData, setUserData } = useAuth();
 
@@ -36,9 +37,7 @@ const Main: React.FC<MainProps> = ({ navigation }) => {
             supabase.auth.updateUser({ data: { isNewUser: null } });
             navigation.navigate(RootNavigations.HOME);
           }, 2500);
-        } else {
-          navigation.navigate(RootNavigations.HOME);
-        }
+        } else navigation.navigate(RootNavigations.HOME);
       } else {
         setAuthData(null);
         navigation.navigate(RootNavigations.WELCOME);
@@ -59,7 +58,7 @@ const Main: React.FC<MainProps> = ({ navigation }) => {
 
 export default Main;
 
-const Container = styled.SafeAreaView<{ theme: Theme }>(({ theme }) => ({
+const Container = styled(SafeAreaView)<{ theme: Theme }>(({ theme }) => ({
   flex: 1,
   alignItems: 'center',
   justifyContent: 'center',

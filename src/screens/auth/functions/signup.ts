@@ -1,3 +1,5 @@
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
+
 import { TranslationOptions } from 'src/contexts';
 import { supabase } from 'src/supabase';
 
@@ -6,9 +8,9 @@ import { SignupData } from 'src/constants/types';
 
 interface SignupParams {
   data: unknown;
-  formRef: React.MutableRefObject<{ reset: () => void } | null>;
-  setLoading: (loading: boolean) => void;
-  setToast: (toast: { message: string; type: ToastTypes } | null) => void;
+  formRef: MutableRefObject<{ reset: () => void } | null>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  setToast: Dispatch<SetStateAction<{ message: string; type: ToastTypes } | null>>;
   t: (key: string, options?: TranslationOptions) => string;
 }
 

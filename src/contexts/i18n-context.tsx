@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import React, { createContext, FC, ReactNode, useContext, useState } from 'react';
 
 import { TranslateOptions } from 'i18n-js';
 
@@ -20,7 +20,7 @@ const I18nContext = createContext<I18nContextProps>({
   t: (key, options) => i18n.t(key, options),
 });
 
-export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const I18nProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [locale, setLocale] = useState<string>(i18n.locale);
 
   const changeLocale = (newLocale: string): void => {

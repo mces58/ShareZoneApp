@@ -1,22 +1,22 @@
-import React from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React, { FC, ReactNode } from 'react';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import styled from 'styled-components/native';
 
 import { Theme } from 'src/constants/styles';
 
 interface BaseContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const BaseContainer: React.FC<BaseContainerProps> = ({ children }) => {
+const BaseContainer: FC<BaseContainerProps> = ({ children }) => {
   const insets = useSafeAreaInsets();
   return <Container insets={insets}>{children}</Container>;
 };
 
 export default BaseContainer;
 
-const Container = styled.SafeAreaView<{
+const Container = styled(SafeAreaView)<{
   insets: { bottom: number; left: number; right: number; top: number };
   theme: Theme;
 }>(({ insets, theme }) => ({
