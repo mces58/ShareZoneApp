@@ -101,6 +101,6 @@ const AnimatedContainer = styled(Animated.View)<{
   backgroundColor: backgroundColors(theme)[type],
   borderRadius: scaleProportionally(10),
   paddingVertical: scaleHeight(20),
-  paddingHorizontal: scaleProportionally(10),
+  paddingHorizontal: scaleWidth(10),
   zIndex: 1,
 }));

@@ -65,10 +65,8 @@ const Home: FC<HomeProps> = ({ navigation }) => {
     }
   };
 
-  console.log(posts[0]);
-
   return (
-    <Container flexStyle={styles.flex.container}>
+    <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
       <SubHeader
         title={t('app.name')}
         theme={theme}

@@ -5,7 +5,7 @@ import { actions, RichEditor, RichToolbar } from 'react-native-pell-rich-editor'
 import { useTheme } from 'styled-components/native';
 
 import { useI18n } from 'src/contexts';
-import { scaleHeight, scaleProportionally } from 'src/utils';
+import { scaleHeight, scaleProportionally, scaleWidth } from 'src/utils';
 
 import { Theme } from 'src/constants/styles';
 
@@ -105,14 +105,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   flatContainer: {
-    paddingHorizontal: scaleProportionally(5),
+    paddingHorizontal: scaleWidth(5),
     gap: scaleProportionally(3),
   },
   richEditor: {
     flex: 1,
     alignSelf: 'center',
     width: '90%',
-    paddingHorizontal: scaleProportionally(5),
+    paddingHorizontal: scaleWidth(5),
     paddingVertical: scaleHeight(5),
     borderBottomLeftRadius: scaleProportionally(10),
     borderBottomRightRadius: scaleProportionally(10),

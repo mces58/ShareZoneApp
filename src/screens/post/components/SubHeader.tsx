@@ -1,7 +1,12 @@
 import React, { FC, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
+import {
+  scaleByAspectRatio,
+  scaleHeight,
+  scaleProportionally,
+  scaleWidth,
+} from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { Header } from 'src/components/headers';
@@ -63,8 +68,7 @@ const createStyles = (
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingRight: scaleProportionally(15),
-      paddingLeft: scaleProportionally(5),
+      paddingHorizontal: scaleWidth(5),
     },
   });
 

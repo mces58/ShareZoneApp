@@ -3,7 +3,7 @@ import { ActivityIndicator, Dimensions, FlatList, ViewToken } from 'react-native
 import RenderHTML from 'react-native-render-html';
 
 import moment from 'moment';
-import { scaleByAspectRatio } from 'src/utils';
+import { scaleByAspectRatio, scaleHeight } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
@@ -70,14 +70,17 @@ const PostCards: FC<PostCardsProps> = ({ posts, theme }) => {
         </Container>
         <Container flexStyle={{ gap: 10 }}>
           {post.file.includes('image') ? (
-            <Image uri={post.file} imageStyle={{ width: '100%', height: 300 }} />
+            <Image
+              uri={post.file}
+              imageStyle={{ width: '100%', height: scaleHeight(300) }}
+            />
           ) : (
             <Video
               uri={post.file}
               isLooping
               shouldPlay={isVideoVisible}
               useNativeControls={false}
-              videoStyle={{ width: '100%', height: 300 }}
+              videoStyle={{ width: '100%', height: scaleHeight(300) }}
             />
           )}
         </Container>
@@ -131,6 +134,7 @@ const PostCards: FC<PostCardsProps> = ({ posts, theme }) => {
       contentContainerStyle={{ gap: 20, paddingBottom: 10 }}
       onViewableItemsChanged={onViewableItemsChanged.current}
       viewabilityConfig={viewabilityConfig.current}
+      initialNumToRender={10}
       ListFooterComponent={
         <Container
           flexStyle={

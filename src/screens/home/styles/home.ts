@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleProportionally } from 'src/utils';
+import { scaleHeight, scaleProportionally } from 'src/utils';
 
 import { Theme } from 'src/constants/styles';
 import {
@@ -41,7 +41,7 @@ const createHomeStyles = (
     },
     [FlexStyles.BODY]: {
       flex: 1,
-      paddingVertical: scaleProportionally(20),
+      paddingVertical: scaleHeight(20),
       gap: scaleProportionally(20),
     },
   });

@@ -17,6 +17,7 @@ import {
   scaleByAspectRatio,
   scaleHeight,
   scaleProportionally,
+  scaleWidth,
 } from 'src/utils';
 
 import { COLORS, Theme } from 'src/constants/styles';
@@ -120,8 +121,8 @@ const Input: FC<InputProps> = ({
           flexDirection: 'row',
           alignItems: 'center',
           borderWidth: 1,
-          paddingHorizontal: scaleProportionally(15),
-          paddingTop: scaleProportionally(5),
+          paddingHorizontal: scaleWidth(15),
+          paddingTop: scaleHeight(5),
           gap: scaleProportionally(5),
           overflow: 'hidden',
         },
