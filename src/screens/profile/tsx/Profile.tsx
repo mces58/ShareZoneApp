@@ -6,14 +6,14 @@ import { useTheme } from 'styled-components';
 
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
-import { BaseImage } from 'src/components/images';
+import { Image } from 'src/components/images';
 import { Theme } from 'src/constants/styles';
 import {
   ProfileNavigations,
   ProfileScreenNavigation,
 } from 'src/navigations/profile/ProfileStackParamList';
 
-import { Header } from '../components';
+import { SubHeader } from '../components';
 import { SignoutFunction } from '../functions';
 import { createProfileStyles } from '../styles';
 
@@ -33,13 +33,13 @@ const Profile: FC<ProfileProps> = ({ navigation }) => {
 
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-      <Header
+      <SubHeader
         title={t('screens.profile.title')}
         theme={theme}
         onPressHeaderIcon={() => navigation.goBack()}
         onPressExtraHeaderIcon={handleSignOut}
       />
-      <BaseImage
+      <Image
         uri={user?.image}
         icon={
           <Icon

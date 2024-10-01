@@ -9,7 +9,7 @@ import { scaleHeight, scaleProportionally, scaleWidth } from 'src/utils';
 import { Theme } from 'src/constants/styles';
 
 import { Container } from '../containers';
-import { BaseText } from '../texts';
+import { Text } from '../texts';
 
 export const enum ToastTypes {
   Error = 'error',
@@ -18,7 +18,7 @@ export const enum ToastTypes {
   Warn = 'warn',
 }
 
-interface BaseToastProps {
+interface ToastProps {
   downHeight: number;
   message: string;
   type: ToastTypes;
@@ -26,13 +26,7 @@ interface BaseToastProps {
   icon?: ReactNode;
 }
 
-const BaseToast: FC<BaseToastProps> = ({
-  downHeight,
-  message,
-  type,
-  duration = 2000,
-  icon,
-}) => {
+const Toast: FC<ToastProps> = ({ downHeight, message, type, duration = 2000, icon }) => {
   const [slideAnim] = useState<Animated.Value>(new Animated.Value(-scaleHeight(400)));
   const [visible, setVisible] = useState<boolean>(false);
   const theme = useTheme() as Theme;
@@ -75,7 +69,7 @@ const BaseToast: FC<BaseToastProps> = ({
         }}
       >
         {icon && icon}
-        <BaseText
+        <Text
           text={message}
           textStyle={{
             fontSize: theme.common.font.sizes._14,
@@ -87,7 +81,7 @@ const BaseToast: FC<BaseToastProps> = ({
   );
 };
 
-export default BaseToast;
+export default Toast;
 
 const backgroundColors = (theme: Theme): { [key in ToastTypes]: string } => ({
   [ToastTypes.Error]: theme.common.color.danger,

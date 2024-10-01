@@ -1,3 +1,3 @@
-import BaseImage from './Base';
+import Image from './Image';
 
-export { BaseImage };
+export { Image };

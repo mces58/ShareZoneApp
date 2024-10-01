@@ -3,13 +3,13 @@ import { StyleProp, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import styled from 'styled-components/native';
 
-import { Image } from 'expo-image';
+import { Image as ExpoImage } from 'expo-image';
 
 import { shadowEffect } from 'src/utils';
 
 import { CustomImageStyle, CustomShadowStyle } from 'src/constants/types';
 
-interface BaseImageProps {
+interface ImageProps {
   uri: string | undefined;
   contentFit?: 'cover' | 'contain';
   icon?: ReactNode;
@@ -19,7 +19,7 @@ interface BaseImageProps {
   transition?: number;
 }
 
-const BaseImage: FC<BaseImageProps> = ({
+const Image: FC<ImageProps> = ({
   uri,
   contentFit = 'cover',
   icon,
@@ -51,7 +51,7 @@ const BaseImage: FC<BaseImageProps> = ({
       disabled={!onPress}
       style={[shadowEffectValue, { alignItems: 'center', justifyContent: 'center' }]}
     >
-      <Image
+      <ExpoImage
         source={{ uri }}
         placeholder={{ blurhash }}
         transition={transition}
@@ -80,7 +80,7 @@ const BaseImage: FC<BaseImageProps> = ({
   );
 };
 
-export default BaseImage;
+export default Image;
 
 const StyledTouchableOpacity = styled(TouchableOpacity)<{ imageStyle: CustomImageStyle }>(
   ({ imageStyle }) => ({

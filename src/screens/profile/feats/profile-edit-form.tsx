@@ -4,7 +4,7 @@ import { TranslationOptions } from 'src/contexts';
 import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
-import { FormField } from 'src/components/forms/Base';
+import { FormField } from 'src/components/forms';
 import { Theme } from 'src/constants/styles';
 
 import { ProfileEditValidation } from '../validations';

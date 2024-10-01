@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import {
   ActivityIndicator,
+  Text as RNText,
   StyleProp,
   StyleSheet,
-  Text,
   TouchableOpacity,
 } from 'react-native';
 
@@ -12,7 +12,7 @@ import styled, { useTheme } from 'styled-components/native';
 import { Theme } from 'src/constants/styles';
 import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types';
 
-interface BaseTextProps {
+interface TextProps {
   text: string;
   color?: string;
   ellipsizeMode?: 'head' | 'middle' | 'tail' | 'clip';
@@ -23,7 +23,7 @@ interface BaseTextProps {
   textStyle?: StyleProp<Partial<CustomTextStyle>>;
 }
 
-const BaseText: FC<BaseTextProps> = (props) => {
+const Text: FC<TextProps> = (props) => {
   const theme = useTheme() as Theme;
   const {
     text,
@@ -58,9 +58,9 @@ const BaseText: FC<BaseTextProps> = (props) => {
   );
 };
 
-export default BaseText;
+export default Text;
 
-const StyledText = styled(Text)<{
+const StyledText = styled(RNText)<{
   color: string;
   flexStyle: CustomFlexStyle;
   textStyle: CustomTextStyle;
