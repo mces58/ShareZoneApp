@@ -1,3 +1,3 @@
-import BaseToast, { ToastTypes } from './Base';
+import Toast, { ToastTypes } from './Toast';
 
-export { BaseToast, ToastTypes };
+export { Toast, ToastTypes };

@@ -1,4 +1,4 @@
-import BaseText from './Base';
 import GradientText from './Gradient';
+import Text from './Text';
 
-export { BaseText, GradientText };
+export { GradientText, Text };

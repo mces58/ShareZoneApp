@@ -1,3 +1,3 @@
-import BaseHeader from './Base';
+import Header from './Header';
 
-export { BaseHeader };
+export { Header };

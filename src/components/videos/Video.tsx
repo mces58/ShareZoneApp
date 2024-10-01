@@ -1,13 +1,13 @@
 import React, { FC, useMemo } from 'react';
 import { StyleProp, StyleSheet } from 'react-native';
 
-import { ResizeMode, Video } from 'expo-av';
+import { Video as ExpoVideo, ResizeMode } from 'expo-av';
 
 import { shadowEffect } from 'src/utils';
 
 import { CustomImageStyle, CustomShadowStyle } from 'src/constants/types';
 
-interface BaseVideoProps {
+interface VideoProps {
   uri: string;
   isLooping?: boolean;
   isMuted?: boolean;
@@ -20,7 +20,7 @@ interface BaseVideoProps {
   volume?: number;
 }
 
-const BaseVideo: FC<BaseVideoProps> = ({
+const Video: FC<VideoProps> = ({
   uri,
   isLooping = false,
   isMuted = false,
@@ -48,7 +48,7 @@ const BaseVideo: FC<BaseVideoProps> = ({
   );
 
   return (
-    <Video
+    <ExpoVideo
       source={{ uri }}
       isLooping={isLooping}
       isMuted={isMuted}
@@ -62,4 +62,4 @@ const BaseVideo: FC<BaseVideoProps> = ({
   );
 };
 
-export default BaseVideo;
+export default Video;

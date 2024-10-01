@@ -6,16 +6,16 @@ import { useAuth, useI18n } from 'src/contexts';
 import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
-import { BaseButton } from 'src/components/buttons';
+import { Button } from 'src/components/buttons';
 import { Container, Keyboard } from 'src/components/containers';
-import { BaseForm } from 'src/components/forms';
-import { BaseImage } from 'src/components/images';
-import { BaseText } from 'src/components/texts';
-import { BaseToast, ToastTypes } from 'src/components/toasts';
+import { Form } from 'src/components/forms';
+import { Image } from 'src/components/images';
+import { Text } from 'src/components/texts';
+import { Toast, ToastTypes } from 'src/components/toasts';
 import { Theme } from 'src/constants/styles';
 import { ProfileEditScreenNavigation } from 'src/navigations/profile/ProfileStackParamList';
 
-import { Header } from '../components';
+import { SubHeader } from '../components';
 import { createProfileEditFormFields } from '../feats';
 import { ImagePickerFunction, UpdateUserFunction } from '../functions';
 import { createProfileEditStyles } from '../styles';
@@ -70,12 +70,12 @@ const ProfileEdit: FC<ProfileEditProps> = ({ navigation }) => {
   return (
     <Keyboard height={{ android: scaleByAspectRatio(250), ios: scaleByAspectRatio(50) }}>
       <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-        <Header
+        <SubHeader
           title={t('screens.profileEdit.title')}
           theme={theme}
           onPressHeaderIcon={() => navigation.goBack()}
         />
-        <BaseImage
+        <Image
           uri={user?.image}
           icon={
             <Icon
@@ -90,11 +90,11 @@ const ProfileEdit: FC<ProfileEditProps> = ({ navigation }) => {
           shadowStyle={styles.shadow.small}
         />
         <Container flexStyle={styles.flex.form}>
-          <BaseText
+          <Text
             text={t('screens.profileEdit.subTitle')}
             textStyle={styles.text.subheader}
           />
-          <BaseForm
+          <Form
             formFields={formFields}
             onSubmit={handleUpdateUser}
             ref={formRef}
@@ -105,7 +105,7 @@ const ProfileEdit: FC<ProfileEditProps> = ({ navigation }) => {
             }}
           />
           {toast && (
-            <BaseToast
+            <Toast
               downHeight={50}
               message={toast.message}
               type={toast.type}
@@ -118,7 +118,7 @@ const ProfileEdit: FC<ProfileEditProps> = ({ navigation }) => {
               }
             />
           )}
-          <BaseButton
+          <Button
             text={t('global.save')}
             onPress={handleFormSubmit}
             loading={loading}

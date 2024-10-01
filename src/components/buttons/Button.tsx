@@ -5,7 +5,6 @@ import styled from 'styled-components/native';
 
 import { shadowEffect } from 'src/utils';
 
-import BaseText from '../texts/Base';
 import {
   CustomFlexStyle,
   CustomShadowStyle,
@@ -13,7 +12,9 @@ import {
   CustomViewStyle,
 } from 'src/constants/types';
 
-interface BaseButtonProps {
+import { Text } from '../texts';
+
+interface ButtonProps {
   onPress: () => void;
   text: string;
   disabled?: boolean;
@@ -26,7 +27,7 @@ interface BaseButtonProps {
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
-const BaseButton: FC<BaseButtonProps> = ({
+const Button: FC<ButtonProps> = ({
   onPress,
   text,
   disabled = false,
@@ -56,7 +57,7 @@ const BaseButton: FC<BaseButtonProps> = ({
   );
 
   return (
-    <Button
+    <StyledButton
       onPress={onPress}
       disabled={disabled}
       flexStyle={flattenedFlexStyle}
@@ -69,20 +70,20 @@ const BaseButton: FC<BaseButtonProps> = ({
         },
       ]}
     >
-      <BaseText
+      <Text
         text={text}
         color={textColors}
         textStyle={flattenedTextStyle}
         loading={loading}
       />
       {!loading && icon}
-    </Button>
+    </StyledButton>
   );
 };
 
-export default BaseButton;
+export default Button;
 
-const Button = styled(TouchableOpacity)<{
+const StyledButton = styled(TouchableOpacity)<{
   flexStyle: CustomFlexStyle;
   viewStyle: CustomViewStyle;
 }>(({ flexStyle, viewStyle }) => ({

@@ -5,7 +5,7 @@ import { scaleByAspectRatio, scaleProportionally } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
-import { BaseText } from 'src/components/texts';
+import { Text } from 'src/components/texts';
 import { Theme } from 'src/constants/styles';
 import { CustomFlexStyle, CustomTextStyle } from 'src/constants/types';
 
@@ -19,7 +19,7 @@ const SocialMedia: FC<SocialMediaProps> = ({ text, theme }) => {
 
   return (
     <Container flexStyle={styles.flex.follow}>
-      <BaseText text={text + ':'} textStyle={styles.text.follow} />
+      <Text text={text + ':'} textStyle={styles.text.follow} />
       <Icon
         name="github"
         size={scaleByAspectRatio(18)}

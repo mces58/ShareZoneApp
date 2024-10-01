@@ -1,4 +1,4 @@
-import Header from './Header';
 import SocialMedia from './SocialMedia';
+import SubHeader from './SubHeader';
 
-export { Header, SocialMedia };
+export { SocialMedia, SubHeader };

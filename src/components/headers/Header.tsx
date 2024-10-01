@@ -12,9 +12,9 @@ import {
 } from 'src/constants/types';
 
 import { Container } from '../containers';
-import { BaseText, GradientText } from '../texts';
+import { GradientText, Text } from '../texts';
 
-interface BaseHeaderProps {
+interface HeaderProps {
   title: string;
   extraIcons?: ReactNode[];
   flexStyle?: StyleProp<Partial<CustomFlexStyle>>;
@@ -29,7 +29,7 @@ interface BaseHeaderProps {
   viewStyle?: StyleProp<Partial<CustomViewStyle>>;
 }
 
-const BaseHeader: FC<BaseHeaderProps> = ({
+const Header: FC<HeaderProps> = ({
   title,
   extraIcons,
   flexStyle = {},
@@ -69,7 +69,7 @@ const BaseHeader: FC<BaseHeaderProps> = ({
         {textColor?.isGradient ? (
           <GradientText text={title} colors={textColor.grads} textStyle={textStyle} />
         ) : (
-          <BaseText text={title} textStyle={textStyle} color={textColor?.mono} />
+          <Text text={title} textStyle={textStyle} color={textColor?.mono} />
         )}
       </Container>
       {extraIcons && (
@@ -87,4 +87,4 @@ const BaseHeader: FC<BaseHeaderProps> = ({
   );
 };
 
-export default BaseHeader;
+export default Header;

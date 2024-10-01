@@ -10,7 +10,7 @@ import { scaleHeight, scaleProportionally } from 'src/utils';
 import { Theme } from 'src/constants/styles';
 
 import { Container } from '../containers';
-import { BaseText } from '../texts';
+import { Text } from '../texts';
 
 interface RichInputProps {
   editorRef: MutableRefObject<RichEditor | null>;
@@ -54,10 +54,10 @@ const RichInput: FC<RichInputProps> = ({
         ]}
         iconMap={{
           [actions.heading1]: ({ tintColor }: { tintColor: string }) => (
-            <BaseText color={tintColor} text="H1" />
+            <Text color={tintColor} text="H1" />
           ),
           [actions.heading4]: ({ tintColor }: { tintColor: string }) => (
-            <BaseText color={tintColor} text="H4" />
+            <Text color={tintColor} text="H4" />
           ),
         }}
         selectedIconTint={theme.common.color.primary}

@@ -1,4 +1,4 @@
-import BaseButton from './Base';
+import Button from './Button';
 import GradientButton from './Gradient';
 
-export { BaseButton, GradientButton };
+export { Button, GradientButton };
