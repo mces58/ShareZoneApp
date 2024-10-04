@@ -12,7 +12,13 @@ import { Animated, StyleProp, StyleSheet, TextInput } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
-import { formatPhoneNumber, scaleByAspectRatio, scaleProportionally } from 'src/utils';
+import {
+  formatPhoneNumber,
+  scaleByAspectRatio,
+  scaleHeight,
+  scaleProportionally,
+  scaleWidth,
+} from 'src/utils';
 
 import { COLORS, Theme } from 'src/constants/styles';
 import {
@@ -115,8 +121,8 @@ const Input: FC<InputProps> = ({
           flexDirection: 'row',
           alignItems: 'center',
           borderWidth: 1,
-          paddingHorizontal: scaleProportionally(15),
-          paddingTop: scaleProportionally(5),
+          paddingHorizontal: scaleWidth(15),
+          paddingTop: scaleHeight(5),
           gap: scaleProportionally(5),
           overflow: 'hidden',
         },
@@ -172,7 +178,7 @@ const Input: FC<InputProps> = ({
           textAlignVertical={isMultiLine ? 'top' : 'center'} // Both
           style={{
             height: isMultiLine ? flattenedFlexStyle.height : undefined,
-            paddingVertical: isMultiLine ? scaleProportionally(16) : undefined,
+            paddingVertical: isMultiLine ? scaleHeight(16) : undefined,
           }}
         />
       </Container>

@@ -11,6 +11,7 @@ export interface Theme {
     shadow: string;
     text: string;
     textMuted: string;
+    card: string;
   };
   common: {
     color: {
@@ -95,6 +96,7 @@ export const LightTheme: Theme = {
     shadow: COLORS.ZINC._800,
     text: COLORS.GRAY._900,
     textMuted: COLORS.GRAY._500,
+    card: COLORS.GRAY._200,
   },
   common: common,
 };
@@ -106,6 +108,7 @@ export const DarkTheme: Theme = {
     shadow: COLORS.SLATE._50,
     text: COLORS.GRAY._50,
     textMuted: COLORS.GRAY._300,
+    card: COLORS.GRAY._900,
   },
   common: common,
 };

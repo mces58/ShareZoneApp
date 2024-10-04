@@ -80,7 +80,7 @@ const createSigninStyles = (
     },
     [FlexStyles.FOOTER_ACTION]: {
       width: '55%',
-      paddingTop: scaleProportionally(40),
+      paddingTop: scaleHeight(40),
     },
     [FlexStyles.FOOTER_BUTTON_CONTAINER]: {
       flex: 1,

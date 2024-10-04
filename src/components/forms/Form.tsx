@@ -15,7 +15,7 @@ import { StyleProp } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
-import { scaleProportionally } from 'src/utils';
+import { scaleHeight, scaleProportionally, scaleWidth } from 'src/utils';
 import * as Yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -111,7 +111,7 @@ const Form = forwardRef(({ formFields, onSubmit, inputStyle }: FormProps, ref) =
       <Text
         text={errorMessage}
         color={theme.common.color.danger}
-        flexStyle={{ marginLeft: scaleProportionally(10) }}
+        flexStyle={{ marginLeft: scaleWidth(10) }}
         textStyle={{
           fontSize: theme.common.font.sizes._12,
           fontFamily: theme.common.font.families.medium,
@@ -127,7 +127,7 @@ const Form = forwardRef(({ formFields, onSubmit, inputStyle }: FormProps, ref) =
           key={field.name}
           flexStyle={{
             gap: scaleProportionally(3),
-            marginBottom: scaleProportionally(20),
+            marginBottom: scaleHeight(20),
           }}
         >
           <Controller

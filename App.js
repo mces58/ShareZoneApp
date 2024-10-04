@@ -62,12 +62,25 @@ let AppEntryPoint = App;
 
 if (Constants.expoConfig?.extra?.storybookEnabled) {
   SplashScreen.hideAsync();
-  LogBox.ignoreLogs([
-    'fontFamily',
-    'Expected style',
-    'Node of type rule not supported as an inline style',
-  ]);
   AppEntryPoint = Storybook.default;
 }
+
+LogBox.ignoreLogs([
+  'fontFamily',
+  'Expected style',
+  'Node of type rule not supported as an inline style',
+  'Warning: TNodeChildrenRenderer:',
+  'Warning: MemoizedTNodeRenderer:',
+  'Warning: TRenderEngineProvider:',
+]);
+
+// Ignore defaultProps warning for react-native-render-html
+const warnings = console.error;
+console.error = (...args) => {
+  if (args[0].includes('Support for defaultProps will be removed')) {
+    return;
+  }
+  warnings(...args);
+};
 
 export default AppEntryPoint;

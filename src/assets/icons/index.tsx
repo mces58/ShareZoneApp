@@ -10,6 +10,7 @@ import { Theme } from 'src/constants/styles';
 import AddSquareIcon from './add';
 import ArrowIcon from './arrow';
 import CameraIcon from './camera';
+import CommentIcon from './comment';
 import EditIcon from './edit';
 import EyesIcon from './eyes';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from './follow';
@@ -20,9 +21,11 @@ import LockIcon from './lock';
 import MailIcon from './mail';
 import PhoneIcon from './phone';
 import ReactIcon from './react';
+import ShareIcon from './share';
 import ShortArrowIcon from './short-arrow';
 import SignoutIcon from './signout';
 import { CheckIcon, ErrorIcon, InfoIcon, WarningIcon } from './status';
+import ThreeDotIcon from './threeDot';
 import TrashIcon from './trash';
 import UserIcon from './user';
 import VideoIcon from './video';
@@ -147,6 +150,21 @@ interface TrashIconProps extends BaseIconProps {
   fillColor?: ColorValue;
 }
 
+interface ThreeDotIconProps extends BaseIconProps {
+  name: 'three-dot';
+  fillColor?: ColorValue;
+}
+
+interface CommentIconProps extends BaseIconProps {
+  name: 'comment';
+  fillColor?: ColorValue;
+}
+
+interface ShareIconProps extends BaseIconProps {
+  name: 'share';
+  fillColor?: ColorValue;
+}
+
 type IconProps =
   | ArrowIconProps
   | ShortArrowIconProps
@@ -166,7 +184,10 @@ type IconProps =
   | LocationIconProps
   | VideoIconProps
   | GalleryIconProps
-  | TrashIconProps;
+  | TrashIconProps
+  | ThreeDotIconProps
+  | CommentIconProps
+  | ShareIconProps;
 
 const Icon: React.FC<IconProps> = (props) => {
   const { color = {}, name, onPress, size = scaleByAspectRatio(24) } = props;
@@ -278,6 +299,18 @@ const Icon: React.FC<IconProps> = (props) => {
       case 'trash': {
         const { fillColor } = props as TrashIconProps;
         return <TrashIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'three-dot': {
+        const { fillColor } = props as ThreeDotIconProps;
+        return <ThreeDotIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'comment': {
+        const { fillColor } = props as CommentIconProps;
+        return <CommentIcon {...iconProps} fillColor={fillColor} />;
+      }
+      case 'share': {
+        const { fillColor } = props as ShareIconProps;
+        return <ShareIcon {...iconProps} fillColor={fillColor} />;
       }
       default:
         return null;

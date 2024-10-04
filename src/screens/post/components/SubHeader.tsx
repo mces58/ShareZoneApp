@@ -1,11 +1,16 @@
 import React, { FC, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
+import {
+  scaleByAspectRatio,
+  scaleHeight,
+  scaleProportionally,
+  scaleWidth,
+} from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { Header } from 'src/components/headers';
-import { COLORS, Theme } from 'src/constants/styles';
+import { Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
   CustomShadowStyle,
@@ -17,15 +22,9 @@ interface SubHeaderProps {
   onPressHeaderIcon: () => void;
   theme: Theme;
   title: string;
-  onPressExtraHeaderIcon?: () => void;
 }
 
-const SubHeader: FC<SubHeaderProps> = ({
-  onPressHeaderIcon,
-  theme,
-  title,
-  onPressExtraHeaderIcon,
-}) => {
+const SubHeader: FC<SubHeaderProps> = ({ onPressHeaderIcon, theme, title }) => {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
@@ -43,19 +42,6 @@ const SubHeader: FC<SubHeaderProps> = ({
       viewStyle={styles.view.header}
       shadowStyle={styles.shadow.header}
       textStyle={styles.text.header}
-      extraIcons={
-        onPressExtraHeaderIcon && [
-          <Icon
-            key="signout"
-            name="signout"
-            strokeWidth={1}
-            size={scaleByAspectRatio(24)}
-            fillColor={COLORS.RED._600}
-            color={{ mono: COLORS.RED._600 }}
-            onPress={onPressExtraHeaderIcon}
-          />,
-        ]
-      }
     />
   );
 };
@@ -82,8 +68,7 @@ const createStyles = (
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingRight: scaleProportionally(15),
-      paddingLeft: scaleProportionally(5),
+      paddingHorizontal: scaleWidth(5),
     },
   });
 

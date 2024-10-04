@@ -25,5 +25,6 @@ export interface PostData {
   created_at: string;
   file: string;
   id: string;
-  userId: string;
+  user_id: string;
+  user?: User;
 }

@@ -69,7 +69,7 @@ const Image: FC<ImageProps> = ({
           style={{
             transform: [
               { translateY: (flattenedImageStyle.height || 0) / 2 },
-              { translateX: (flattenedImageStyle.width || 0) / 2 },
+              { translateX: (Number(flattenedImageStyle.width) || 0) / 2 },
             ],
           }}
         >
