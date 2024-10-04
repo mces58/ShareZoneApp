@@ -74,4 +74,13 @@ LogBox.ignoreLogs([
   'Warning: TRenderEngineProvider:',
 ]);
 
+// Ignore defaultProps warning for react-native-render-html
+const warnings = console.error;
+console.error = (...args) => {
+  if (args[0].includes('Support for defaultProps will be removed')) {
+    return;
+  }
+  warnings(...args);
+};
+
 export default AppEntryPoint;

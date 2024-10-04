@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleHeight, scaleProportionally } from 'src/utils';
-
 import { Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
@@ -13,7 +11,6 @@ import {
 
 const enum FlexStyles {
   CONTAINER = 'container',
-  BODY = 'body',
 }
 
 const enum ImageStyles {}
@@ -38,11 +35,6 @@ const createHomeStyles = (
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
     [FlexStyles.CONTAINER]: {
       flex: 1,
-    },
-    [FlexStyles.BODY]: {
-      flex: 1,
-      paddingVertical: scaleHeight(20),
-      gap: scaleProportionally(20),
     },
   });
 

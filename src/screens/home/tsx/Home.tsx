@@ -81,9 +81,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
           })
         }
       />
-      <Container flexStyle={styles.flex.body}>
-        <PostCards posts={posts} theme={theme} />
-      </Container>
+      <PostCards posts={posts} theme={theme} />
     </Container>
   );
 };
