@@ -147,7 +147,7 @@ type CustomImageStyle = Pick<
   borderWidth?: number;
   flex?: ImageStyle['flex'];
   height?: number;
-  width?: number;
+  width?: string | number;
 };
 
 export type {

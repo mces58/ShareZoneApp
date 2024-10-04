@@ -10,57 +10,66 @@ import {
 
 import Icon from 'src/assets/icons';
 import { Header } from 'src/components/headers';
-import { COLORS, Theme } from 'src/constants/styles';
+import { Image } from 'src/components/images';
+import { Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
+  CustomImageStyle,
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
 } from 'src/constants/types';
 
 interface SubHeaderProps {
-  onPressHeaderIcon: () => void;
   theme: Theme;
   title: string;
-  onPressExtraHeaderIcon?: () => void;
+  uri: string | undefined;
+  onPressNotificationHeaderIcon?: () => void;
+  onPressPostHeaderIcon?: () => void;
+  onPressProfileHeaderIcon?: () => void;
 }
 
 const SubHeader: FC<SubHeaderProps> = ({
-  onPressHeaderIcon,
   theme,
   title,
-  onPressExtraHeaderIcon,
+  uri,
+  onPressNotificationHeaderIcon,
+  onPressPostHeaderIcon,
+  onPressProfileHeaderIcon,
 }) => {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <Header
       title={title}
-      icon={
-        <Icon
-          name="short-arrow"
-          direction="left"
-          size={scaleByAspectRatio(30)}
-          onPress={onPressHeaderIcon}
-        />
-      }
+      icon={<Icon name="react" strokeWidth={0.75} size={scaleByAspectRatio(30)} />}
       flexStyle={styles.flex.header}
       viewStyle={styles.view.header}
       shadowStyle={styles.shadow.header}
       textStyle={styles.text.header}
-      extraIcons={
-        onPressExtraHeaderIcon && [
-          <Icon
-            key="signout"
-            name="signout"
-            strokeWidth={1}
-            size={scaleByAspectRatio(24)}
-            fillColor={COLORS.RED._600}
-            color={{ mono: COLORS.RED._600 }}
-            onPress={onPressExtraHeaderIcon}
-          />,
-        ]
-      }
+      extraIcons={[
+        <Icon
+          key="heart"
+          name="heart"
+          strokeWidth={2}
+          size={scaleByAspectRatio(22)}
+          onPress={onPressNotificationHeaderIcon}
+        />,
+        <Icon
+          key="add-square"
+          name="add-square"
+          strokeWidth={0}
+          size={scaleByAspectRatio(22)}
+          onPress={onPressPostHeaderIcon}
+          fillColor={theme.color.text}
+        />,
+        <Image
+          key="avatar"
+          uri={uri}
+          imageStyle={styles.image.header}
+          onPress={onPressProfileHeaderIcon}
+        />,
+      ]}
     />
   );
 };
@@ -75,6 +84,7 @@ const createStyles = (
   theme: Theme
 ): {
   flex: Record<StyleNames, CustomFlexStyle>;
+  image: Record<StyleNames, CustomImageStyle>;
   shadow: Record<StyleNames, CustomShadowStyle>;
   text: Record<StyleNames, CustomTextStyle>;
   view: Record<StyleNames, CustomViewStyle>;
@@ -82,13 +92,22 @@ const createStyles = (
   const flex = StyleSheet.create<Record<StyleNames, CustomFlexStyle>>({
     [StyleNames.HEADER]: {
       width: '100%',
-      height: scaleHeight(80),
+      height: scaleHeight(90),
       borderBottomWidth: scaleProportionally(1),
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingRight: scaleWidth(15),
-      paddingLeft: scaleWidth(5),
+      paddingHorizontal: scaleWidth(10),
+    },
+  });
+
+  const image = StyleSheet.create<Record<StyleNames, CustomImageStyle>>({
+    [StyleNames.HEADER]: {
+      width: scaleByAspectRatio(35),
+      height: scaleByAspectRatio(35),
+      borderRadius: scaleByAspectRatio(35) / 2,
+      borderColor: theme.color.border,
+      borderWidth: scaleProportionally(1),
     },
   });
 
@@ -104,18 +123,19 @@ const createStyles = (
 
   const text = StyleSheet.create<Record<StyleNames, CustomTextStyle>>({
     [StyleNames.HEADER]: {
-      fontSize: theme.common.font.sizes._20,
+      fontSize: theme.common.font.sizes._32,
       fontFamily: theme.common.font.families.bold,
       letterSpacing: scaleProportionally(1.5),
+      textDecorationLine: 'underline',
     },
   });
 
   const view = StyleSheet.create<Record<StyleNames, CustomViewStyle>>({
     [StyleNames.HEADER]: {
-      backgroundColor: theme.color.background,
       borderColor: theme.color.border,
+      backgroundColor: theme.color.background,
     },
   });
 
-  return { flex, shadow, text, view };
+  return { flex, image, shadow, text, view };
 };

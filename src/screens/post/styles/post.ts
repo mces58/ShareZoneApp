@@ -1,6 +1,11 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
+import {
+  scaleByAspectRatio,
+  scaleHeight,
+  scaleProportionally,
+  scaleWidth,
+} from 'src/utils';
 
 import { Theme } from 'src/constants/styles';
 import {
@@ -65,7 +70,7 @@ const createPostStyles = (
       flexDirection: 'row',
       alignItems: 'center',
       gap: scaleProportionally(10),
-      paddingHorizontal: scaleProportionally(20),
+      paddingHorizontal: scaleWidth(20),
     },
     [FlexStyles.AVATAR_TEXT]: {
       gap: scaleProportionally(5),
@@ -82,8 +87,8 @@ const createPostStyles = (
       borderWidth: 1,
       width: '90%',
       alignSelf: 'center',
-      paddingVertical: scaleProportionally(10),
-      paddingHorizontal: scaleProportionally(10),
+      paddingVertical: scaleHeight(10),
+      paddingHorizontal: scaleWidth(10),
       marginTop: scaleHeight(20),
     },
     [FlexStyles.ICON]: {

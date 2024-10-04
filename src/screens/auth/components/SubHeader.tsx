@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { scaleHeight, scaleProportionally } from 'src/utils';
+import { scaleHeight, scaleProportionally, scaleWidth } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { Header } from 'src/components/headers';
@@ -54,7 +54,7 @@ const createStyles = (
       alignItems: 'center',
       width: '100%',
       height: scaleHeight(100),
-      paddingHorizontal: scaleHeight(10),
+      paddingHorizontal: scaleWidth(10),
     },
   });
 
