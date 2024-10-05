@@ -75,13 +75,26 @@ LogBox.ignoreLogs([
   'You seem to update props of the "TRenderEngineProvider" component',
 ]);
 
-// Ignore defaultProps warning for react-native-render-html
-const warnings = console.error;
+// Ignore warnings about defaultProps
+const errors = console.error;
 console.error = (...args) => {
   if (
     args[0].includes(
       'Support for defaultProps will be removed',
       'You seem to update props of the "TRenderEngineProvider" component'
+    )
+  ) {
+    return;
+  }
+  errors(...args);
+};
+
+// Ignore defaultProps warning for react-native-render-html
+const warnings = console.warn;
+console.warn = (...args) => {
+  if (
+    args[0].includes(
+      'You seem to update props of the "TRenderEngineProvider" component in short periods of time'
     )
   ) {
     return;

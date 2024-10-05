@@ -1,9 +1,9 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 
 import moment from 'moment';
-import { useI18n } from 'src/contexts';
+import { useAuth, useI18n } from 'src/contexts';
 import {
   scaleByAspectRatio,
   scaleHeight,
@@ -26,6 +26,8 @@ import {
   PostData,
 } from 'src/constants/types';
 
+import { LikeFunction } from '../functions';
+
 type DurationUnitType =
   | 'seconds'
   | 'minutes'
@@ -42,10 +44,13 @@ interface PostCardProps {
 }
 
 const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
+  const { user } = useAuth();
   const { t } = useI18n();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const timeAgo = moment(post.created_at);
   const now = moment();
+  const [isLike, setIsLike] = useState<boolean>(false);
+  const [likes, setLikes] = useState<PostData['post_likes']>([]);
 
   const timeIntervals: { limit: number; unit: DurationUnitType; singular?: string }[] = [
     { limit: 60, unit: 'seconds', singular: 'aFewSeconds' },
@@ -72,6 +77,16 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
   const timeText = t(`screens.home.postCard.time.ago.${timeKey}`, {
     time: Math.floor(timeValue),
   });
+
+  useEffect(() => {
+    const likes = post.post_likes.filter((like) => like.user_id === user?.id);
+    setLikes(post.post_likes);
+    setIsLike(likes.length > 0);
+  }, [post.post_likes, user]);
+
+  const handleLike = async (): Promise<void> => {
+    if (user) LikeFunction({ isLike, likes, post, setIsLike, setLikes, user });
+  };
 
   return (
     <Container
@@ -103,7 +118,19 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
       </Container>
       <Container flexStyle={styles.flex.cardFooter}>
         <Container flexStyle={styles.flex.icon}>
-          <Icon name="heart" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
+          <Container flexStyle={styles.flex.iconInteraction}>
+            <Icon
+              name="heart"
+              size={scaleByAspectRatio(20)}
+              fillColor={isLike ? theme.common.color.danger : undefined}
+              color={{ mono: isLike ? theme.common.color.danger : undefined }}
+              strokeWidth={1.8}
+              onPress={handleLike}
+            />
+            {likes.length > 0 && (
+              <Text text={likes.length.toString()} color={theme.color.textMuted} />
+            )}
+          </Container>
           <Icon name="comment" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
           <Icon name="share" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
         </Container>
@@ -141,6 +168,7 @@ const enum FlexStyles {
   CARD_BODY = 'cardBody',
   CARD_FOOTER = 'cardFooter',
   ICON = 'icon',
+  ICON_INTERACTION = 'iconInteraction',
   POST_TEXT = 'postText',
 }
 
@@ -203,6 +231,11 @@ const createStyles = (
     [FlexStyles.ICON]: {
       flexDirection: 'row',
       gap: scaleProportionally(10),
+    },
+    [FlexStyles.ICON_INTERACTION]: {
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      gap: scaleProportionally(3),
     },
     [FlexStyles.POST_TEXT]: {
       paddingHorizontal: scaleWidth(10),
