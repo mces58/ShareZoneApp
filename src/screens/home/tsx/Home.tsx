@@ -14,7 +14,7 @@ import {
 } from 'src/navigations/RootStackParamList';
 
 import { PostCards, SubHeader } from '../components';
-import { PostChannelFunction } from '../functions';
+import { FetchPostsFunction, PostChannelFunction } from '../functions';
 import { createHomeStyles } from '../styles';
 
 interface HomeProps {
@@ -27,10 +27,11 @@ const Home: FC<HomeProps> = ({ navigation }) => {
   const theme = useTheme() as Theme;
   const styles = useMemo(() => createHomeStyles(theme), [theme]);
   const [posts, setPosts] = useState<PostData[]>([]);
-  const [limit, setLimit] = useState<number>(10);
+  const [limit, setLimit] = useState<number>(3);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
   useEffect(() => {
-    PostChannelFunction({ limit, setLimit, setPosts });
+    PostChannelFunction({ setLimit, setPosts });
   }, []);
 
   return (
@@ -49,7 +50,14 @@ const Home: FC<HomeProps> = ({ navigation }) => {
           })
         }
       />
-      <PostCards posts={posts} theme={theme} />
+      <PostCards
+        posts={posts}
+        theme={theme}
+        fetchPosts={() =>
+          FetchPostsFunction({ hasMore, limit, posts, setHasMore, setLimit, setPosts })
+        }
+        hasMore={hasMore}
+      />
     </Container>
   );
 };

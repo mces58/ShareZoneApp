@@ -72,12 +72,18 @@ LogBox.ignoreLogs([
   'Warning: TNodeChildrenRenderer:',
   'Warning: MemoizedTNodeRenderer:',
   'Warning: TRenderEngineProvider:',
+  'You seem to update props of the "TRenderEngineProvider" component',
 ]);
 
 // Ignore defaultProps warning for react-native-render-html
 const warnings = console.error;
 console.error = (...args) => {
-  if (args[0].includes('Support for defaultProps will be removed')) {
+  if (
+    args[0].includes(
+      'Support for defaultProps will be removed',
+      'You seem to update props of the "TRenderEngineProvider" component'
+    )
+  ) {
     return;
   }
   warnings(...args);

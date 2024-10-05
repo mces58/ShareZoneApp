@@ -1,3 +1,3 @@
-import PostChannelFunction from './home';
+import { FetchPostsFunction, PostChannelFunction } from './home';
 
-export { PostChannelFunction };
+export { PostChannelFunction, FetchPostsFunction };
