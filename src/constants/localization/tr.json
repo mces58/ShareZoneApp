@@ -69,6 +69,24 @@
       "title": "Gönderi Oluştur",
       "description": "Dünya senin gözünden nasıl görünüyor?",
       "addToPost": "Gönderinizi ekleyin"
+    },
+    "home": {
+      "noMorePosts": "Daha fazla gönderi yok",
+      "noPosts": "Henüz hiç gönderi yok",
+      "postCard": {
+        "time": {
+          "ago": {
+            "aFewSeconds": "birkaç saniye önce",
+            "seconds": "{{time}} saniye önce",
+            "minutes": "{{time}} dakika önce",
+            "hours": "{{time}} saat önce",
+            "days": "{{time}} gün önce",
+            "weeks": "{{time}} hafta önce",
+            "months": "{{time}} ay önce",
+            "years": "{{time}} yıl önce"
+          }
+        }
+      }
     }
   }
 }

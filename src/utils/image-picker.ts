@@ -22,6 +22,7 @@ export const openGallery = async (
     allowsEditing: true,
     aspect: [4, 3],
     quality: 1,
+    selectionLimit: 1,
   });
 
   if (result.canceled) throw new Error('User cancelled image picker');

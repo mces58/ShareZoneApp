@@ -6,21 +6,31 @@ import { supabase } from 'src/supabase';
 import { PostData } from 'src/constants/types';
 
 interface FunctionParams {
+  hasMore: boolean;
   limit: number;
+  posts: PostData[];
+  setHasMore: Dispatch<SetStateAction<boolean>>;
   setLimit: Dispatch<SetStateAction<number>>;
   setPosts: Dispatch<SetStateAction<PostData[]>>;
 }
 
 const FetchPostsFunction = async ({
+  hasMore,
   limit,
+  setHasMore,
   setLimit,
   setPosts,
+  posts,
 }: FunctionParams): Promise<void> => {
   try {
+    if (!hasMore) return;
+
     const res = await getPosts(limit);
     if (res.success && res.data) {
-      setPosts(res.data);
-      setLimit((prevLimit) => prevLimit + 10);
+      if (res.data.length === posts.length) setHasMore(false);
+      else setPosts(res.data);
+
+      setLimit((prevLimit) => prevLimit + 3);
     }
   } catch (error) {
     if (error instanceof Error) console.log(error.message);
@@ -28,7 +38,13 @@ const FetchPostsFunction = async ({
   }
 };
 
-const PostChannelFunction = async ({ limit, setLimit, setPosts }: FunctionParams) => {
+const PostChannelFunction = async ({
+  setLimit,
+  setPosts,
+}: {
+  setLimit: Dispatch<SetStateAction<number>>;
+  setPosts: Dispatch<SetStateAction<PostData[]>>;
+}) => {
   try {
     const post_channels = supabase
       .channel('posts')
@@ -49,8 +65,6 @@ const PostChannelFunction = async ({ limit, setLimit, setPosts }: FunctionParams
       )
       .subscribe();
 
-    await FetchPostsFunction({ limit, setLimit, setPosts });
-
     return (): void => {
       supabase.removeChannel(post_channels);
     };
@@ -60,4 +74,4 @@ const PostChannelFunction = async ({ limit, setLimit, setPosts }: FunctionParams
   }
 };
 
-export default PostChannelFunction;
+export { FetchPostsFunction, PostChannelFunction };

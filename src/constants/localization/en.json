@@ -70,6 +70,24 @@
       "title": "Create Post",
       "description": "What does the world look like through your eyes?",
       "addToPost": "Add the your post"
+    },
+    "home": {
+      "noMorePosts": "No more posts",
+      "noPosts": "No posts yet",
+      "postCard": {
+        "time": {
+          "ago": {
+            "aFewSeconds": "a few seconds ago",
+            "seconds": "{{time}} seconds ago",
+            "minutes": "{{time}} minutes ago",
+            "hours": "{{time}} hours ago",
+            "days": "{{time}} days ago",
+            "weeks": "{{time}} weeks ago",
+            "months": "{{time}} months ago",
+            "years": "{{time}} years ago"
+          }
+        }
+      }
     }
   }
 }

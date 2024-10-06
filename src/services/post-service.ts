@@ -75,7 +75,7 @@ export const getPosts = async (
   try {
     const { data, error } = await supabase
       .from('posts')
-      .select('*, user:user_id(*)')
+      .select('*, user:user_id(*), post_likes(*)')
       .limit(limit)
       .order('created_at', { ascending: false });
 
@@ -91,6 +91,70 @@ export const getPosts = async (
     return {
       success: false,
       data: null,
+      error: errorMessage,
+    };
+  }
+};
+
+export const likePost = async (
+  post_id: string,
+  user_id: string
+): Promise<{
+  data: { created_at: string; id: string; post_id: string; user_id: string } | null;
+  success: boolean;
+  error?: Error;
+}> => {
+  try {
+    const { data, error } = await supabase
+      .from('post_likes')
+      .insert({
+        post_id,
+        user_id,
+      })
+      .select('*')
+      .single();
+
+    if (error) throw error instanceof Error ? error : new Error(String(error));
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error : new Error('Unknown error occurred');
+    return {
+      success: false,
+      data: null,
+      error: errorMessage,
+    };
+  }
+};
+
+export const unlikePost = async (
+  post_id: string,
+  user_id: string
+): Promise<{
+  success: boolean;
+  error?: Error;
+}> => {
+  try {
+    const { error } = await supabase
+      .from('post_likes')
+      .delete()
+      .eq('post_id', post_id)
+      .eq('user_id', user_id);
+
+    if (error) throw error instanceof Error ? error : new Error(String(error));
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error : new Error('Unknown error occurred');
+    return {
+      success: false,
       error: errorMessage,
     };
   }
