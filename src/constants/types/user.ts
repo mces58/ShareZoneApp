@@ -25,6 +25,12 @@ export interface PostData {
   created_at: string;
   file: string;
   id: string;
+  post_likes: {
+    created_at: string;
+    id: string;
+    post_id: string;
+    user_id: string;
+  }[];
   user_id: string;
   user?: User;
 }
