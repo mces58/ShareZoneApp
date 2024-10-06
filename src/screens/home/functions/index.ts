@@ -1,4 +1,4 @@
 import { FetchPostsFunction, PostChannelFunction } from './home';
-import LikeFunction from './post-card';
+import { LikeFunction, ShareFunction } from './post-card';
 
-export { PostChannelFunction, FetchPostsFunction, LikeFunction };
+export { PostChannelFunction, FetchPostsFunction, LikeFunction, ShareFunction };

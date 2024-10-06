@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
+import { Share } from 'react-native';
 
 import { likePost, unlikePost } from 'src/services';
+import { downloadFile, stripHtmlTags } from 'src/utils';
 
 import { PostData, User } from 'src/constants/types';
 
@@ -11,6 +13,11 @@ interface LikeParams {
   setIsLike: Dispatch<SetStateAction<boolean>>;
   setLikes: Dispatch<SetStateAction<PostData['post_likes']>>;
   user: User;
+}
+
+interface ShareParams {
+  post: PostData;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const LikeFunction = async ({
@@ -43,4 +50,26 @@ const LikeFunction = async ({
   }
 };
 
-export default LikeFunction;
+const ShareFunction = async ({ post, setLoading }: ShareParams): Promise<void> => {
+  try {
+    const content: { message: string; url: string } = {
+      message: stripHtmlTags(post.body),
+      url: post.file,
+    };
+
+    if (post.file) {
+      setLoading(true);
+      const url = await downloadFile(post.file);
+      setLoading(false);
+      content.url = url;
+    }
+
+    if (post.body !== '') Share.share({ message: content.message, url: content.url });
+    else Share.share({ url: content.url });
+  } catch (error) {
+    if (error instanceof Error) console.log(error.message);
+    else console.log('Error sharing post');
+  }
+};
+
+export { LikeFunction, ShareFunction };

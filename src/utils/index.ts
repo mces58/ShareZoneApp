@@ -6,13 +6,16 @@ import {
   scaleProportionally,
   scaleWidth,
 } from './dimensions';
+import { downloadFile } from './download-file';
 import { formatPhoneNumber } from './format-phone-number';
 import { openGallery } from './image-picker';
 import { loadFonts } from './load-fonts';
 import { shadowEffect } from './shadow-effect';
+import { stripHtmlTags } from './strip-html-tags';
 
 export {
   calculateGradientEndpoints,
+  downloadFile,
   formatPhoneNumber,
   loadFonts,
   openGallery,
@@ -22,4 +25,5 @@ export {
   scaleProportionally,
   scaleWidth,
   shadowEffect,
+  stripHtmlTags,
 };

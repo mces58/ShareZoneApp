@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 
 import moment from 'moment';
@@ -26,7 +26,7 @@ import {
   PostData,
 } from 'src/constants/types';
 
-import { LikeFunction } from '../functions';
+import { LikeFunction, ShareFunction } from '../functions';
 
 type DurationUnitType =
   | 'seconds'
@@ -51,6 +51,7 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
   const now = moment();
   const [isLike, setIsLike] = useState<boolean>(false);
   const [likes, setLikes] = useState<PostData['post_likes']>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const timeIntervals: { limit: number; unit: DurationUnitType; singular?: string }[] = [
     { limit: 60, unit: 'seconds', singular: 'aFewSeconds' },
@@ -86,6 +87,10 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
 
   const handleLike = async (): Promise<void> => {
     if (user) LikeFunction({ isLike, likes, post, setIsLike, setLikes, user });
+  };
+
+  const handleShare = async (): Promise<void> => {
+    ShareFunction({ post, setLoading });
   };
 
   return (
@@ -132,7 +137,16 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
             )}
           </Container>
           <Icon name="comment" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
-          <Icon name="share" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
+          {loading ? (
+            <ActivityIndicator size="small" color={theme.color.text} />
+          ) : (
+            <Icon
+              name="share"
+              size={scaleByAspectRatio(20)}
+              strokeWidth={1.8}
+              onPress={handleShare}
+            />
+          )}
         </Container>
         <Text
           text={timeText}
