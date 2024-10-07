@@ -12,6 +12,7 @@ import {
 } from 'src/utils';
 
 import Icon from 'src/assets/icons';
+import { BottomSheet } from 'src/components/bottom-sheets';
 import { Container } from 'src/components/containers';
 import { Image } from 'src/components/images';
 import { Text } from 'src/components/texts';
@@ -25,6 +26,7 @@ import {
   CustomViewStyle,
   PostData,
 } from 'src/constants/types';
+import { PostDetail } from 'src/screens/post';
 
 import { LikeFunction, ShareFunction } from '../functions';
 
@@ -52,6 +54,8 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
   const [isLike, setIsLike] = useState<boolean>(false);
   const [likes, setLikes] = useState<PostData['post_likes']>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isPostDetailBottomSheetVisible, setPostDetailBottomSheetVisible] =
+    useState<boolean>(false);
 
   const timeIntervals: { limit: number; unit: DurationUnitType; singular?: string }[] = [
     { limit: 60, unit: 'seconds', singular: 'aFewSeconds' },
@@ -91,6 +95,14 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
 
   const handleShare = async (): Promise<void> => {
     ShareFunction({ post, setLoading });
+  };
+
+  const handlePostDetailOpen = (): void => {
+    setPostDetailBottomSheetVisible(true);
+  };
+
+  const handlePostDetailClose = (): void => {
+    setPostDetailBottomSheetVisible(false);
   };
 
   return (
@@ -136,7 +148,12 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
               <Text text={likes.length.toString()} color={theme.color.textMuted} />
             )}
           </Container>
-          <Icon name="comment" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
+          <Icon
+            name="comment"
+            size={scaleByAspectRatio(20)}
+            strokeWidth={1.8}
+            onPress={handlePostDetailOpen}
+          />
           {loading ? (
             <ActivityIndicator size="small" color={theme.color.text} />
           ) : (
@@ -169,6 +186,12 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
           />
         </Container>
       )}
+      <BottomSheet
+        height={500}
+        content={<PostDetail />}
+        isVisible={isPostDetailBottomSheetVisible}
+        onSwipeDown={handlePostDetailClose}
+      />
     </Container>
   );
 };

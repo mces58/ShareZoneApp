@@ -12,6 +12,7 @@ import { openGallery } from './image-picker';
 import { loadFonts } from './load-fonts';
 import { shadowEffect } from './shadow-effect';
 import { stripHtmlTags } from './strip-html-tags';
+import { useSwipeVertical } from './swipe';
 
 export {
   calculateGradientEndpoints,
@@ -26,4 +27,5 @@ export {
   scaleWidth,
   shadowEffect,
   stripHtmlTags,
+  useSwipeVertical,
 };
