@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { ActivityIndicator, Dimensions, StyleSheet } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 
-import moment from 'moment';
 import { useAuth, useI18n } from 'src/contexts';
 import {
+  getTimeText,
   scaleByAspectRatio,
   scaleHeight,
   scaleProportionally,
@@ -12,6 +12,7 @@ import {
 } from 'src/utils';
 
 import Icon from 'src/assets/icons';
+import { BottomSheet } from 'src/components/bottom-sheets';
 import { Container } from 'src/components/containers';
 import { Image } from 'src/components/images';
 import { Text } from 'src/components/texts';
@@ -23,19 +24,12 @@ import {
   CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
+  Like,
   PostData,
 } from 'src/constants/types';
+import { PostDetail } from 'src/screens/post';
 
 import { LikeFunction, ShareFunction } from '../functions';
-
-type DurationUnitType =
-  | 'seconds'
-  | 'minutes'
-  | 'hours'
-  | 'days'
-  | 'weeks'
-  | 'months'
-  | 'years';
 
 interface PostCardProps {
   isVideoVisible: boolean;
@@ -47,50 +41,34 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
   const { user } = useAuth();
   const { t } = useI18n();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const timeAgo = moment(post.created_at);
-  const now = moment();
+  const screenHeight = Dimensions.get('window').height;
+  const timeText = getTimeText(post.created_at, t);
   const [isLike, setIsLike] = useState<boolean>(false);
-  const [likes, setLikes] = useState<PostData['post_likes']>([]);
+  const [likes, setLikes] = useState<Like[] | undefined>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const timeIntervals: { limit: number; unit: DurationUnitType; singular?: string }[] = [
-    { limit: 60, unit: 'seconds', singular: 'aFewSeconds' },
-    { limit: 60 * 60, unit: 'minutes' },
-    { limit: 24 * 60 * 60, unit: 'hours' },
-    { limit: 7 * 24 * 60 * 60, unit: 'days' },
-    { limit: 30 * 24 * 60 * 60, unit: 'weeks' },
-    { limit: 12 * 30 * 24 * 60 * 60, unit: 'months' },
-    { limit: Infinity, unit: 'years' },
-  ];
-
-  const elapsedSeconds = now.diff(timeAgo, 'seconds');
-  let timeKey = '';
-  let timeValue = 0;
-
-  for (const interval of timeIntervals) {
-    if (elapsedSeconds < interval.limit) {
-      timeValue = moment.duration(elapsedSeconds, 'seconds').as(interval.unit);
-      timeKey = interval.singular && timeValue < 10 ? interval.singular : interval.unit;
-      break;
-    }
-  }
-
-  const timeText = t(`screens.home.postCard.time.ago.${timeKey}`, {
-    time: Math.floor(timeValue),
-  });
+  const [isPostDetailBottomSheetVisible, setPostDetailBottomSheetVisible] =
+    useState<boolean>(false);
 
   useEffect(() => {
-    const likes = post.post_likes.filter((like) => like.user_id === user?.id);
-    setLikes(post.post_likes);
+    const likes = (post.post_likes ?? []).filter((like) => like.user_id === user?.id);
+    setLikes(post.post_likes ?? []);
     setIsLike(likes.length > 0);
   }, [post.post_likes, user]);
 
-  const handleLike = async (): Promise<void> => {
+  const handleLike = useCallback(async (): Promise<void> => {
     if (user) LikeFunction({ isLike, likes, post, setIsLike, setLikes, user });
+  }, [isLike, likes]);
+
+  const handleShare = useCallback(async (): Promise<void> => {
+    ShareFunction({ post, setLoading });
+  }, []);
+
+  const handlePostDetailOpen = (): void => {
+    setPostDetailBottomSheetVisible(true);
   };
 
-  const handleShare = async (): Promise<void> => {
-    ShareFunction({ post, setLoading });
+  const handlePostDetailClose = (): void => {
+    setPostDetailBottomSheetVisible(false);
   };
 
   return (
@@ -115,7 +93,7 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
           <Video
             uri={post.file}
             isLooping
-            shouldPlay={isVideoVisible}
+            shouldPlay={isVideoVisible && !isPostDetailBottomSheetVisible}
             useNativeControls={false}
             videoStyle={styles.image.post}
           />
@@ -132,11 +110,24 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
               strokeWidth={1.8}
               onPress={handleLike}
             />
-            {likes.length > 0 && (
+            {likes && likes.length > 0 && (
               <Text text={likes.length.toString()} color={theme.color.textMuted} />
             )}
           </Container>
-          <Icon name="comment" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
+          <Container flexStyle={styles.flex.iconInteraction}>
+            <Icon
+              name="comment"
+              size={scaleByAspectRatio(20)}
+              strokeWidth={1.8}
+              onPress={handlePostDetailOpen}
+            />
+            {post.comments && post.comments.length > 0 && (
+              <Text
+                text={post.comments.length.toString()}
+                color={theme.color.textMuted}
+              />
+            )}
+          </Container>
           {loading ? (
             <ActivityIndicator size="small" color={theme.color.text} />
           ) : (
@@ -169,6 +160,12 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
           />
         </Container>
       )}
+      <BottomSheet
+        height={screenHeight * 0.8}
+        content={<PostDetail postData={post} />}
+        isVisible={isPostDetailBottomSheetVisible}
+        onSwipeDown={handlePostDetailClose}
+      />
     </Container>
   );
 };
@@ -299,7 +296,7 @@ const createStyles = (
   });
 
   const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
-    [FlexStyles.CARD]: {
+    [ViewStyles.CARD]: {
       backgroundColor: theme.color.card,
       borderRadius: scaleProportionally(10),
     },

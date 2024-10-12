@@ -60,6 +60,8 @@ const Image: FC<ImageProps> = ({
           width: flattenedImageStyle.width,
           height: flattenedImageStyle.height,
           borderRadius: flattenedImageStyle.borderRadius,
+          borderBottomRightRadius: flattenedImageStyle.borderBottomRightRadius,
+          borderBottomLeftRadius: flattenedImageStyle.borderBottomLeftRadius,
           borderWidth: flattenedImageStyle.borderWidth,
           borderColor: flattenedImageStyle.borderColor,
         }}

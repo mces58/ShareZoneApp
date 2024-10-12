@@ -9,7 +9,7 @@ import { scaleByAspectRatio } from 'src/utils';
 
 import Icon from 'src/assets/icons';
 import { Button } from 'src/components/buttons';
-import { Container, Scroll } from 'src/components/containers';
+import { Container, Keyboard, Scroll } from 'src/components/containers';
 import { Image } from 'src/components/images';
 import { RichInput } from 'src/components/inputs';
 import { GradientText, Text } from 'src/components/texts';
@@ -83,112 +83,117 @@ const Post: FC<PostProps> = ({ navigation }) => {
   };
 
   return (
-    <Scroll>
-      <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-        <SubHeader
-          title={t('screens.post.title')}
-          theme={theme}
-          onPressHeaderIcon={() => navigation.goBack()}
-        />
-        <Container flexStyle={styles.flex.avatar}>
-          <Image
-            uri={user?.image}
-            imageStyle={styles.image.avatar}
-            shadowStyle={styles.shadow.small}
+    <Keyboard>
+      <Scroll>
+        <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
+          <SubHeader
+            title={t('screens.post.title')}
+            theme={theme}
+            onPressHeaderIcon={() => navigation.goBack()}
           />
-          <Container flexStyle={styles.flex.avatarText}>
-            <Text text={user?.user_name || ''} textStyle={styles.text.userName} />
-            <Text
-              text={t('global.public')}
-              textStyle={styles.text.public}
-              color={theme.color.textMuted}
+          <Container flexStyle={styles.flex.avatar}>
+            <Image
+              uri={user?.image}
+              imageStyle={styles.image.avatar}
+              shadowStyle={styles.shadow.small}
             />
-          </Container>
-        </Container>
-        <GradientText
-          colors={theme.common.color.defaultGradient2}
-          text={t('screens.post.description')}
-          textStyle={styles.text.description}
-        />
-        <Container flexStyle={styles.flex.post} viewStyle={styles.view.post}>
-          <Text
-            text={t('screens.post.addToPost')}
-            textStyle={styles.text.addToPost}
-            color={theme.color.textMuted}
-          />
-          <Container flexStyle={styles.flex.icon}>
-            <Icon
-              name="gallery"
-              size={scaleByAspectRatio(25)}
-              strokeWidth={1.3}
-              onPress={handleImagePicker}
-              color={{ mono: theme.color.textMuted }}
-            />
-            <Icon
-              name="video"
-              size={scaleByAspectRatio(35)}
-              onPress={handleVideoPicker}
-              color={{ mono: theme.color.textMuted }}
-            />
-          </Container>
-        </Container>
-        {file && (
-          <Animated.View style={{ opacity: fadeAnim }}>
-            {file.type === 'image' ? (
-              <Image
-                uri={file.uri}
-                imageStyle={styles.image.post}
-                shadowStyle={styles.shadow.small}
-              />
-            ) : (
-              <Video
-                uri={file.uri}
-                isLooping
-                shouldPlay
-                videoStyle={styles.image.post}
-                shadowStyle={styles.shadow.small}
-              />
-            )}
-            <Container flexStyle={styles.flex.trashIcon}>
-              <Icon
-                name="trash"
-                size={scaleByAspectRatio(30)}
-                onPress={fadeOut}
-                strokeWidth={1.1}
-                fillColor={theme.common.color.danger}
+            <Container flexStyle={styles.flex.avatarText}>
+              <Text text={user?.user_name || ''} textStyle={styles.text.userName} />
+              <Text
+                text={t('global.public')}
+                textStyle={styles.text.public}
+                color={theme.color.textMuted}
               />
             </Container>
-          </Animated.View>
-        )}
-        <RichInput editorRef={editorRef} onChange={(text) => (bodyRef.current = text)} />
-        <Container flexStyle={styles.flex.buttonWrapper}>
-          <Button
-            text={t('global.post')}
-            onPress={handlePost}
-            loading={loading}
-            disabled={loading}
-            flexStyle={styles.flex.button}
-            viewStyle={styles.view.button}
-            textStyle={styles.text.button}
-            shadowStyle={styles.shadow.small}
+          </Container>
+          <GradientText
+            colors={theme.common.color.defaultGradient2}
+            text={t('screens.post.description')}
+            textStyle={styles.text.description}
           />
-          {toast && (
-            <Toast
-              downHeight={325}
-              message={toast.message}
-              type={toast.type}
-              icon={
-                toast.type === ToastTypes.Error ? (
-                  <Icon name="error" fillColor={theme.color.text} strokeWidth={0} />
-                ) : (
-                  <Icon name="check" fillColor={theme.color.text} strokeWidth={0} />
-                )
-              }
+          <Container flexStyle={styles.flex.post} viewStyle={styles.view.post}>
+            <Text
+              text={t('screens.post.addToPost')}
+              textStyle={styles.text.addToPost}
+              color={theme.color.textMuted}
             />
+            <Container flexStyle={styles.flex.icon}>
+              <Icon
+                name="gallery"
+                size={scaleByAspectRatio(25)}
+                strokeWidth={1.3}
+                onPress={handleImagePicker}
+                color={{ mono: theme.color.textMuted }}
+              />
+              <Icon
+                name="video"
+                size={scaleByAspectRatio(35)}
+                onPress={handleVideoPicker}
+                color={{ mono: theme.color.textMuted }}
+              />
+            </Container>
+          </Container>
+          {file && (
+            <Animated.View style={{ opacity: fadeAnim }}>
+              {file.type === 'image' ? (
+                <Image
+                  uri={file.uri}
+                  imageStyle={styles.image.post}
+                  shadowStyle={styles.shadow.small}
+                />
+              ) : (
+                <Video
+                  uri={file.uri}
+                  isLooping
+                  shouldPlay
+                  videoStyle={styles.image.post}
+                  shadowStyle={styles.shadow.small}
+                />
+              )}
+              <Container flexStyle={styles.flex.trashIcon}>
+                <Icon
+                  name="trash"
+                  size={scaleByAspectRatio(30)}
+                  onPress={fadeOut}
+                  strokeWidth={1.1}
+                  fillColor={theme.common.color.danger}
+                />
+              </Container>
+            </Animated.View>
           )}
+          <RichInput
+            editorRef={editorRef}
+            onChange={(text) => (bodyRef.current = text)}
+          />
+          <Container flexStyle={styles.flex.buttonWrapper}>
+            <Button
+              text={t('global.post')}
+              onPress={handlePost}
+              loading={loading}
+              disabled={loading}
+              flexStyle={styles.flex.button}
+              viewStyle={styles.view.button}
+              textStyle={styles.text.button}
+              shadowStyle={styles.shadow.small}
+            />
+            {toast && (
+              <Toast
+                downHeight={325}
+                message={toast.message}
+                type={toast.type}
+                icon={
+                  toast.type === ToastTypes.Error ? (
+                    <Icon name="error" fillColor={theme.color.text} strokeWidth={0} />
+                  ) : (
+                    <Icon name="check" fillColor={theme.color.text} strokeWidth={0} />
+                  )
+                }
+              />
+            )}
+          </Container>
         </Container>
-      </Container>
-    </Scroll>
+      </Scroll>
+    </Keyboard>
   );
 };
 
