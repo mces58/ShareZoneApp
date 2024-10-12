@@ -10,7 +10,9 @@
     "ok": "Tamam",
     "save": "Kaydet",
     "public": "Herkese Açık",
-    "post": "Gönder"
+    "post": "Gönder",
+    "send": "Gönder",
+    "delete": "Sil"
   },
   "form": {
     "input": {
@@ -20,7 +22,7 @@
       "phoneNumber": "Telefon Numarası",
       "address": "Adres",
       "bio": "Hakkımda",
-      "richPlaceholder": "Aklınızdakileri yazın"
+      "placeholder": "Aklınızdakileri yazın"
     },
     "required": "Bu alan zorunludur",
     "invalidEmail": "Geçerli bir e-posta adresi girin",
@@ -69,6 +71,12 @@
       "title": "Gönderi Oluştur",
       "description": "Dünya senin gözünden nasıl görünüyor?",
       "addToPost": "Gönderinizi ekleyin"
+    },
+    "postDetail": {
+      "comments": "Yorumlar",
+      "noComments": "Henüz hiç yorum yok",
+      "deleteComment": "Yorumu sil",
+      "areYouSureDeleteComment": "Bu yorumu silmek istediğinizden emin misiniz?"
     },
     "home": {
       "noMorePosts": "Daha fazla gönderi yok",

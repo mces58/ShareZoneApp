@@ -10,7 +10,9 @@
     "ok": "Ok",
     "save": "Save",
     "public": "Public",
-    "post": "Post"
+    "post": "Post",
+    "send": "Send",
+    "delete": "Delete"
   },
   "form": {
     "input": {
@@ -20,7 +22,7 @@
       "phoneNumber": "Phone Number",
       "address": "Address",
       "bio": "About",
-      "richPlaceholder": "What is on your mind?"
+      "placeholder": "What is on your mind?"
     },
     "required": "This field is required",
     "invalidEmail": "Enter a valid email address",
@@ -70,6 +72,12 @@
       "title": "Create Post",
       "description": "What does the world look like through your eyes?",
       "addToPost": "Add the your post"
+    },
+    "postDetail": {
+      "comments": "Comments",
+      "noComments": "No comments yet",
+      "deleteComment": "Delete Comment",
+      "areYouSureDeleteComment": "Are you sure you want to delete this comment?"
     },
     "home": {
       "noMorePosts": "No more posts",

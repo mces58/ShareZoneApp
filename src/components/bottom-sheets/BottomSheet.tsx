@@ -3,6 +3,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Modal,
+  ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -87,7 +88,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
   return (
     <Modal visible={showModal} transparent={isTransparent} animationType="none">
       <TouchableWithoutFeedback onPress={onSwipeDown}>
-        <View style={styles.overlay}>
+        <ScrollView contentContainerStyle={styles.overlay}>
           <Animated.View
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
@@ -105,7 +106,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
             />
             {content}
           </Animated.View>
-        </View>
+        </ScrollView>
       </TouchableWithoutFeedback>
     </Modal>
   );

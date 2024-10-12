@@ -3,4 +3,7 @@ import Keyboard from './Keyboard';
 import Scroll from './Scroll';
 import Wrapper from './Wrapper';
 
-export { Container, Keyboard, Scroll, Wrapper };
+export { Container };
+export { Keyboard };
+export { Scroll };
+export { Wrapper };

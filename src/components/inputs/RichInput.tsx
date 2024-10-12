@@ -71,7 +71,7 @@ const RichInput: FC<RichInputProps> = ({
       <RichEditor
         ref={editorRef}
         onChange={(text) => onChange(text)}
-        placeholder={t('form.input.richPlaceholder') + '...'}
+        placeholder={t('form.input.placeholder') + '...'}
         containerStyle={[
           styles.richEditor,
           {
@@ -87,7 +87,7 @@ const RichInput: FC<RichInputProps> = ({
           color: theme.color.text,
           placeholderColor: theme.color.border,
         }}
-        scrollEnabled={true}
+        scrollEnabled
       />
     </Container>
   );

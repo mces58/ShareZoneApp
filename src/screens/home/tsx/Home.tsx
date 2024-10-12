@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useTheme } from 'styled-components/native';
 
@@ -34,6 +34,10 @@ const Home: FC<HomeProps> = ({ navigation }) => {
     PostChannelFunction({ setLimit, setPosts });
   }, []);
 
+  const handleFetchPosts = useCallback(() => {
+    FetchPostsFunction({ hasMore, limit, posts, setHasMore, setLimit, setPosts });
+  }, [hasMore, limit, posts]);
+
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
       <SubHeader
@@ -53,9 +57,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
       <PostCards
         posts={posts}
         theme={theme}
-        fetchPosts={() =>
-          FetchPostsFunction({ hasMore, limit, posts, setHasMore, setLimit, setPosts })
-        }
+        fetchPosts={handleFetchPosts}
         hasMore={hasMore}
       />
     </Container>
