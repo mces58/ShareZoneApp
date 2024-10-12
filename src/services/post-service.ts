@@ -1,6 +1,6 @@
 import { supabase } from 'src/supabase';
 
-import { FolderNames, PostData } from 'src/constants/types';
+import { Comment, FolderNames, Like, PostData } from 'src/constants/types';
 
 import { getImageUri } from './image-service';
 import { uploadFile } from './upload-file-service';
@@ -75,7 +75,7 @@ export const getPosts = async (
   try {
     const { data, error } = await supabase
       .from('posts')
-      .select('*, user:user_id(*), post_likes(*)')
+      .select('*, user:user_id(*), post_likes(*), comments(*, user:user_id(*))')
       .limit(limit)
       .order('created_at', { ascending: false });
 
@@ -100,7 +100,7 @@ export const likePost = async (
   post_id: string,
   user_id: string
 ): Promise<{
-  data: { created_at: string; id: string; post_id: string; user_id: string } | null;
+  data: Like | null;
   success: boolean;
   error?: Error;
 }> => {
@@ -144,6 +144,98 @@ export const unlikePost = async (
       .delete()
       .eq('post_id', post_id)
       .eq('user_id', user_id);
+
+    if (error) throw error instanceof Error ? error : new Error(String(error));
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error : new Error('Unknown error occurred');
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const getPost = async (
+  postId: string
+): Promise<{
+  data: PostData | null;
+  success: boolean;
+  error?: Error;
+}> => {
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*, user:user_id(*), post_likes(*), comments(*, user:user_id(*))')
+      .eq('id', postId)
+      .single();
+
+    if (error) throw error instanceof Error ? error : new Error(String(error));
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error : new Error('Unknown error occurred');
+    return {
+      success: false,
+      data: null,
+      error: errorMessage,
+    };
+  }
+};
+
+export const createNewComment = async (
+  user_id: string,
+  post_id: string,
+  text: string
+): Promise<{
+  data: Comment | null;
+  success: boolean;
+  error?: Error;
+}> => {
+  try {
+    const { data, error } = await supabase
+      .from('comments')
+      .insert({
+        user_id,
+        post_id,
+        text,
+      })
+      .select('*, user:user_id(*)')
+      .single();
+
+    if (error) throw error instanceof Error ? error : new Error(String(error));
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error : new Error('Unknown error occurred');
+    return {
+      success: false,
+      data: null,
+      error: errorMessage,
+    };
+  }
+};
+
+export const deleteComment = async (
+  commentId: string
+): Promise<{
+  success: boolean;
+  error?: Error;
+}> => {
+  try {
+    const { error } = await supabase.from('comments').delete().eq('id', commentId);
 
     if (error) throw error instanceof Error ? error : new Error(String(error));
 

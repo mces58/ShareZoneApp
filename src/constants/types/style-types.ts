@@ -142,6 +142,8 @@ type CustomImageStyle = Pick<
   | 'width'
 > & {
   alignSelf?: ImageStyle['alignSelf'];
+  borderBottomLeftRadius?: number;
+  borderBottomRightRadius?: number;
   borderColor?: string;
   borderRadius?: number;
   borderWidth?: number;
