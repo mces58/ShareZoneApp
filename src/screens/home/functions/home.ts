@@ -61,6 +61,22 @@ const PostChannelFunction = async ({
               setLimit((prevLimit) => prevLimit + 1);
             }
           }
+          if (payload.eventType === 'DELETE' && payload.old.id) {
+            setPosts((prev) => prev.filter((post) => post.id !== payload.old.id));
+            setLimit((prevLimit) => prevLimit - 1);
+          }
+          if (payload.eventType === 'UPDATE' && payload.new.id) {
+            const updatedPost = { ...payload.new };
+            const res = await getUserById(updatedPost.user_id);
+            if (res.success && res.data) {
+              updatedPost.user = res.data;
+              setPosts((prev) =>
+                prev.map((post) =>
+                  post.id === updatedPost.id ? ({ ...updatedPost } as PostData) : post
+                )
+              );
+            }
+          }
         }
       )
       .subscribe();

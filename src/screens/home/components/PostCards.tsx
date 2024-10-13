@@ -15,17 +15,25 @@ import { Container } from 'src/components/containers';
 import { Text } from 'src/components/texts';
 import { Theme } from 'src/constants/styles';
 import { CustomFlexStyle, CustomTextStyle, PostData } from 'src/constants/types';
+import { HomeScreenNavigation } from 'src/navigations/RootStackParamList';
 
 import PostCard from './PostCard';
 
 interface PostCardsProps {
   fetchPosts: () => void;
   hasMore: boolean;
+  navigation: HomeScreenNavigation;
   posts: PostData[];
   theme: Theme;
 }
 
-const PostCards: FC<PostCardsProps> = ({ fetchPosts, hasMore, posts, theme }) => {
+const PostCards: FC<PostCardsProps> = ({
+  fetchPosts,
+  hasMore,
+  navigation,
+  posts,
+  theme,
+}) => {
   const { t } = useI18n();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [viewableItems, setViewableItems] = useState<string[]>([]);
@@ -54,6 +62,7 @@ const PostCards: FC<PostCardsProps> = ({ fetchPosts, hasMore, posts, theme }) =>
       renderItem={({ item }) => (
         <PostCard
           post={item}
+          navigation={navigation}
           theme={theme}
           isVideoVisible={viewableItems.includes(String(item.id))}
         />

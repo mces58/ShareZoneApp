@@ -12,7 +12,8 @@
     "public": "Herkese Açık",
     "post": "Gönder",
     "send": "Gönder",
-    "delete": "Sil"
+    "delete": "Sil",
+    "update": "Güncelle"
   },
   "form": {
     "input": {
@@ -40,7 +41,8 @@
     "success": {
       "accountCreated": "Hesabınız başarıyla oluşturuldu.",
       "profileUpdated": "Profil başarıyla güncellendi.",
-      "postCreated": "Gönderi başarıyla oluşturuldu."
+      "postCreated": "Gönderi başarıyla oluşturuldu.",
+      "postUpdated": "Gönderi başarıyla güncellendi."
     },
     "error": {
       "invalidLoginCredentials": "Geçersiz oturum açma kimlik bilgileri.",
@@ -69,6 +71,7 @@
     },
     "post": {
       "title": "Gönderi Oluştur",
+      "titleEdit": "Gönderiyi Düzenle",
       "description": "Dünya senin gözünden nasıl görünüyor?",
       "addToPost": "Gönderinizi ekleyin"
     },
@@ -76,7 +79,9 @@
       "comments": "Yorumlar",
       "noComments": "Henüz hiç yorum yok",
       "deleteComment": "Yorumu sil",
-      "areYouSureDeleteComment": "Bu yorumu silmek istediğinizden emin misiniz?"
+      "areYouSureDeleteComment": "Bu yorumu silmek istediğinizden emin misiniz?",
+      "deletePost": "Gönderiyi sil",
+      "areYouSureDeletePost": "Bu gönderiyi silmek istediğinizden emin misiniz?"
     },
     "home": {
       "noMorePosts": "Daha fazla gönderi yok",

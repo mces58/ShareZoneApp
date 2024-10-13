@@ -3,6 +3,7 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { ProfileStackParamList } from './profile/ProfileStackParamList';
+import { PostData } from 'src/constants/types';
 
 export const enum RootNavigations {
   HOME = 'Home',
@@ -19,7 +20,7 @@ export type RootStackParamList = {
   [RootNavigations.HOME]: undefined;
   [RootNavigations.MAIN]: undefined;
   [RootNavigations.NOTIFICATION]: undefined;
-  [RootNavigations.POST]: undefined;
+  [RootNavigations.POST]: { post?: PostData };
   [RootNavigations.PROFILE_STACK]: NavigatorScreenParams<ProfileStackParamList>;
   [RootNavigations.SIGNIN]: undefined;
   [RootNavigations.SIGNUP]: undefined;

@@ -12,21 +12,28 @@ import { Input } from 'src/components/inputs';
 import { Text } from 'src/components/texts';
 import { Theme } from 'src/constants/styles';
 import { Comment, PostData } from 'src/constants/types';
+import {
+  HomeScreenNavigation,
+  RootNavigations,
+} from 'src/navigations/RootStackParamList';
 
 import { CommentBubble, PostCommentCard } from '../components';
 import {
   CommentChannelFunction,
   DeleteCommentFunction,
+  DeletePostFunction,
   FetchPostFunction,
   NewCommentFunction,
 } from '../functions';
 import { createPostDetailStyles } from '../styles';
 
 interface PostDetailProps {
+  navigation: HomeScreenNavigation;
   postData: PostData;
+  setIsVisible: (isVisible: boolean) => void;
 }
 
-const PostDetail: FC<PostDetailProps> = ({ postData }) => {
+const PostDetail: FC<PostDetailProps> = ({ navigation, postData, setIsVisible }) => {
   const { user } = useAuth();
   const { t } = useI18n();
   const theme = useTheme() as Theme;
@@ -51,6 +58,15 @@ const PostDetail: FC<PostDetailProps> = ({ postData }) => {
     [post]
   );
 
+  const handleDeletePost = useCallback(async (): Promise<void> => {
+    if (post) await DeletePostFunction({ post, setIsVisible, setPost });
+  }, [post]);
+
+  const handleEditPost = useCallback(() => {
+    setIsVisible(false);
+    if (post) navigation.navigate(RootNavigations.POST, { post });
+  }, [post]);
+
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.flex.screen}
@@ -58,7 +74,15 @@ const PostDetail: FC<PostDetailProps> = ({ postData }) => {
     >
       <Scroll>
         <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-          {post && <PostCommentCard post={post} theme={theme} />}
+          {post && user && (
+            <PostCommentCard
+              onDeletePost={handleDeletePost}
+              onEditPost={handleEditPost}
+              post={post}
+              theme={theme}
+              user={user}
+            />
+          )}
           <Container flexStyle={styles.flex.comments}>
             {post?.comments?.length === 0 ? (
               <Text

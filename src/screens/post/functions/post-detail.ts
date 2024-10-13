@@ -1,6 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { createNewComment, deleteComment, getPost, getUserById } from 'src/services';
+import {
+  createNewComment,
+  deleteComment,
+  deletePost,
+  getPost,
+  getUserById,
+} from 'src/services';
 import { supabase } from 'src/supabase';
 
 import { Comment, PostData, User } from 'src/constants/types';
@@ -20,6 +26,12 @@ interface NewCommentParams {
 
 interface DeleteCommentParams {
   comment: Comment;
+  setPost: Dispatch<SetStateAction<PostData | null>>;
+}
+
+interface DeletePostParams {
+  post: PostData;
+  setIsVisible: (isVisible: boolean) => void;
   setPost: Dispatch<SetStateAction<PostData | null>>;
 }
 
@@ -85,6 +97,24 @@ const DeleteCommentFunction = async ({
   }
 };
 
+const DeletePostFunction = async ({
+  post,
+  setIsVisible,
+  setPost,
+}: DeletePostParams): Promise<void> => {
+  try {
+    const res = await deletePost(post.id);
+
+    if (res.success) {
+      setPost(null);
+      setIsVisible(false);
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) console.log(error.message);
+    else console.log('Error deleting comment');
+  }
+};
+
 const CommentChannelFunction = async ({
   setPost,
 }: {
@@ -138,5 +168,6 @@ export {
   FetchPostFunction,
   NewCommentFunction,
   DeleteCommentFunction,
+  DeletePostFunction,
   CommentChannelFunction,
 };
