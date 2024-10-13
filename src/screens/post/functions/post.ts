@@ -4,7 +4,7 @@ import { RichEditor } from 'react-native-pell-rich-editor';
 import { MediaTypeOptions } from 'expo-image-picker';
 
 import { TranslationOptions } from 'src/contexts';
-import { createPost } from 'src/services';
+import { createPost, updatePost } from 'src/services';
 import { openGallery } from 'src/utils';
 
 import { ToastTypes } from 'src/components/toasts';
@@ -29,6 +29,15 @@ interface PostFunctionsParams {
   user: User;
 }
 
+interface UpdatePostFunctionsParams {
+  bodyRef: MutableRefObject<string>;
+  editorRef: MutableRefObject<RichEditor | null>;
+  postId: string;
+  setLoading: Dispatch<SetStateAction<boolean>>;
+  setToast: Dispatch<SetStateAction<{ message: string; type: ToastTypes } | null>>;
+  t: (key: string, options?: TranslationOptions) => string;
+}
+
 const ImagePickerFunction = async ({ setFile }: MediaPickerParams): Promise<void> => {
   try {
     const { fileUri, mimeType, type } = await openGallery(MediaTypeOptions.Images);
@@ -49,7 +58,7 @@ const VideoPickerFunction = async ({ setFile }: MediaPickerParams): Promise<void
   }
 };
 
-const PostFunctions = async ({
+const CreatePostFunction = async ({
   bodyRef,
   editorRef,
   file,
@@ -92,4 +101,36 @@ const PostFunctions = async ({
   }
 };
 
-export { ImagePickerFunction, VideoPickerFunction, PostFunctions };
+const UpdatePostFunction = async ({
+  bodyRef,
+  editorRef,
+  postId,
+  setLoading,
+  setToast,
+  t,
+}: UpdatePostFunctionsParams): Promise<void> => {
+  setLoading(true);
+
+  try {
+    const res = await updatePost(postId, bodyRef.current);
+
+    if (res.success) {
+      bodyRef.current = '';
+      editorRef.current?.setContentHTML('');
+      setToast({ message: t('toast.success.postUpdated'), type: ToastTypes.Success });
+      setTimeout(() => setToast(null), 2500);
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) console.log(error.message);
+    else console.log('Error updating post');
+  } finally {
+    setLoading(false);
+  }
+};
+
+export {
+  ImagePickerFunction,
+  VideoPickerFunction,
+  CreatePostFunction,
+  UpdatePostFunction,
+};

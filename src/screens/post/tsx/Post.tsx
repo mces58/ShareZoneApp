@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Animated } from 'react-native';
 import { RichEditor } from 'react-native-pell-rich-editor';
 
@@ -16,17 +16,26 @@ import { GradientText, Text } from 'src/components/texts';
 import { Toast, ToastTypes } from 'src/components/toasts';
 import { Video } from 'src/components/videos';
 import { Theme } from 'src/constants/styles';
-import { PostScreenNavigation } from 'src/navigations/RootStackParamList';
+import {
+  PostScreenNavigation,
+  PostScreenRoute,
+} from 'src/navigations/RootStackParamList';
 
 import { SubHeader } from '../components';
-import { ImagePickerFunction, PostFunctions, VideoPickerFunction } from '../functions';
+import {
+  CreatePostFunction,
+  ImagePickerFunction,
+  UpdatePostFunction,
+  VideoPickerFunction,
+} from '../functions';
 import { createPostStyles } from '../styles';
 
 interface PostProps {
   navigation: PostScreenNavigation;
+  route: PostScreenRoute;
 }
 
-const Post: FC<PostProps> = ({ navigation }) => {
+const Post: FC<PostProps> = ({ navigation, route }) => {
   const { user } = useAuth();
   const { t } = useI18n();
   const theme = useTheme() as Theme;
@@ -42,6 +51,20 @@ const Post: FC<PostProps> = ({ navigation }) => {
   const [toast, setToast] = useState<{ message: string; type: ToastTypes } | null>(null);
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
+  useEffect(() => {
+    if (route.params.post) {
+      bodyRef.current = route.params.post.body;
+      editorRef.current?.setContentHTML(route.params.post.body);
+      const mimeType = route.params.post.file.split('.').pop();
+      const type = mimeType === 'mp4' ? 'video' : 'image';
+      setFile({
+        mimeType: mimeType || '',
+        type,
+        uri: route.params.post.file,
+      });
+    }
+  }, [route.params]);
+
   const handleImagePicker = useCallback(async (): Promise<void> => {
     await ImagePickerFunction({ setFile });
     fadeIn();
@@ -54,7 +77,7 @@ const Post: FC<PostProps> = ({ navigation }) => {
 
   const handlePost = useCallback(async (): Promise<void> => {
     if (user)
-      await PostFunctions({
+      await CreatePostFunction({
         bodyRef,
         editorRef,
         file,
@@ -65,6 +88,20 @@ const Post: FC<PostProps> = ({ navigation }) => {
         user,
       });
   }, [bodyRef, file, user]);
+
+  const handleUpdatePost = useCallback(
+    async (postId: string): Promise<void> => {
+      await UpdatePostFunction({
+        bodyRef,
+        editorRef,
+        postId,
+        setLoading,
+        setToast,
+        t,
+      });
+    },
+    [bodyRef, file, user, route.params.post]
+  );
 
   const fadeIn = (): void => {
     Animated.timing(fadeAnim, {
@@ -87,7 +124,9 @@ const Post: FC<PostProps> = ({ navigation }) => {
       <Scroll>
         <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
           <SubHeader
-            title={t('screens.post.title')}
+            title={
+              route.params.post ? t('screens.post.titleEdit') : t('screens.post.title')
+            }
             theme={theme}
             onPressHeaderIcon={() => navigation.goBack()}
           />
@@ -111,28 +150,30 @@ const Post: FC<PostProps> = ({ navigation }) => {
             text={t('screens.post.description')}
             textStyle={styles.text.description}
           />
-          <Container flexStyle={styles.flex.post} viewStyle={styles.view.post}>
-            <Text
-              text={t('screens.post.addToPost')}
-              textStyle={styles.text.addToPost}
-              color={theme.color.textMuted}
-            />
-            <Container flexStyle={styles.flex.icon}>
-              <Icon
-                name="gallery"
-                size={scaleByAspectRatio(25)}
-                strokeWidth={1.3}
-                onPress={handleImagePicker}
-                color={{ mono: theme.color.textMuted }}
+          {route.params.post ? null : (
+            <Container flexStyle={styles.flex.post} viewStyle={styles.view.post}>
+              <Text
+                text={t('screens.post.addToPost')}
+                textStyle={styles.text.addToPost}
+                color={theme.color.textMuted}
               />
-              <Icon
-                name="video"
-                size={scaleByAspectRatio(35)}
-                onPress={handleVideoPicker}
-                color={{ mono: theme.color.textMuted }}
-              />
+              <Container flexStyle={styles.flex.icon}>
+                <Icon
+                  name="gallery"
+                  size={scaleByAspectRatio(25)}
+                  strokeWidth={1.3}
+                  onPress={handleImagePicker}
+                  color={{ mono: theme.color.textMuted }}
+                />
+                <Icon
+                  name="video"
+                  size={scaleByAspectRatio(35)}
+                  onPress={handleVideoPicker}
+                  color={{ mono: theme.color.textMuted }}
+                />
+              </Container>
             </Container>
-          </Container>
+          )}
           {file && (
             <Animated.View style={{ opacity: fadeAnim }}>
               {file.type === 'image' ? (
@@ -150,15 +191,17 @@ const Post: FC<PostProps> = ({ navigation }) => {
                   shadowStyle={styles.shadow.small}
                 />
               )}
-              <Container flexStyle={styles.flex.trashIcon}>
-                <Icon
-                  name="trash"
-                  size={scaleByAspectRatio(30)}
-                  onPress={fadeOut}
-                  strokeWidth={1.1}
-                  fillColor={theme.common.color.danger}
-                />
-              </Container>
+              {route.params.post ? null : (
+                <Container flexStyle={styles.flex.trashIcon}>
+                  <Icon
+                    name="trash"
+                    size={scaleByAspectRatio(30)}
+                    onPress={fadeOut}
+                    strokeWidth={1.1}
+                    fillColor={theme.common.color.danger}
+                  />
+                </Container>
+              )}
             </Animated.View>
           )}
           <RichInput
@@ -167,8 +210,10 @@ const Post: FC<PostProps> = ({ navigation }) => {
           />
           <Container flexStyle={styles.flex.buttonWrapper}>
             <Button
-              text={t('global.post')}
-              onPress={handlePost}
+              text={route.params.post ? t('global.update') : t('global.post')}
+              onPress={() =>
+                route.params.post ? handleUpdatePost(route.params.post.id) : handlePost()
+              }
               loading={loading}
               disabled={loading}
               flexStyle={styles.flex.button}
@@ -178,7 +223,7 @@ const Post: FC<PostProps> = ({ navigation }) => {
             />
             {toast && (
               <Toast
-                downHeight={325}
+                downHeight={route.params.post ? 340 : 325}
                 message={toast.message}
                 type={toast.type}
                 icon={
