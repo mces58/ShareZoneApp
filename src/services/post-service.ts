@@ -251,3 +251,60 @@ export const deleteComment = async (
     };
   }
 };
+
+export const deletePost = async (
+  postId: string
+): Promise<{
+  success: boolean;
+  error?: Error;
+}> => {
+  try {
+    const { error } = await supabase.from('posts').delete().eq('id', postId);
+
+    if (error) throw error instanceof Error ? error : new Error(String(error));
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error : new Error('Unknown error occurred');
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const updatePost = async (
+  postId: string,
+  body: string
+): Promise<{
+  data: PostData | null;
+  success: boolean;
+  error?: Error;
+}> => {
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .update({ body })
+      .eq('id', postId)
+      .select('*')
+      .single();
+
+    if (error) throw error instanceof Error ? error : new Error(String(error));
+
+    return {
+      success: true,
+      data,
+    };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error : new Error('Unknown error occurred');
+    return {
+      success: false,
+      data: null,
+      error: errorMessage,
+    };
+  }
+};

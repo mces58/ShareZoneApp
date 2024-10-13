@@ -47,7 +47,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
         onPressNotificationHeaderIcon={() =>
           navigation.navigate(RootNavigations.NOTIFICATION)
         }
-        onPressPostHeaderIcon={() => navigation.navigate(RootNavigations.POST)}
+        onPressPostHeaderIcon={() => navigation.navigate(RootNavigations.POST, {})}
         onPressProfileHeaderIcon={() =>
           navigation.navigate(RootNavigations.PROFILE_STACK, {
             screen: ProfileNavigations.PROFILE,
@@ -56,6 +56,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
       />
       <PostCards
         posts={posts}
+        navigation={navigation}
         theme={theme}
         fetchPosts={handleFetchPosts}
         hasMore={hasMore}

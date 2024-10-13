@@ -27,17 +27,19 @@ import {
   Like,
   PostData,
 } from 'src/constants/types';
+import { HomeScreenNavigation } from 'src/navigations/RootStackParamList';
 import { PostDetail } from 'src/screens/post';
 
 import { LikeFunction, ShareFunction } from '../functions';
 
 interface PostCardProps {
   isVideoVisible: boolean;
+  navigation: HomeScreenNavigation;
   post: PostData;
   theme: Theme;
 }
 
-const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
+const PostCard: FC<PostCardProps> = ({ isVideoVisible, navigation, post, theme }) => {
   const { user } = useAuth();
   const { t } = useI18n();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -162,7 +164,13 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, post, theme }) => {
       )}
       <BottomSheet
         height={screenHeight * 0.8}
-        content={<PostDetail postData={post} />}
+        content={
+          <PostDetail
+            navigation={navigation}
+            postData={post}
+            setIsVisible={setPostDetailBottomSheetVisible}
+          />
+        }
         isVisible={isPostDetailBottomSheetVisible}
         onSwipeDown={handlePostDetailClose}
       />

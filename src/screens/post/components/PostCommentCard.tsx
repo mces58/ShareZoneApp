@@ -1,7 +1,8 @@
 import React, { FC, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 
+import { useI18n } from 'src/contexts';
 import {
   scaleByAspectRatio,
   scaleHeight,
@@ -21,15 +22,37 @@ import {
   CustomTextStyle,
   CustomViewStyle,
   PostData,
+  User,
 } from 'src/constants/types';
 
 interface PostCardProps {
+  onDeletePost: () => void;
+  onEditPost: () => void;
   post: PostData;
   theme: Theme;
+  user: User;
 }
 
-const PostCommentCard: FC<PostCardProps> = ({ post, theme }) => {
+const PostCommentCard: FC<PostCardProps> = ({
+  onDeletePost,
+  onEditPost,
+  post,
+  theme,
+  user,
+}) => {
   const styles = useMemo(() => createStyles(theme, post.body), [theme]);
+  const { t } = useI18n();
+
+  const handleDeletePost = (): void => {
+    Alert.alert(
+      t('screens.postDetail.deletePost'),
+      t('screens.postDetail.areYouSureDeletePost'),
+      [
+        { text: t('global.cancel'), style: 'cancel' },
+        { text: t('global.delete'), style: 'destructive', onPress: onDeletePost },
+      ]
+    );
+  };
 
   return (
     <Container flexStyle={styles.flex.card} viewStyle={styles.view.card}>
@@ -40,7 +63,23 @@ const PostCommentCard: FC<PostCardProps> = ({ post, theme }) => {
             <Text text={post.user.user_name} textStyle={styles.text.headerUserName} />
           )}
         </Container>
-        <Icon name="three-dot" />
+        {post.user?.id === user.id && (
+          <Container flexStyle={styles.flex.iconContainer}>
+            <Icon
+              name="edit"
+              fillColor={theme.color.shadow}
+              color={{ mono: theme.color.background }}
+              onPress={onEditPost}
+            />
+            <Icon
+              name="trash"
+              fillColor={theme.common.color.danger}
+              color={{ mono: theme.color.background }}
+              strokeWidth={1}
+              onPress={handleDeletePost}
+            />
+          </Container>
+        )}
       </Container>
       <Container flexStyle={styles.flex.cardBody}>
         {post.file.includes('image') ? (
@@ -79,6 +118,7 @@ export default PostCommentCard;
 const enum FlexStyles {
   CARD = 'card',
   CARD_HEADER = 'cardHeader',
+  ICON_CONTAINER = 'iconContainer',
   PROFILE = 'profile',
   CARD_BODY = 'cardBody',
   POST_TEXT = 'postText',
@@ -127,6 +167,10 @@ const createStyles = (
     [FlexStyles.PROFILE]: {
       flexDirection: 'row',
       alignItems: 'center',
+      gap: scaleProportionally(5),
+    },
+    [FlexStyles.ICON_CONTAINER]: {
+      flexDirection: 'row',
       gap: scaleProportionally(5),
     },
     [FlexStyles.CARD_BODY]: {
