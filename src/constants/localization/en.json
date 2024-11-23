@@ -42,7 +42,8 @@
       "accountCreated": "Your account has been created successfully.",
       "profileUpdated": "Your profile has been updated successfully.",
       "postCreated": "Your post has been created successfully.",
-      "postUpdated": "Your post has been updated successfully."
+      "postUpdated": "Your post has been updated successfully.",
+      "postDeleted": "Your post has been deleted successfully."
     },
     "error": {
       "invalidLoginCredentials": "Invalid login credentials.",
@@ -64,7 +65,11 @@
     },
     "profile": {
       "title": "Profile",
-      "signout?": "Do you want to sign out?"
+      "signout?": "Do you want to sign out?",
+      "posts": "Posts",
+      "noPosts": "No posts yet",
+      "noMorePosts": "No more posts",
+      "areYouSureDeletePost": "Are you sure you want to delete this post?"
     },
     "profileEdit": {
       "title": "Edit Profile",

@@ -94,7 +94,7 @@ const BottomSheet: FC<BottomSheetProps> = ({
             onTouchEnd={onTouchEnd}
             style={[
               styles.modalContainer,
-              { height, backgroundColor: theme.color.bottomSheet },
+              { height, backgroundColor: theme.color.overlay },
               styles.shadow,
               { shadowColor: theme.color.shadow },
               animationType === 'slide' && { transform: [{ translateY: slideAnim }] },

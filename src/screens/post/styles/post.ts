@@ -64,7 +64,7 @@ const createPostStyles = (
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
     [FlexStyles.CONTAINER]: {
       flex: 1,
-      gap: scaleHeight(20),
+      gap: scaleProportionally(20),
     },
     [FlexStyles.AVATAR]: {
       flexDirection: 'row',

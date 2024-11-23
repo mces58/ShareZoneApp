@@ -13,8 +13,8 @@ import {
 } from './post-detail';
 
 export {
-  ImagePickerFunction,
   CreatePostFunction,
+  ImagePickerFunction,
   UpdatePostFunction,
   VideoPickerFunction,
 };
