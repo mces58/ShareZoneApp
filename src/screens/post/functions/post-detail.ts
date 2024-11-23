@@ -111,7 +111,7 @@ const DeletePostFunction = async ({
     }
   } catch (error: unknown) {
     if (error instanceof Error) console.log(error.message);
-    else console.log('Error deleting comment');
+    else console.log('Error deleting post');
   }
 };
 

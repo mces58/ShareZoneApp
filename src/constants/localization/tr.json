@@ -42,7 +42,8 @@
       "accountCreated": "Hesabınız başarıyla oluşturuldu.",
       "profileUpdated": "Profil başarıyla güncellendi.",
       "postCreated": "Gönderi başarıyla oluşturuldu.",
-      "postUpdated": "Gönderi başarıyla güncellendi."
+      "postUpdated": "Gönderi başarıyla güncellendi.",
+      "postDeleted": "Gönderi başarıyla silindi."
     },
     "error": {
       "invalidLoginCredentials": "Geçersiz oturum açma kimlik bilgileri.",
@@ -63,7 +64,11 @@
     },
     "profile": {
       "title": "Profil",
-      "signout?": "Çıkış yapmak istiyor musunuz?"
+      "signout?": "Çıkış yapmak istiyor musunuz?",
+      "posts": "Gönderiler",
+      "noPosts": "Henüz hiç gönderi yok",
+      "noMorePosts": "Daha fazla gönderi yok",
+      "areYouSureDeletePost": "Bu gönderiyi silmek istediğinizden emin misiniz?"
     },
     "profileEdit": {
       "title": "Profili Düzenle",

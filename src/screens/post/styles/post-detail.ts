@@ -108,7 +108,7 @@ const createPostDetailStyles = (
 
   const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
     [ViewStyles.CONTAINER]: {
-      backgroundColor: theme.color.bottomSheet,
+      backgroundColor: theme.color.overlay,
     },
     [ViewStyles.INPUT]: {
       borderRadius: scaleProportionally(10),
