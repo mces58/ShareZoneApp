@@ -8,7 +8,7 @@ export interface Theme {
   color: {
     background: string;
     border: string;
-    bottomSheet: string;
+    overlay: string;
     shadow: string;
     text: string;
     textMuted: string;
@@ -94,7 +94,7 @@ export const LightTheme: Theme = {
   color: {
     background: COLORS.GRAY._100,
     border: COLORS.GRAY._500,
-    bottomSheet: COLORS.GRAY._50,
+    overlay: COLORS.GRAY._50,
     shadow: COLORS.ZINC._800,
     text: COLORS.GRAY._900,
     textMuted: COLORS.GRAY._500,
@@ -107,7 +107,7 @@ export const DarkTheme: Theme = {
   color: {
     background: COLORS.GRAY._800,
     border: COLORS.GRAY._500,
-    bottomSheet: COLORS.GRAY._700,
+    overlay: COLORS.GRAY._700,
     shadow: COLORS.SLATE._50,
     text: COLORS.GRAY._50,
     textMuted: COLORS.GRAY._300,

@@ -1,9 +1,10 @@
-import React, { FC, useMemo } from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 
-import { useI18n } from 'src/contexts';
+import { useAuth, useI18n } from 'src/contexts';
 import {
+  getTimeText,
   scaleByAspectRatio,
   scaleHeight,
   scaleProportionally,
@@ -19,67 +20,50 @@ import { Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
   CustomImageStyle,
+  CustomShadowStyle,
   CustomTextStyle,
   CustomViewStyle,
+  Like,
   PostData,
-  User,
 } from 'src/constants/types';
 
 interface PostCardProps {
-  onDeletePost: () => void;
-  onEditPost: () => void;
+  isVideoVisible: boolean;
+  onPressThreeDot: () => void;
   post: PostData;
   theme: Theme;
-  user: User;
 }
 
-const PostCommentCard: FC<PostCardProps> = ({
-  onDeletePost,
-  onEditPost,
+const PostCard: FC<PostCardProps> = ({
+  isVideoVisible,
+  onPressThreeDot,
   post,
   theme,
-  user,
 }) => {
-  const styles = useMemo(() => createStyles(theme, post.body), [theme]);
+  const { user } = useAuth();
   const { t } = useI18n();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+  const timeText = getTimeText(post.created_at, t);
+  const [likes, setLikes] = useState<Like[] | undefined>([]);
 
-  const handleDeletePost = (): void => {
-    Alert.alert(
-      t('screens.postDetail.deletePost'),
-      t('screens.postDetail.areYouSureDeletePost'),
-      [
-        { text: t('global.cancel'), style: 'cancel' },
-        { text: t('global.delete'), style: 'destructive', onPress: onDeletePost },
-      ]
-    );
-  };
+  useEffect(() => {
+    setLikes(post.post_likes ?? []);
+  }, [post.post_likes, user]);
 
   return (
-    <Container flexStyle={styles.flex.card} viewStyle={styles.view.card}>
-      <Container flexStyle={styles.flex.cardHeader} viewStyle={styles.view.cardHeader}>
+    <Container
+      flexStyle={styles.flex.card}
+      viewStyle={styles.view.card}
+      shadowStyle={styles.shadow.small}
+    >
+      <Container flexStyle={styles.flex.cardHeader}>
         <Container flexStyle={styles.flex.profile}>
           <Image uri={post.user?.image} imageStyle={styles.image.avatar} />
           {post.user?.user_name && (
             <Text text={post.user.user_name} textStyle={styles.text.headerUserName} />
           )}
         </Container>
-        {post.user?.id === user.id && (
-          <Container flexStyle={styles.flex.iconContainer}>
-            <Icon
-              name="edit"
-              fillColor={theme.color.shadow}
-              color={{ mono: theme.color.background }}
-              onPress={onEditPost}
-            />
-            <Icon
-              name="trash"
-              fillColor={theme.common.color.danger}
-              color={{ mono: theme.color.background }}
-              strokeWidth={1}
-              onPress={handleDeletePost}
-            />
-          </Container>
-        )}
+        <Icon name="three-dot" onPress={onPressThreeDot} />
       </Container>
       <Container flexStyle={styles.flex.cardBody}>
         {post.file.includes('image') ? (
@@ -87,15 +71,39 @@ const PostCommentCard: FC<PostCardProps> = ({
         ) : (
           <Video
             uri={post.file}
-            shouldPlay
             isLooping
+            shouldPlay={isVideoVisible}
             useNativeControls={false}
             videoStyle={styles.image.post}
           />
         )}
       </Container>
+      <Container flexStyle={styles.flex.cardFooter}>
+        <Container flexStyle={styles.flex.icon}>
+          <Container flexStyle={styles.flex.iconInteraction}>
+            <Icon name="heart" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
+            {likes && likes.length > 0 && (
+              <Text text={likes.length.toString()} color={theme.color.textMuted} />
+            )}
+          </Container>
+          <Container flexStyle={styles.flex.iconInteraction}>
+            <Icon name="comment" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
+            {post.comments && post.comments.length > 0 && (
+              <Text
+                text={post.comments.length.toString()}
+                color={theme.color.textMuted}
+              />
+            )}
+          </Container>
+        </Container>
+        <Text
+          text={timeText}
+          textStyle={styles.text.timeAgo}
+          color={theme.color.textMuted}
+        />
+      </Container>
       {post.body && (
-        <Container flexStyle={styles.flex.postText} viewStyle={styles.view.cardBody}>
+        <Container flexStyle={styles.flex.postText}>
           {post.user?.user_name && (
             <Text
               text={post.user.user_name + ':'}
@@ -113,14 +121,16 @@ const PostCommentCard: FC<PostCardProps> = ({
   );
 };
 
-export default PostCommentCard;
+export default PostCard;
 
 const enum FlexStyles {
   CARD = 'card',
   CARD_HEADER = 'cardHeader',
-  ICON_CONTAINER = 'iconContainer',
   PROFILE = 'profile',
   CARD_BODY = 'cardBody',
+  CARD_FOOTER = 'cardFooter',
+  ICON = 'icon',
+  ICON_INTERACTION = 'iconInteraction',
   POST_TEXT = 'postText',
 }
 
@@ -129,60 +139,71 @@ const enum ImageStyles {
   POST = 'post',
 }
 
+const enum ShadowStyles {
+  SMALL = 'small',
+}
+
 const enum TextStyles {
   HEADER_USER_NAME = 'headerUserName',
+  TIME_AGO = 'timeAgo',
   FOOTER_USER_NAME = 'footerUserName',
 }
 
 const enum ViewStyles {
   CARD = 'card',
-  CARD_HEADER = 'cardHeader',
-  CARD_BODY = 'cardBody',
 }
 
 const createStyles = (
-  theme: Theme,
-  bodyText: string
+  theme: Theme
 ): {
   flex: Record<FlexStyles, CustomFlexStyle>;
   image: Record<ImageStyles, CustomImageStyle>;
+  shadow: Record<ShadowStyles, CustomShadowStyle>;
   text: Record<TextStyles, CustomTextStyle>;
   view: Record<ViewStyles, CustomViewStyle>;
 } => {
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
     [FlexStyles.CARD]: {
-      width: '100%',
-      paddingVertical: scaleHeight(0),
+      width: '95%',
+      paddingVertical: scaleHeight(10),
+      gap: scaleProportionally(10),
       alignSelf: 'center',
-      borderWidth: 1,
     },
     [FlexStyles.CARD_HEADER]: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: scaleWidth(10),
-      paddingVertical: scaleHeight(10),
-      borderBottomWidth: 1,
     },
     [FlexStyles.PROFILE]: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: scaleProportionally(5),
     },
-    [FlexStyles.ICON_CONTAINER]: {
-      flexDirection: 'row',
-      gap: scaleProportionally(5),
-    },
     [FlexStyles.CARD_BODY]: {
       gap: scaleProportionally(10),
     },
+    [FlexStyles.CARD_FOOTER]: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: scaleWidth(10),
+      paddingVertical: scaleHeight(5),
+    },
+    [FlexStyles.ICON]: {
+      flexDirection: 'row',
+      gap: scaleProportionally(10),
+    },
+    [FlexStyles.ICON_INTERACTION]: {
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      gap: scaleProportionally(3),
+    },
     [FlexStyles.POST_TEXT]: {
       paddingHorizontal: scaleWidth(10),
-      paddingVertical: scaleHeight(10),
       flexDirection: 'row',
       alignItems: 'center',
       gap: scaleProportionally(5),
-      borderTopWidth: 1,
     },
   });
 
@@ -195,8 +216,16 @@ const createStyles = (
     [ImageStyles.POST]: {
       width: '100%',
       height: scaleHeight(300),
-      borderBottomLeftRadius: bodyText ? 0 : scaleProportionally(10),
-      borderBottomRightRadius: bodyText ? 0 : scaleProportionally(10),
+    },
+  });
+
+  const shadow = StyleSheet.create<Record<ShadowStyles, CustomShadowStyle>>({
+    [ShadowStyles.SMALL]: {
+      elevation: 3,
+      shadowColor: theme.color.shadow,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
     },
   });
 
@@ -205,6 +234,10 @@ const createStyles = (
       textTransform: 'capitalize',
       fontFamily: theme.common.font.families.bold,
       fontSize: theme.common.font.sizes._18,
+    },
+    [TextStyles.TIME_AGO]: {
+      fontFamily: theme.common.font.families.medium,
+      fontSize: theme.common.font.sizes._12,
     },
     [TextStyles.FOOTER_USER_NAME]: {
       textTransform: 'lowercase',
@@ -215,17 +248,10 @@ const createStyles = (
 
   const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
     [ViewStyles.CARD]: {
-      backgroundColor: theme.color.overlay,
+      backgroundColor: theme.color.card,
       borderRadius: scaleProportionally(10),
-      borderColor: theme.color.border,
-    },
-    [ViewStyles.CARD_HEADER]: {
-      borderColor: theme.color.border,
-    },
-    [ViewStyles.CARD_BODY]: {
-      borderColor: theme.color.border,
     },
   });
 
-  return { flex, image, text, view };
+  return { flex, image, shadow, text, view };
 };

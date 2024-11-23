@@ -66,18 +66,23 @@ export const createPost = async ({
 };
 
 export const getPosts = async (
-  limit = 10
+  limit = 10,
+  userId?: string
 ): Promise<{
   data: PostData[] | null;
   success: boolean;
   error?: Error;
 }> => {
   try {
-    const { data, error } = await supabase
+    let query = supabase
       .from('posts')
       .select('*, user:user_id(*), post_likes(*), comments(*, user:user_id(*))')
       .limit(limit)
       .order('created_at', { ascending: false });
+
+    if (userId) query = query.eq('user_id', userId);
+
+    const { data, error } = await query;
 
     if (error) throw error instanceof Error ? error : new Error(String(error));
 

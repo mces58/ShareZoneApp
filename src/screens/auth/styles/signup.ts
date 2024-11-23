@@ -62,7 +62,7 @@ const createSignupStyles = (
     [FlexStyles.FORM]: {
       width: '90%',
       alignSelf: 'center',
-      gap: scaleHeight(30),
+      gap: scaleProportionally(30),
     },
     [FlexStyles.FORM_INPUT]: {
       width: '100%',

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { scaleByAspectRatio, scaleHeight } from 'src/utils';
+import { scaleByAspectRatio, scaleHeight, scaleProportionally } from 'src/utils';
 
 import { Theme } from 'src/constants/styles';
 import {
@@ -12,7 +12,7 @@ import {
 } from 'src/constants/types';
 
 const enum FlexStyles {
-  CONTAINER = 'container',
+  LIST = 'list',
 }
 
 const enum ImageStyles {
@@ -23,10 +23,12 @@ const enum ShadowStyles {
   SMALL = 'small',
 }
 
-const enum TextStyles {}
+const enum TextStyles {
+  LIST_FOOTER = 'listFooter',
+}
 
 const enum ViewStyles {
-  CONTAINER = 'container',
+  LIST = 'list',
 }
 
 const createProfileStyles = (
@@ -39,9 +41,9 @@ const createProfileStyles = (
   view: Record<ViewStyles, CustomViewStyle>;
 } => {
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
-    [FlexStyles.CONTAINER]: {
-      flex: 1,
-      gap: scaleHeight(20),
+    [FlexStyles.LIST]: {
+      gap: scaleProportionally(20),
+      paddingBottom: scaleHeight(10),
     },
   });
 
@@ -64,10 +66,16 @@ const createProfileStyles = (
     },
   });
 
-  const text = StyleSheet.create<Record<TextStyles, CustomTextStyle>>({});
+  const text = StyleSheet.create<Record<TextStyles, CustomTextStyle>>({
+    [TextStyles.LIST_FOOTER]: {
+      fontFamily: theme.common.font.families.medium,
+      fontSize: theme.common.font.sizes._12,
+      textAlign: 'center',
+    },
+  });
 
   const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
-    [ViewStyles.CONTAINER]: {
+    [ViewStyles.LIST]: {
       backgroundColor: theme.color.background,
     },
   });

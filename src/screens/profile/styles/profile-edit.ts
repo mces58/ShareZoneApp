@@ -50,12 +50,12 @@ const createProfileEditStyles = (
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
     [FlexStyles.CONTAINER]: {
       flex: 1,
-      gap: scaleHeight(20),
+      gap: scaleProportionally(20),
     },
     [FlexStyles.FORM]: {
       width: '90%',
       alignSelf: 'center',
-      gap: scaleHeight(25),
+      gap: scaleProportionally(25),
       paddingVertical: scaleHeight(20),
     },
     [FlexStyles.FORM_INPUT]: {
