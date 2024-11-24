@@ -105,6 +105,7 @@ const Profile: FC<ProfileProps> = ({ navigation }) => {
             }
             onPressExtraHeaderIcon={handleSignOut}
             onPressHeaderIcon={() => navigation.goBack()}
+            postCount={posts.length}
             theme={theme}
           />
         }

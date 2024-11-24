@@ -40,10 +40,14 @@ const FetchPostsFunction = async ({
 
 const PostChannelFunction = async ({
   setLimit,
+  setNotificationCount,
   setPosts,
+  user,
 }: {
   setLimit: Dispatch<SetStateAction<number>>;
+  setNotificationCount: Dispatch<SetStateAction<number>>;
   setPosts: Dispatch<SetStateAction<PostData[]>>;
+  user: { id: string };
 }) => {
   try {
     const post_channels = supabase
@@ -81,8 +85,21 @@ const PostChannelFunction = async ({
       )
       .subscribe();
 
+    const notification_channels = supabase
+      .channel('notifications')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'notifications' },
+        async (payload) => {
+          if (payload.new.id && payload.new.receiver_id === user.id)
+            setNotificationCount((prev) => prev + 1);
+        }
+      )
+      .subscribe();
+
     return (): void => {
       supabase.removeChannel(post_channels);
+      supabase.removeChannel(notification_channels);
     };
   } catch (error) {
     if (error instanceof Error) console.log(error.message);

@@ -6,6 +6,7 @@ import {
   deletePost,
   getPost,
   getUserById,
+  sendNotification,
 } from 'src/services';
 import { supabase } from 'src/supabase';
 
@@ -68,6 +69,21 @@ const NewCommentFunction = async ({
     if (res.success) {
       setLoading(false);
       setText('');
+
+      if (user.id !== post.user_id) {
+        const notify = {
+          data: JSON.stringify({ postId: post.id, commentId: res.data?.id }),
+          receiverId: post.user_id,
+          senderId: user.id,
+          title: 'screens.notifications.notifyMessage.comment',
+        };
+        await sendNotification(
+          notify.data,
+          notify.receiverId,
+          notify.senderId,
+          notify.title
+        );
+      }
     }
   } catch (error: unknown) {
     if (error instanceof Error) console.log(error.message);

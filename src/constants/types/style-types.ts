@@ -61,6 +61,7 @@ type CustomFlexStyle = Pick<
   | 'right'
   | 'top'
   | 'width'
+  | 'zIndex'
 > & {
   alignItems?: FlexStyle['alignItems'];
   alignSelf?: FlexStyle['alignSelf'];
@@ -96,6 +97,7 @@ type CustomFlexStyle = Pick<
   right?: number;
   top?: number;
   width?: number | string;
+  zIndex?: FlexStyle['zIndex'];
 };
 
 type CustomTextStyle = Pick<

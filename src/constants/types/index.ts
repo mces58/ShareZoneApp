@@ -1,3 +1,4 @@
+import { NotificationData } from './notification';
 import { Comment, Like, PostData } from './post';
 import {
   CustomFlexStyle,
@@ -9,6 +10,7 @@ import {
 import { BASE_FOLDER, FolderNames } from './supabase';
 import { SigninData, SignupData, User } from './user';
 
+export type { NotificationData };
 export type { Comment, Like, PostData };
 export type {
   CustomFlexStyle,
