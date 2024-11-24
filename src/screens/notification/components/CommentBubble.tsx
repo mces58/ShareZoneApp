@@ -1,9 +1,9 @@
 import React, { FC, useMemo } from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
 
-import { useI18n } from 'src/contexts';
+import { useAuth, useI18n } from 'src/contexts';
 import {
   getTimeText,
   scaleByAspectRatio,
@@ -12,7 +12,6 @@ import {
   scaleWidth,
 } from 'src/utils';
 
-import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import { Image } from 'src/components/images';
 import { Text } from 'src/components/texts';
@@ -27,34 +26,16 @@ import {
 } from 'src/constants/types';
 
 interface CommentProps {
-  canDelete: boolean;
   comment: Comment;
-  onDelete: () => void;
+  commentId: string;
 }
 
-const CommentBubble: FC<CommentProps> = ({ canDelete, comment, onDelete }) => {
+const CommentBubble: FC<CommentProps> = ({ comment, commentId }) => {
+  const { user } = useAuth();
   const theme = useTheme() as Theme;
   const { t } = useI18n();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const timeText = getTimeText(comment.created_at, t);
-
-  const handleDelete = (): void => {
-    Alert.alert(
-      t('screens.postDetail.deleteComment'),
-      t('screens.postDetail.areYouSureDeleteComment'),
-      [
-        {
-          text: t('global.cancel'),
-          style: 'cancel',
-        },
-        {
-          text: t('global.delete'),
-          onPress: onDelete,
-          style: 'destructive',
-        },
-      ]
-    );
-  };
 
   return (
     <Container flexStyle={styles.flex.comment}>
@@ -65,11 +46,21 @@ const CommentBubble: FC<CommentProps> = ({ canDelete, comment, onDelete }) => {
       />
       <Container
         flexStyle={styles.flex.commentBodyOuter}
-        viewStyle={styles.view.commentBody}
+        viewStyle={[
+          styles.view.commentBody,
+          comment.id === commentId && styles.view.focusComment,
+        ]}
         shadowStyle={styles.shadow.small}
       >
         <Container flexStyle={styles.flex.commentBodyInner}>
-          <Text text={comment.user.user_name + ':'} textStyle={styles.text.userName} />
+          <Text
+            text={
+              comment.user.user_name === user?.user_name
+                ? t('global.you')
+                : comment.user.user_name + ':'
+            }
+            textStyle={styles.text.userName}
+          />
           <Text
             text={timeText}
             textStyle={styles.text.commentDate}
@@ -83,13 +74,6 @@ const CommentBubble: FC<CommentProps> = ({ canDelete, comment, onDelete }) => {
             }
             textStyle={styles.text.comment}
           />
-          {canDelete && (
-            <Icon
-              name="trash"
-              color={{ mono: theme.common.color.danger }}
-              onPress={handleDelete}
-            />
-          )}
         </Container>
       </Container>
     </Container>
@@ -120,6 +104,7 @@ const enum TextStyles {
 
 const enum ViewStyles {
   COMMENT_BODY = 'commentBody',
+  FOCUS_COMMENT = 'focusComment',
 }
 
 const createStyles = (
@@ -192,6 +177,9 @@ const createStyles = (
     [ViewStyles.COMMENT_BODY]: {
       backgroundColor: theme.color.card,
       borderRadius: scaleProportionally(10),
+    },
+    [ViewStyles.FOCUS_COMMENT]: {
+      backgroundColor: theme.common.color.warning,
     },
   });
 

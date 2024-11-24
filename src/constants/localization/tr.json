@@ -13,7 +13,8 @@
     "post": "Gönder",
     "send": "Gönder",
     "delete": "Sil",
-    "update": "Güncelle"
+    "update": "Güncelle",
+    "you": "Siz"
   },
   "form": {
     "input": {
@@ -105,6 +106,13 @@
           }
         }
       }
+    },
+    "notifications": {
+      "notifyMessage": {
+        "comment": "{{userName}} gönderinize yorum yaptı"
+      },
+      "title": "Bildirimler",
+      "noNotifications": "Henüz hiç bildirim yok"
     }
   }
 }

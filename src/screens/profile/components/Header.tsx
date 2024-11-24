@@ -28,6 +28,7 @@ interface HeaderProps {
   onPressEditProfile: () => void;
   onPressExtraHeaderIcon: () => void;
   onPressHeaderIcon: () => void;
+  postCount: number;
   theme: Theme;
 }
 
@@ -35,6 +36,7 @@ const Header: FC<HeaderProps> = ({
   onPressEditProfile,
   onPressExtraHeaderIcon,
   onPressHeaderIcon,
+  postCount,
   theme,
 }) => {
   const { user } = useAuth();
@@ -97,11 +99,13 @@ const Header: FC<HeaderProps> = ({
           </Container>
         )}
       </Container>
-      <Text
-        text={t('screens.profile.posts')}
-        textStyle={styles.text.postHeader}
-        color={theme.color.textMuted}
-      />
+      {postCount > 0 && (
+        <Text
+          text={t('screens.profile.posts')}
+          textStyle={styles.text.postHeader}
+          color={theme.color.textMuted}
+        />
+      )}
     </Container>
   );
 };

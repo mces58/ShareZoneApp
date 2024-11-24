@@ -9,8 +9,10 @@ import {
 } from 'src/utils';
 
 import Icon from 'src/assets/icons';
+import { Container } from 'src/components/containers';
 import { Header } from 'src/components/headers';
 import { Image } from 'src/components/images';
+import { Text } from 'src/components/texts';
 import { Theme } from 'src/constants/styles';
 import {
   CustomFlexStyle,
@@ -21,6 +23,7 @@ import {
 } from 'src/constants/types';
 
 interface SubHeaderProps {
+  notificationCount: number;
   theme: Theme;
   title: string;
   uri: string | undefined;
@@ -30,6 +33,7 @@ interface SubHeaderProps {
 }
 
 const SubHeader: FC<SubHeaderProps> = ({
+  notificationCount,
   theme,
   title,
   uri,
@@ -48,13 +52,23 @@ const SubHeader: FC<SubHeaderProps> = ({
       shadowStyle={styles.shadow.header}
       textStyle={styles.text.header}
       extraIcons={[
-        <Icon
-          key="heart"
-          name="heart"
-          strokeWidth={2}
-          size={scaleByAspectRatio(22)}
-          onPress={onPressNotificationHeaderIcon}
-        />,
+        <Container key="heart">
+          {notificationCount > 0 && (
+            <Container flexStyle={styles.flex.pill} viewStyle={styles.view.pill}>
+              <Text
+                text={notificationCount.toString()}
+                textStyle={styles.text.pill}
+                color={theme.common.color.light}
+              />
+            </Container>
+          )}
+          <Icon
+            name="heart"
+            strokeWidth={2}
+            size={scaleByAspectRatio(22)}
+            onPress={onPressNotificationHeaderIcon}
+          />
+        </Container>,
         <Icon
           key="add-square"
           name="add-square"
@@ -76,33 +90,62 @@ const SubHeader: FC<SubHeaderProps> = ({
 
 export default SubHeader;
 
-const enum StyleNames {
+const enum FlexStyles {
   HEADER = 'header',
+  PILL = 'pill',
+}
+
+const enum ImageStyles {
+  HEADER = 'header',
+}
+
+const enum ShadowStyles {
+  HEADER = 'header',
+}
+
+const enum TextStyles {
+  HEADER = 'header',
+  PILL = 'pill',
+}
+
+const enum ViewStyles {
+  HEADER = 'header',
+  PILL = 'pill',
 }
 
 const createStyles = (
   theme: Theme
 ): {
-  flex: Record<StyleNames, CustomFlexStyle>;
-  image: Record<StyleNames, CustomImageStyle>;
-  shadow: Record<StyleNames, CustomShadowStyle>;
-  text: Record<StyleNames, CustomTextStyle>;
-  view: Record<StyleNames, CustomViewStyle>;
+  flex: Record<FlexStyles, CustomFlexStyle>;
+  image: Record<ImageStyles, CustomImageStyle>;
+  shadow: Record<ShadowStyles, CustomShadowStyle>;
+  text: Record<TextStyles, CustomTextStyle>;
+  view: Record<ViewStyles, CustomViewStyle>;
 } => {
-  const flex = StyleSheet.create<Record<StyleNames, CustomFlexStyle>>({
-    [StyleNames.HEADER]: {
+  const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
+    [FlexStyles.HEADER]: {
       width: '100%',
       height: scaleHeight(90),
       borderBottomWidth: scaleProportionally(1),
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingHorizontal: scaleWidth(10),
+      paddingHorizontal: scaleByAspectRatio(10),
+    },
+    [FlexStyles.PILL]: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      right: -scaleWidth(7),
+      top: -scaleHeight(7),
+      width: scaleByAspectRatio(17),
+      height: scaleByAspectRatio(17),
+      zIndex: 1,
     },
   });
 
-  const image = StyleSheet.create<Record<StyleNames, CustomImageStyle>>({
-    [StyleNames.HEADER]: {
+  const image = StyleSheet.create<Record<ImageStyles, CustomImageStyle>>({
+    [ImageStyles.HEADER]: {
       width: scaleByAspectRatio(35),
       height: scaleByAspectRatio(35),
       borderRadius: scaleByAspectRatio(35) / 2,
@@ -111,8 +154,8 @@ const createStyles = (
     },
   });
 
-  const shadow = StyleSheet.create<Record<StyleNames, CustomShadowStyle>>({
-    [StyleNames.HEADER]: {
+  const shadow = StyleSheet.create<Record<ShadowStyles, CustomShadowStyle>>({
+    [ShadowStyles.HEADER]: {
       elevation: 5,
       shadowColor: theme.color.shadow,
       shadowOffset: { width: 0, height: 2 },
@@ -121,19 +164,27 @@ const createStyles = (
     },
   });
 
-  const text = StyleSheet.create<Record<StyleNames, CustomTextStyle>>({
-    [StyleNames.HEADER]: {
+  const text = StyleSheet.create<Record<TextStyles, CustomTextStyle>>({
+    [TextStyles.HEADER]: {
       fontSize: theme.common.font.sizes._32,
       fontFamily: theme.common.font.families.bold,
       letterSpacing: scaleProportionally(1.5),
       textDecorationLine: 'underline',
     },
+    [TextStyles.PILL]: {
+      fontSize: theme.common.font.sizes._12,
+      fontFamily: theme.common.font.families.bold,
+    },
   });
 
-  const view = StyleSheet.create<Record<StyleNames, CustomViewStyle>>({
-    [StyleNames.HEADER]: {
+  const view = StyleSheet.create<Record<ViewStyles, CustomViewStyle>>({
+    [ViewStyles.HEADER]: {
       borderColor: theme.color.border,
       backgroundColor: theme.color.background,
+    },
+    [ViewStyles.PILL]: {
+      backgroundColor: theme.common.color.danger,
+      borderRadius: scaleProportionally(17) / 2,
     },
   });
 

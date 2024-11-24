@@ -83,7 +83,14 @@ const PostCard: FC<PostCardProps> = ({ isVideoVisible, navigation, post, theme }
         <Container flexStyle={styles.flex.profile}>
           <Image uri={post.user?.image} imageStyle={styles.image.avatar} />
           {post.user?.user_name && (
-            <Text text={post.user.user_name} textStyle={styles.text.headerUserName} />
+            <Text
+              text={
+                post.user.user_name === user?.user_name
+                  ? t('global.you')
+                  : post.user.user_name
+              }
+              textStyle={styles.text.headerUserName}
+            />
           )}
         </Container>
         <Icon name="three-dot" />
