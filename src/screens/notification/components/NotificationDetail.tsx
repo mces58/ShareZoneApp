@@ -15,16 +15,18 @@ import {
   CustomTextStyle,
   CustomViewStyle,
   PostData,
+  User,
 } from 'src/constants/types';
 
 import CommentBubble from './CommentBubble';
-import PostCommentCard from './PostCommentCard';
+import PostCard from './PostCard';
 
 interface NotificationDetailProps {
   commentId: string;
   isVisible: boolean;
   onSwipeDown: () => void;
   post: PostData | null;
+  sender: User;
 }
 
 const NotificationDetail: FC<NotificationDetailProps> = ({
@@ -32,6 +34,7 @@ const NotificationDetail: FC<NotificationDetailProps> = ({
   isVisible,
   onSwipeDown,
   post,
+  sender,
 }) => {
   const { user } = useAuth();
   const { t } = useI18n();
@@ -42,7 +45,9 @@ const NotificationDetail: FC<NotificationDetailProps> = ({
   const content = (
     <Scroll>
       <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-        {post && user && <PostCommentCard post={post} theme={theme} user={user} />}
+        {post && user && (
+          <PostCard post={post} theme={theme} user={user} sender={sender} />
+        )}
         <Container flexStyle={styles.flex.comments}>
           {post?.comments?.length === 0 ? (
             <Text

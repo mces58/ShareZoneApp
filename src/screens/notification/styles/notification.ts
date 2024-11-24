@@ -7,6 +7,8 @@ import { CustomFlexStyle, CustomTextStyle, CustomViewStyle } from 'src/constants
 
 const enum FlexStyles {
   CONTAINER = 'container',
+  BODY = 'body',
+  CENTERED = 'centered',
 }
 
 const enum TextStyles {
@@ -27,7 +29,15 @@ const createNotificationStyles = (
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
     [FlexStyles.CONTAINER]: {
       flex: 1,
+    },
+    [FlexStyles.BODY]: {
+      paddingVertical: scaleProportionally(15),
       gap: scaleProportionally(15),
+    },
+    [FlexStyles.CENTERED]: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });
 
