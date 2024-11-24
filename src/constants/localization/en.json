@@ -13,7 +13,8 @@
     "post": "Post",
     "send": "Send",
     "delete": "Delete",
-    "update": "Update"
+    "update": "Update",
+    "you": "You"
   },
   "form": {
     "input": {
@@ -106,6 +107,13 @@
           }
         }
       }
+    },
+    "notifications": {
+      "notifyMessage": {
+        "comment": "{{userName}} commented on your post"
+      },
+      "title": "Notifications",
+      "noNotifications": "No notifications yet"
     }
   }
 }

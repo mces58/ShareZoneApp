@@ -1,4 +1,5 @@
 import { getImageUri } from './image-service';
+import { getNotifications, sendNotification } from './notification-service';
 import {
   createNewComment,
   createPost,
@@ -14,6 +15,7 @@ import { uploadFile } from './upload-file-service';
 import { getUserById, updateUserById } from './user-service';
 
 export { getImageUri };
+export { getNotifications, sendNotification };
 export {
   createNewComment,
   createPost,

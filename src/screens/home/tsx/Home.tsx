@@ -29,9 +29,16 @@ const Home: FC<HomeProps> = ({ navigation }) => {
   const [posts, setPosts] = useState<PostData[]>([]);
   const [limit, setLimit] = useState<number>(3);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const [notificationCount, setNotificationCount] = useState<number>(0);
 
   useEffect(() => {
-    PostChannelFunction({ setLimit, setPosts });
+    if (user?.id)
+      PostChannelFunction({
+        setLimit,
+        setNotificationCount,
+        setPosts,
+        user: { id: user.id },
+      });
   }, []);
 
   const handleFetchPosts = useCallback(() => {
@@ -41,12 +48,14 @@ const Home: FC<HomeProps> = ({ navigation }) => {
   return (
     <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
       <SubHeader
+        notificationCount={notificationCount}
         title={t('app.name')}
         theme={theme}
         uri={user?.image}
-        onPressNotificationHeaderIcon={() =>
-          navigation.navigate(RootNavigations.NOTIFICATION)
-        }
+        onPressNotificationHeaderIcon={() => {
+          navigation.navigate(RootNavigations.NOTIFICATION);
+          setNotificationCount(0);
+        }}
         onPressPostHeaderIcon={() => navigation.navigate(RootNavigations.POST, {})}
         onPressProfileHeaderIcon={() =>
           navigation.navigate(RootNavigations.PROFILE_STACK, {
