@@ -110,7 +110,8 @@
     },
     "notifications": {
       "notifyMessage": {
-        "comment": "{{userName}} commented on your post"
+        "comment": "{{userName}} commented on your post",
+        "like": "{{userName}} liked your post"
       },
       "title": "Notifications",
       "noNotifications": "No notifications yet"

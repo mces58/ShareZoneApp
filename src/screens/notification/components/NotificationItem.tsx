@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import { useTheme } from 'styled-components/native';
@@ -25,7 +25,7 @@ import {
   PostData,
 } from 'src/constants/types';
 
-import { FetchPostsFunction } from '../functions';
+import { DeleteNotificationFunction, FetchPostsFunction } from '../functions';
 import NotificationDetail from './NotificationDetail';
 
 interface NotificationItemProps {
@@ -46,9 +46,14 @@ const NotificationItem: FC<NotificationItemProps> = ({ notification }) => {
     FetchPostsFunction({ notification, setCommentId, setPost });
   }, []);
 
+  const handleDeleteNotification = useCallback(async (): Promise<void> => {
+    setPostDetailBottomSheetVisible(true);
+    await DeleteNotificationFunction(notification.id, setPostDetailBottomSheetVisible);
+  }, []);
+
   return (
     <>
-      <TouchableOpacity onPress={() => setPostDetailBottomSheetVisible(true)}>
+      <TouchableOpacity onPress={handleDeleteNotification}>
         <Container flexStyle={styles.flex.card} viewStyle={styles.view.card}>
           <Image uri={notification.sender.image} imageStyle={styles.image.avatar} />
           <Container flexStyle={styles.flex.text}>
@@ -76,6 +81,7 @@ const NotificationItem: FC<NotificationItemProps> = ({ notification }) => {
         isVisible={isPostDetailBottomSheetVisible}
         onSwipeDown={() => setPostDetailBottomSheetVisible(false)}
         post={post}
+        sender={notification.sender}
       />
     </>
   );
@@ -114,8 +120,9 @@ const createStyles = (
   const flex = StyleSheet.create<Record<FlexStyles, CustomFlexStyle>>({
     [FlexStyles.CARD]: {
       width: '95%',
-      height: scaleHeight(80),
-      paddingHorizontal: scaleWidth(10),
+      paddingRight: scaleWidth(20),
+      paddingLeft: scaleWidth(10),
+      paddingVertical: scaleHeight(15),
       alignSelf: 'center',
       flexDirection: 'row',
       alignItems: 'center',

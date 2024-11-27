@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Share } from 'react-native';
 
-import { likePost, unlikePost } from 'src/services';
+import { likePost, sendNotification, unlikePost } from 'src/services';
 import { downloadFile, stripHtmlTags } from 'src/utils';
 
 import { Like, PostData, User } from 'src/constants/types';
@@ -42,6 +42,15 @@ const LikeFunction = async ({
       if (res.success && res.data) {
         setIsLike(true);
         setLikes([...(likes || []), res.data]);
+        if (post.user_id !== user.id) {
+          const notify = {
+            data: JSON.stringify({ postId: post.id }),
+            receiverId: post.user_id,
+            senderId: user.id,
+            title: 'screens.notifications.notifyMessage.like',
+          };
+          await sendNotification(notify);
+        }
       } else console.error('Error liking post ', res.error);
     }
   } catch (error) {
