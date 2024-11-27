@@ -98,5 +98,5 @@ To contribute to the project, follow these steps:
 
 1. Fork the repository.
 2. Create a new branch. ```(git checkout -b feature)```
-3. Make your changes and commit. ```(git commit -m feat(scope): add new feature```
+3. Make your changes and commit. ```(git commit -m "feat(scope): add new feature")```
 4. Open a pull request.
