@@ -32,6 +32,12 @@ Main technologies and tools used in this project:
 
 ---
 
+## **Screen Recording**
+
+The video below shows the app's key features and user interactions:
+
+---
+
 ## **Installation and Operation**
 
 To run the project in a local environment, follow the steps below:
@@ -90,7 +96,7 @@ yarn start
 
 To contribute to the project, follow these steps:
 
-**1**. Fork the repository.
-**2**. Create a new branch. ```(git checkout -b feature)```
-**3**. Make your changes and commit. ```(git commit -m feat(scope): add new feature```
-**4**. Open a pull request.
+1. Fork the repository.
+2. Create a new branch. ```(git checkout -b feature)```
+3. Make your changes and commit. ```(git commit -m feat(scope): add new feature```
+4. Open a pull request.
