@@ -38,14 +38,19 @@ const Notification: FC<NotificationProps> = ({ navigation }) => {
           onPressHeaderIcon={() => navigation.goBack()}
         />
         {notifications.length === 0 ? (
-          <Text
-            text={t('screens.notifications.noNotifications')}
-            textStyle={styles.text.notFound}
-          />
+          <Container flexStyle={styles.flex.centered}>
+            <Text
+              text={t('screens.notifications.noNotifications')}
+              textStyle={styles.text.notFound}
+              color={theme.color.textMuted}
+            />
+          </Container>
         ) : (
-          notifications.map((notification) => (
-            <NotificationItem key={notification.id} notification={notification} />
-          ))
+          <Container flexStyle={styles.flex.body}>
+            {notifications.map((notification) => (
+              <NotificationItem key={notification.id} notification={notification} />
+            ))}
+          </Container>
         )}
       </Container>
     </Scroll>

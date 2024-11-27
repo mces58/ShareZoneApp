@@ -77,12 +77,7 @@ const NewCommentFunction = async ({
           senderId: user.id,
           title: 'screens.notifications.notifyMessage.comment',
         };
-        await sendNotification(
-          notify.data,
-          notify.receiverId,
-          notify.senderId,
-          notify.title
-        );
+        await sendNotification(notify);
       }
     }
   } catch (error: unknown) {

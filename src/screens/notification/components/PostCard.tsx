@@ -10,6 +10,7 @@ import {
   scaleWidth,
 } from 'src/utils';
 
+import Icon from 'src/assets/icons';
 import { Container } from 'src/components/containers';
 import { Image } from 'src/components/images';
 import { Text } from 'src/components/texts';
@@ -26,11 +27,12 @@ import {
 
 interface PostCardProps {
   post: PostData;
+  sender: User;
   theme: Theme;
   user: User;
 }
 
-const PostCommentCard: FC<PostCardProps> = ({ post, theme, user }) => {
+const PostCard: FC<PostCardProps> = ({ post, sender, theme, user }) => {
   const styles = useMemo(() => createStyles(theme, post.body), [theme]);
   const { t } = useI18n();
 
@@ -64,6 +66,29 @@ const PostCommentCard: FC<PostCardProps> = ({ post, theme, user }) => {
           />
         )}
       </Container>
+      <Container flexStyle={styles.flex.cardFooter}>
+        <Container flexStyle={styles.flex.icon}>
+          <Container flexStyle={styles.flex.iconInteraction}>
+            <Image uri={sender.image} imageStyle={styles.image.smallCover} />
+            <Icon name="heart" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
+            {post.post_likes && post.post_likes.length > 0 && (
+              <Text
+                text={post.post_likes.length.toString()}
+                color={theme.color.textMuted}
+              />
+            )}
+          </Container>
+          <Container flexStyle={styles.flex.iconInteraction}>
+            <Icon name="comment" size={scaleByAspectRatio(20)} strokeWidth={1.8} />
+            {post.comments && post.comments.length > 0 && (
+              <Text
+                text={post.comments.length.toString()}
+                color={theme.color.textMuted}
+              />
+            )}
+          </Container>
+        </Container>
+      </Container>
       {post.body && (
         <Container flexStyle={styles.flex.postText} viewStyle={styles.view.cardBody}>
           {post.user?.user_name && (
@@ -83,7 +108,7 @@ const PostCommentCard: FC<PostCardProps> = ({ post, theme, user }) => {
   );
 };
 
-export default PostCommentCard;
+export default PostCard;
 
 const enum FlexStyles {
   CARD = 'card',
@@ -91,12 +116,16 @@ const enum FlexStyles {
   ICON_CONTAINER = 'iconContainer',
   PROFILE = 'profile',
   CARD_BODY = 'cardBody',
+  CARD_FOOTER = 'cardFooter',
+  ICON = 'icon',
+  ICON_INTERACTION = 'iconInteraction',
   POST_TEXT = 'postText',
 }
 
 const enum ImageStyles {
   AVATAR = 'avatar',
   POST = 'post',
+  SMALL_COVER = 'smallCover',
 }
 
 const enum TextStyles {
@@ -146,6 +175,22 @@ const createStyles = (
     [FlexStyles.CARD_BODY]: {
       gap: scaleProportionally(10),
     },
+    [FlexStyles.CARD_FOOTER]: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: scaleWidth(10),
+      paddingVertical: scaleHeight(10),
+    },
+    [FlexStyles.ICON]: {
+      flexDirection: 'row',
+      gap: scaleProportionally(10),
+    },
+    [FlexStyles.ICON_INTERACTION]: {
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      gap: scaleProportionally(3),
+    },
     [FlexStyles.POST_TEXT]: {
       paddingHorizontal: scaleWidth(10),
       paddingVertical: scaleHeight(10),
@@ -167,6 +212,11 @@ const createStyles = (
       height: scaleHeight(300),
       borderBottomLeftRadius: bodyText ? 0 : scaleProportionally(10),
       borderBottomRightRadius: bodyText ? 0 : scaleProportionally(10),
+    },
+    [ImageStyles.SMALL_COVER]: {
+      width: scaleByAspectRatio(20),
+      height: scaleByAspectRatio(20),
+      borderRadius: scaleByAspectRatio(10),
     },
   });
 
