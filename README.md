@@ -112,8 +112,6 @@ For the application to work, create the following tables in Supabase:
 | `address`      | text      | Address information       |
 | `phone_number` | text      | Phone Number              |
 
-<br />
-
 #### **posts**
 
 | Column Name  | Data Type | Description                       |
@@ -121,13 +119,11 @@ For the application to work, create the following tables in Supabase:
 | `id`         | uuid      | Post ID **(primary key)**         |
 | `created_at` | timestamp | Post creation time                |
 | `body`       | text      | Post content                      |
-| `file`       | text      | Gönderi dosyası (image/video)     |
+| `file`       | text      | Post file URL (image/video)       |
 | `user_id`    | uuid      | The user ID that created the post |
 
 **Foreign Key Relations:**
-- `user_id` → `Users.id`
-
-<br />
+- `user_id` → `users.id`
 
 #### **comments**
 
@@ -140,10 +136,8 @@ For the application to work, create the following tables in Supabase:
 | `post_id`    | uuid      | Commented post ID              |
 
 **Foreign Key Relations:**
-- `post_id` → `Posts.id`
-- `user_id` → `Users.id`
-
-<br />
+- `post_id` → `posts.id`
+- `user_id` → `users.id`
 
 #### **post_likes**
 
@@ -155,10 +149,8 @@ For the application to work, create the following tables in Supabase:
 | `post_id`    | uuid      | Liked post ID              |
 
 **Foreign Key Relations:**
-- `post_id` → `Posts.id`
-- `user_id` → `Users.id`
-
-<br />
+- `post_id` → `posts.id`
+- `user_id` → `users.id`
 
 #### **notifications**
 
@@ -172,17 +164,15 @@ For the application to work, create the following tables in Supabase:
 | `receiver_id` | uuid      | User ID who received the notification |
 
 **Foreign Key Relations:**
-- `sender_id` → `Users.id`
-- `receiver_id` → `Users.id`
-
-<br />
+- `sender_id` → `users.id`
+- `receiver_id` → `users.id`
 
 ### **Table Relationships Overview**
 1. **Users → Posts**: A user can create multiple posts.
 2. **Users → Comments**: A user can make more than one comment.
 3. **Users → Likes**:  A user can like more than once.
 4. **Posts → Comments**: A post can have multiple comments.
-5. **Posts → Likes**: Bir gönderi birden fazla beğeni alabilir.
+5. **Posts → Likes**: A post can receive multiple likes.
 
 #### **Note:**
 - Foreign key definitions ensure that relationships are established correctly in Supabase. You can easily define foreign keys via the Supabase interface.
