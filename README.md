@@ -63,7 +63,7 @@ yarn install
 ```
 
 #### **4. Set Environment Variables**
-Add the Supabase and Google Generative API keys required for the project to the ```.env``` file:
+Add the Supabase and Google Generative API keys required for the project to the `.env` file:
 ```bash
 # Supabase Environment Variables
 SUPABASE_PROJECT_URL=your-supabase-url
@@ -95,11 +95,106 @@ yarn start
 
 ---
 
+## **Supabase Database Schema**
+
+For the application to work, create the following tables in Supabase:
+
+#### **users**
+
+| Column Name    | Data Type | Description               |
+|----------------|-----------|---------------------------|
+| `id`           | uuid      | User ID **(primary key)** |
+| `created_at`   | timestamp | User creation time        |
+| `user_name`    | text      | User Name                 |
+| `image`        | text      | Profile picture URL       |
+| `bio`          | text      | User biography            |
+| `email`        | text      | User email address        |
+| `address`      | text      | Address information       |
+| `phone_number` | text      | Phone Number              |
+
+<br />
+
+#### **posts**
+
+| Column Name  | Data Type | Description                       |
+|--------------|-----------|-----------------------------------|
+| `id`         | uuid      | Post ID **(primary key)**         |
+| `created_at` | timestamp | Post creation time                |
+| `body`       | text      | Post content                      |
+| `file`       | text      | Gönderi dosyası (image/video)     |
+| `user_id`    | uuid      | The user ID that created the post |
+
+**Foreign Key Relations:**
+- `user_id` → `Users.id`
+
+<br />
+
+#### **comments**
+
+| Column Name  | Data Type | Description                    |
+|--------------|-----------|--------------------------------|
+| `id`         | uuid      | Comment ID **(primary key)**   |
+| `created_at` | timestamp | Comment creation time          |
+| `text`       | text      | Comment content                |
+| `user_id`    | uuid      | User ID who made the comment   |
+| `post_id`    | uuid      | Commented post ID              |
+
+**Foreign Key Relations:**
+- `post_id` → `Posts.id`
+- `user_id` → `Users.id`
+
+<br />
+
+#### **post_likes**
+
+| Column Name  | Data Type | Description                |
+|--------------|-----------|----------------------------|
+| `id`         | uuid      | Like ID **(primary key)**  |
+| `created_at` | timestamp | Like creation time         |
+| `user_id`    | uuid      | User ID who made the like  |
+| `post_id`    | uuid      | Liked post ID              |
+
+**Foreign Key Relations:**
+- `post_id` → `Posts.id`
+- `user_id` → `Users.id`
+
+<br />
+
+#### **notifications**
+
+| Column Name   | Data Type | Description                           |
+|---------------|-----------|---------------------------------------|
+| `id`          | uuid      | Notification ID **(primary key)**     |
+| `created_at`  | timestamp | Notification creation time            |
+| `title`       | text      | Notification title                    |
+| `data`        | text      | Notification content                  |
+| `sender_id`   | uuid      | User ID who sent the notification     |
+| `receiver_id` | uuid      | User ID who received the notification |
+
+**Foreign Key Relations:**
+- `sender_id` → `Users.id`
+- `receiver_id` → `Users.id`
+
+<br />
+
+### **Table Relationships Overview**
+1. **Users → Posts**: A user can create multiple posts.
+2. **Users → Comments**: A user can make more than one comment.
+3. **Users → Likes**:  A user can like more than once.
+4. **Posts → Comments**: A post can have multiple comments.
+5. **Posts → Likes**: Bir gönderi birden fazla beğeni alabilir.
+
+#### **Note:**
+- Foreign key definitions ensure that relationships are established correctly in Supabase. You can easily define foreign keys via the Supabase interface.
+- These structures are critical for relational queries and real-time updates on the backend of the application.
+
+---
+
 ## **Contributing**
 
 To contribute to the project, follow these steps:
 
 1. Fork the repository.
-2. Create a new branch. ```(git checkout -b feature)```
-3. Make your changes and commit. ```(git commit -m "feat(scope): add new feature")```
+2. Create a new branch. `(git checkout -b feature)`
+3. Make your changes and commit. `(git commit -m "feat(scope): add new feature")`
 4. Open a pull request.
