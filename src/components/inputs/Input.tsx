@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Animated, StyleProp, StyleSheet, TextInput } from 'react-native';
+import { Animated, Platform, StyleProp, StyleSheet, TextInput } from 'react-native';
 
 import styled, { useTheme } from 'styled-components/native';
 
@@ -84,7 +84,14 @@ const Input: FC<InputProps> = ({
         : 0;
 
   useEffect(() => {
-    const toValueTop = isFocused || text ? -scaleByAspectRatio(heightNumber * 0.25) : 0;
+    const toValueTop =
+      isFocused || text
+        ? Platform.OS === 'ios'
+          ? -scaleByAspectRatio(heightNumber * 0.25)
+          : -scaleByAspectRatio(heightNumber * 0.2)
+        : Platform.OS === 'ios'
+          ? 0
+          : scaleByAspectRatio(3);
     const toValueLeft =
       isFocused || text ? -scaleByAspectRatio(2) : scaleByAspectRatio(2);
     const toValueFontSize =
