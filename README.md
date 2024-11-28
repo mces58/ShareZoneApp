@@ -174,6 +174,10 @@ For the application to work, create the following tables in Supabase:
 4. **Posts → Comments**: A post can have multiple comments.
 5. **Posts → Likes**: A post can receive multiple likes.
 
+<br />
+
+![database](https://github.com/user-attachments/assets/8e28eaff-35cc-47f8-a941-327c46940458)
+
 #### **Note:**
 - Foreign key definitions ensure that relationships are established correctly in Supabase. You can easily define foreign keys via the Supabase interface.
 - These structures are critical for relational queries and real-time updates on the backend of the application.
