@@ -73,9 +73,10 @@ const createSigninStyles = (
       width: '95%',
       alignSelf: 'center',
       justifyContent: 'space-around',
+      gap: scaleProportionally(5),
     },
     [FlexStyles.FOOTER_IMAGE]: {
-      width: '40%',
+      width: '30%',
       alignItems: 'center',
     },
     [FlexStyles.FOOTER_ACTION]: {
