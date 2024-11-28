@@ -32,9 +32,12 @@ Main technologies and tools used in this project:
 
 ---
 
+
 ## **Screen Recording**
 
 The video below shows the app's key features and user interactions:
+
+[Watch App Screen Recording](https://github.com/user-attachments/assets/b5bc7861-08d8-4d92-b86d-4ed26e5980bd)
 
 ---
 
