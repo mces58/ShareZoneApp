@@ -14,6 +14,7 @@ const enum FlexStyles {
   CONTAINER = 'container',
   HEADER = 'header',
   APP = 'app',
+  SUB_CONTAINER = 'subContainer',
   BUTTON = 'button',
   FOOTER = 'footer',
 }
@@ -61,6 +62,10 @@ const createWelcomeStyles = (
       borderWidth: scaleProportionally(1.5),
       paddingVertical: scaleHeight(10),
       paddingHorizontal: scaleWidth(20),
+    },
+    [FlexStyles.SUB_CONTAINER]: {
+      width: '85%',
+      alignSelf: 'center',
     },
     [FlexStyles.BUTTON]: {
       alignSelf: 'center',

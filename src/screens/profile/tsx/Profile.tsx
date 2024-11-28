@@ -76,6 +76,7 @@ const Profile: FC<ProfileProps> = ({ navigation }) => {
   return (
     <>
       <FlatList
+        style={styles.view.list}
         data={posts}
         renderItem={({ item }) => (
           <PostCard

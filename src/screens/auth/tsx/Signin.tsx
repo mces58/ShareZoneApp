@@ -8,7 +8,7 @@ import { scaleByAspectRatio } from 'src/utils';
 import SpacemanWithPlanetsSvg from 'assets/svgs/spaceman-with-planets.svg';
 import Icon from 'src/assets/icons';
 import { GradientButton } from 'src/components/buttons';
-import { Container } from 'src/components/containers';
+import { Container, Scroll } from 'src/components/containers';
 import { Form } from 'src/components/forms';
 import { GradientText, Text } from 'src/components/texts';
 import { Toast, ToastTypes } from 'src/components/toasts';
@@ -50,80 +50,82 @@ const Signin: FC<SigninProps> = ({ navigation }) => {
   }, []);
 
   return (
-    <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
-      <SubHeader
-        title={t('global.back')}
-        theme={theme}
-        onPressHeaderIcon={() => navigation.goBack()}
-      />
-      <Container flexStyle={styles.flex.main}>
-        <Container flexStyle={styles.flex.form}>
-          <GradientText
-            text={t('screens.auth.signIn')}
-            colors={theme.common.color.defaultGradient2}
-            textStyle={styles.text.formHeader}
-          />
-          <Form
-            formFields={formFields}
-            onSubmit={handleSignin}
-            ref={formRef}
-            inputStyle={{
-              flex: styles.flex.formInput,
-              shadow: styles.shadow.formInput,
-              view: styles.view.formInput,
-            }}
-          />
-          {toast && (
-            <Toast
-              downHeight={-75}
-              message={toast.message}
-              type={toast.type}
-              icon={<Icon name="error" fillColor={theme.color.text} strokeWidth={0} />}
+    <Scroll>
+      <Container flexStyle={styles.flex.container} viewStyle={styles.view.container}>
+        <SubHeader
+          title={t('global.back')}
+          theme={theme}
+          onPressHeaderIcon={() => navigation.goBack()}
+        />
+        <Container flexStyle={styles.flex.main}>
+          <Container flexStyle={styles.flex.form}>
+            <GradientText
+              text={t('screens.auth.signIn')}
+              colors={theme.common.color.defaultGradient2}
+              textStyle={styles.text.formHeader}
             />
-          )}
-        </Container>
-        <Container flexStyle={styles.flex.footer}>
-          <Container flexStyle={styles.flex.footerImage}>
-            <SpacemanWithPlanetsSvg
-              width={scaleByAspectRatio(190)}
-              height={scaleByAspectRatio(190)}
+            <Form
+              formFields={formFields}
+              onSubmit={handleSignin}
+              ref={formRef}
+              inputStyle={{
+                flex: styles.flex.formInput,
+                shadow: styles.shadow.formInput,
+                view: styles.view.formInput,
+              }}
             />
-          </Container>
-          <Container flexStyle={styles.flex.footerAction}>
-            <Container flexStyle={styles.flex.footerButtonContainer}>
-              <GradientButton
-                text={t('screens.auth.signIn')}
-                colors={theme.common.color.defaultGradient2}
-                onPress={handleFormSubmit}
-                loading={loading}
-                disabled={loading}
-                flexStyle={styles.flex.button}
-                shadowStyle={styles.shadow.button}
-                textStyle={styles.text.button}
-                viewStyle={styles.view.button}
+            {toast && (
+              <Toast
+                downHeight={-75}
+                message={toast.message}
+                type={toast.type}
+                icon={<Icon name="error" fillColor={theme.color.text} strokeWidth={0} />}
               />
-              <Container flexStyle={styles.flex.rowText}>
-                <Text
-                  text={t('screens.auth.dontHaveAnAccount')}
-                  textStyle={styles.text.footer}
-                />
-                <GradientText
-                  text={t('screens.auth.signUp')}
-                  colors={theme.common.color.defaultGradient2}
-                  onPress={() => {
-                    if (!formRef.current) return;
-                    navigation.navigate(RootNavigations.SIGNUP);
-                    formRef.current.reset();
-                  }}
-                  textStyle={styles.text.link}
-                />
-              </Container>
+            )}
+          </Container>
+          <Container flexStyle={styles.flex.footer}>
+            <Container flexStyle={styles.flex.footerImage}>
+              <SpacemanWithPlanetsSvg
+                width={scaleByAspectRatio(190)}
+                height={scaleByAspectRatio(190)}
+              />
             </Container>
-            <SocialMedia text={t('screens.auth.followOn')} theme={theme} />
+            <Container flexStyle={styles.flex.footerAction}>
+              <Container flexStyle={styles.flex.footerButtonContainer}>
+                <GradientButton
+                  text={t('screens.auth.signIn')}
+                  colors={theme.common.color.defaultGradient2}
+                  onPress={handleFormSubmit}
+                  loading={loading}
+                  disabled={loading}
+                  flexStyle={styles.flex.button}
+                  shadowStyle={styles.shadow.button}
+                  textStyle={styles.text.button}
+                  viewStyle={styles.view.button}
+                />
+                <Container flexStyle={styles.flex.rowText}>
+                  <Text
+                    text={t('screens.auth.dontHaveAnAccount')}
+                    textStyle={styles.text.footer}
+                  />
+                  <GradientText
+                    text={t('screens.auth.signUp')}
+                    colors={theme.common.color.defaultGradient2}
+                    onPress={() => {
+                      if (!formRef.current) return;
+                      navigation.navigate(RootNavigations.SIGNUP);
+                      formRef.current.reset();
+                    }}
+                    textStyle={styles.text.link}
+                  />
+                </Container>
+              </Container>
+              <SocialMedia text={t('screens.auth.followOn')} theme={theme} />
+            </Container>
           </Container>
         </Container>
       </Container>
-    </Container>
+    </Scroll>
   );
 };
 

@@ -53,7 +53,9 @@ const Welcome: FC<WelcomeProps> = ({ navigation }) => {
               textStyle={styles.text.title}
             />
           </Container>
-          <Text text={t('app.punchline')} textStyle={styles.text.subtitle} />
+          <Container flexStyle={styles.flex.subContainer}>
+            <Text text={t('app.punchline')} textStyle={styles.text.subtitle} />
+          </Container>
         </Container>
         <GradientButton
           text={t('screens.auth.getStarted')}
